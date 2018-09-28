@@ -5,13 +5,14 @@
 #define Nr 66
 #define Ntheta 66
 
-/* Definition of the physical constants */
-#define pc 3.08567758e13; /* km */
+/** Definition of the physical constants **/
+#define pc 3.08567758e13; /** km **/
+#define G 4.302e-3; /** pc M_sun^-1 (km/s)^-1 **/
 
 int main()
 {
-    double *r; /* radius */
-    double *theta; /* azimuth angle */
+    double *r; /** radius **/
+    double *theta; /** azimuth angle **/
     r = (double *) calloc(Nr,sizeof(double));
     theta = (double *) calloc(Ntheta,sizeof(double));
     
