@@ -33,7 +33,7 @@ int main()
     
     int i;
     for (i=0; i < Ntheta; i++){
-        theta[i] = i*(360/100);
+        theta[i] = i*(360/Ntheta);
     }
 
     
