@@ -10,6 +10,11 @@
 #define pc 3.08567758e13 /** km **/
 #define G 4.302e-3 /** pc M_sun^-1 (km/s)^-1 **/
 #define c 3e5 /** km/s **/
+#define sigma = 5.670373e-8 /** W m^-2 K^4 the Stefan–Boltzmann constant  **/
+#define pi 3.14
+
+/** Definition function of the temperature profile **/
+int temp_profile (int t, int r, int theta );
 
 
 int main()
@@ -39,5 +44,16 @@ int main()
     
     free(r);
     free(theta);
+    
+    double M_rate = 100; /** ??? the accretion rate **/
+    double A = 0.5; /** the disk albedo **/
+    double h_star = 10 Rg; /** the vertical distance from the cetral variable source to disk **/
+    double L_bol = 2.82e44; /** the bolometric luminosity **/
+    double L_star = 0.5 L_bol; /** the luminosity of central variable source **/
+    
+   int temp_profile (int t, int r, int theta );
+    ((3*G*M*M_rate)/(8*pi*sigma*r**3))*(1-sqrt(r_in/r))+(1-A)*(h_star*L_star)
+    
+    
     return 0;
 }
