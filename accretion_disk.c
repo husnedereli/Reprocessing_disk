@@ -14,23 +14,26 @@
 #define pi 3.14
 
 
-
-double temp_profile (int t, double r, double theta ){
-    return ((3.0*G*M*M_rate)/(8.0*pi*sigma*pow(r,3.0)))*(1.0-sqrt(r_in/r))+(1.0-A)*((h_star*L_star(t-tao_light_travel_time(r, theta, int i)))/(4.0*pi*sigma*pow(r_star,3.0)));
+/** Function of the lag **/
+double inc_angle = 45; /** inclination angle **/
+int lag_tao (double r, double theta, int inc_angle){
+    sqrt(h_star**2+r**2)+h_star*cos(inc_angle)-r*cos(theta)*sin(inc_angle)
 }
-    
-/** the distance from the cetral variable source to disk elements **/
-int r_star (int r){
+
+/** Function of the distance from the cetral variable source to disk elements **/
+double r_star (double r){
     sqrt(h_star**2+r**2)
 }
-    
-    
-/** the lag **/
-double inc_angle = 45; /** inclination angle **/
-int lag_tao (int r, int theta, int inc_angle){
-   sqrt(h_star**2+r**2)+h_star*cos(inc_angle)-r*cos(theta)*sin(inc_angle)
+
+
+/** Function of the temperature profile **/
+double temp_profile (int t, double r, double theta ){
+    return ((3.0*G*M*M_rate)/(8.0*pi*sigma*pow(r,3.0)))*(1.0-sqrt(r_in/r))+(1.0-A)*((h_star*L_star(t-lag_tao(int inc_angle)))/(4.0*pi*sigma*pow(r_star,3.0)));
 }
     
+
+    
+
 
 
 
