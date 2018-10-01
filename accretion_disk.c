@@ -50,9 +50,10 @@ int main()
     double h_star = 10 Rg; /** the vertical distance from the cetral variable source to disk **/
     double L_bol = 2.82e44; /** the bolometric luminosity **/
     double L_star = 0.5 L_bol; /** the luminosity of central variable source **/
+    double L_star = sqrt(h_star**2+r**2); /** the distance from the cetral variable source to disk elements **/
     
    int temp_profile (int t, int r, int theta );
-    ((3*G*M*M_rate)/(8*pi*sigma*r**3))*(1-sqrt(r_in/r))+(1-A)*(h_star*L_star)
+    ((3*G*M*M_rate)/(8*pi*sigma*r**3))*(1-sqrt(r_in/r))+(1-A)*((h_star*L_star(t-tao_light_travel_time(int r, int theta, int i)))/(4*pi*sigma*r_star**3))
     
     
     return 0;
