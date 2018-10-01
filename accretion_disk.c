@@ -13,8 +13,10 @@
 #define sigma = 5.670373e-8 /** W m^-2 K^4 the Stefan–Boltzmann constant  **/
 #define pi 3.14
 
-/** Definition function of the temperature profile **/
+/** Function of the temperature profile **/
 int temp_profile (int t, int r, int theta );
+/** Function of the lag **/
+int lag_tao (int r, int theta, int inc_angle);
 
 
 int main()
@@ -44,7 +46,7 @@ int main()
     
     free(r);
     free(theta);
-    
+    /** the temperature profile **/
     double M_rate = 100; /** ??? the accretion rate **/
     double A = 0.5; /** the disk albedo **/
     double h_star = 10 Rg; /** the vertical distance from the cetral variable source to disk **/
@@ -52,9 +54,28 @@ int main()
     double L_star = 0.5 L_bol; /** the luminosity of central variable source **/
     double L_star = sqrt(h_star**2+r**2); /** the distance from the cetral variable source to disk elements **/
     
-   int temp_profile (int t, int r, int theta );
-    ((3*G*M*M_rate)/(8*pi*sigma*r**3))*(1-sqrt(r_in/r))+(1-A)*((h_star*L_star(t-tao_light_travel_time(int r, int theta, int i)))/(4*pi*sigma*r_star**3))
+    int temp_profile (int t, int r, int theta ){
+        ((3*G*M*M_rate)/(8*pi*sigma*r**3))*(1-sqrt(r_in/r))+(1-A)*((h_star*L_star(t-tao_light_travel_time(int r, int theta, int i)))/(4*pi*sigma*r_star**3))
+    }
+    /** the lag **/
+    double inc_angle = 45; /** inclination angle **/
+    int lag_tao (int r, int theta, int inc_angle){
+        sqrt(h_star**2+r**2)+h_star*cos(inc_angle)-r*cos(theta)*sin(inc_angle)
+
+    }
+    
+    
+    
+    
+    
     
     
     return 0;
 }
+
+
+
+
+
+
+
