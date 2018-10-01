@@ -23,9 +23,9 @@ int main()
     double M = 3.2e7; /** M_sun, the black hole mass **/
     double Rg= (G*pc*M)/(c*c); /** gravitational radius **/
     double r_in= 6 * Rg; /** inner radius **/
-    double r_out=1000; /** outer radius **/
+    double r_out=3200*Rg; /** outer radius **/
     
-    
+    /** the ratio of the outher and inner radius of each rings fixed **/
     double step = exp(log(r_out/r_in)/Nr);
     int i;
     for (i=0; i < Nr; i++){
