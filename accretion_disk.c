@@ -22,7 +22,7 @@ double lag_tao (double r, double theta, double inc_angle, double h_star){
     return sqrt(pow(h_star,2)+pow(r,2))+h_star*cos(inc_angle)-r*cos(theta)*sin(inc_angle);
 }
 
-/** Function of the distance from the cetral variable source to disk elements **/
+/** Function of the distance from the central variable source to disk elements **/
 double r_star(double r, double h_star){
     return sqrt(pow(h_star,2)+pow(r,2));
 }
@@ -69,11 +69,13 @@ int main()
     double A = 0.5; /** the disk albedo **/
     double L_bol = 2.82e44; /** the bolometric luminosity **/
     double L_star = 0.5*L_bol; /** the luminosity of central variable source **/
- 
     
-
     
-
+    double t = 10; 
+    double lag = lag_tao (*r, *theta, inc_angle, h_star);
+    double rstar = r_star(*r, h_star);
+    double temperature = temp_profile (t, *r, *theta, M, M_rate, r_in, A, h_star, L_star, inc_angle, lag, rstar);
+    printf ("Output: %f", temperature);
     
     return 0;
 }
