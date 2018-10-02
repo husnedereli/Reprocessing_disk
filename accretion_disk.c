@@ -19,7 +19,7 @@
 
 /** Function of the lag **/
 double lag_tao (double r, double theta, double inc_angle, double h_star){
-    return sqrt(pow(h_star,2)+pow(r,2))+h_star*cos(inc_angle)-r*cos(theta)*sin(inc_angle);
+    return sqrt(pow(h_star,2.0)+pow(r,2.0))+h_star*cos(inc_angle)-r*cos(theta)*sin(inc_angle);
 }
 
 /** Function of the distance from the central variable source to disk elements **/
@@ -32,7 +32,7 @@ double r_star(double r, double h_star){
 double temp_profile (double t, double r, double theta, double M, double M_rate, double r_in, double A, double h_star, double L_star, double inc_angle, double lag_tao, double r_star){
     return ((3.0*G*M*M_rate)/(8.0*pi*sigma1*pow(r,3.0)))*(1.0-sqrt(r_in/r))+(1.0-A)*((h_star*L_star*(t-lag_tao))/(4.0*pi*sigma1*pow(r_star,3.0)));
 }
-    
+
 
 
 
@@ -42,26 +42,24 @@ int main()
     double *theta; 			/** azimuth angle **/
     r = (double *) calloc(Nr,sizeof(double));
     theta = (double *) calloc(Ntheta,sizeof(double));
-    
+
     double M = 3.2e7; /** M_sun, the black hole mass **/
     double Rg= (G*pc*M)/(c*c); /** gravitational radius **/
     double r_in= 6.0 * Rg; /** inner radius **/
     double r_out=3200.0*Rg; /** outer radius **/
-    
+
     /** the ratio of the outher and inner radius of each rings fixed **/
     double step = exp(log(r_out/r_in)/Nr);
     int i;
     for (i=0; i < Nr; i++){
         r[i] = r_in*pow(step,i);
     }
-    
+
     for (i=0; i < Ntheta; i++){
         theta[i] = i*(360/Ntheta);
     }
 
-    
-    free(r);
-    free(theta);
+
 
     double inc_angle = 45; /** inclination angle **/
     double h_star = 10*Rg; /** the vertical distance from the cetral variable source to disk **/
@@ -69,14 +67,18 @@ int main()
     double A = 0.5; /** the disk albedo **/
     double L_bol = 2.82e44; /** the bolometric luminosity **/
     double L_star = 0.5*L_bol; /** the luminosity of central variable source **/
-    
-    
-    double t = 10; 
+
+
+    double t = 10;
     double lag = lag_tao (*r, *theta, inc_angle, h_star);
     double rstar = r_star(*r, h_star);
     double temperature = temp_profile (t, *r, *theta, M, M_rate, r_in, A, h_star, L_star, inc_angle, lag, rstar);
     printf ("Output: %f", temperature);
-    
+
+
+    free(r);
+    free(theta);
+
     return 0;
 }
 
