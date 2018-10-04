@@ -17,23 +17,23 @@
 
 
 
-/** Function of the lag **/
+/** define the Function of the lag **/
 double lag_tao (double r, double theta, double inc_angle, double h_star){
     return sqrt(pow(h_star,2.0)+pow(r,2.0))+h_star*cos(inc_angle)-r*cos(theta)*sin(inc_angle);
 }
 
-/** Function of the distance from the central variable source to disk elements **/
+/** define the Function of the distance from the central variable source to disk elements **/
 double r_star(double r, double h_star){
     return sqrt(pow(h_star,2.0)+pow(r,2.0));
 }
 
 
-/** Function of the temperature profile **/
+/** define the Function of the temperature profile **/
 double temp_profile (double t, double r, double theta, double M, double M_rate, double r_in, double A, double h_star, double L_star, double inc_angle, double lag_tao, double r_star){
     return ((3.0*G*M*M_rate)/(8.0*pi*sigma1*pow(r,3.0)))*(1.0-sqrt(r_in/r))+(1.0-A)*((h_star*L_star*(t-lag_tao))/(4.0*pi*sigma1*pow(r_star,3.0)));
 }
 
-/** define new type as region **/
+/** define new type as regions and its elements **/
 typedef struct region {
     double radius;
     double theta;
@@ -54,7 +54,7 @@ int main()
     double r_in= 6.0 * Rg; /** inner radius **/
     double r_out=3200.0*Rg; /** outer radius **/
 
-    /** create disks **/
+    /** create disks which contain the regions **/
     region *disk;
     disk = (region *) malloc(Nr*Ntheta*sizeof(region));
 
@@ -63,15 +63,13 @@ int main()
     int i;
     for (i=0; i < Nr; i++){
         r[i] = r_in*pow(step,i);
-        //create_disk.r1 = r[i];
     }
 
     for (i=0; i < Ntheta; i++){
         theta[i] = i*(360.0/Ntheta);
-        //create_disk.theta1 = theta[i];
     }
     
-    /** fill the disks with regions **/
+    /** fill the disks with elements (radius and theta) of regions **/
     int j;
     for (i=0; i < Nr; i++){
         for (j=0; j < Ntheta; j++){
@@ -98,10 +96,16 @@ int main()
         double rstar = r_star(r[i], h_star);
         double temperature = temp_profile (t, r[i], theta[i], M, M_rate, r_in, A, h_star, L_star, inc_angle, lag, rstar);
         //printf ("Output: %f", temperature);
-        //create_disk.temp1 = temperature;
     }
 
-
+   // /** fill the disks with element(temp) of regions **/
+  //  int j;
+  //  for (i=0; i < Nr; i++){
+  //      for (j=0; j < Ntheta; j++){
+  //          disk[i*Ntheta+j].temp = temp[i];
+  //          disk[i*Ntheta+j].theta=theta[j];
+  //      }
+ //   }
     
     free(r);
     free(theta);
