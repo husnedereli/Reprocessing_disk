@@ -88,24 +88,19 @@ int main()
     double L_star = 0.5*L_bol; /** the luminosity of central variable source **/
 
 
-    
-    
+  
     for (i=0; i < Nr; i++){
-        double t = 10.0;
-        double lag = lag_tao (r[i], theta[i], inc_angle, h_star);
-        double rstar = r_star(r[i], h_star);
-        double temperature = temp_profile (t, r[i], theta[i], M, M_rate, r_in, A, h_star, L_star, inc_angle, lag, rstar);
-        //printf ("Output: %f", temperature);
+        for (j=0; j < Ntheta; j++){
+            double t = 10.0;
+            double lag = lag_tao (r[i], theta[j], inc_angle, h_star);
+            double rstar = r_star(r[i], h_star);
+            double temperature = temp_profile (t, r[i], theta[j], M, M_rate, r_in, A, h_star, L_star, inc_angle, lag, rstar);
+            //printf("Temperature[%d]: %g\n",i, temperature);
+            disk[i*Ntheta+j].temp=temperature;
+        }
     }
 
-   // /** fill the disks with element(temp) of regions **/
-  //  int j;
-  //  for (i=0; i < Nr; i++){
-  //      for (j=0; j < Ntheta; j++){
-  //          disk[i*Ntheta+j].temp = temp[i];
-  //          disk[i*Ntheta+j].theta=theta[j];
-  //      }
- //   }
+    
     
     free(r);
     free(theta);
