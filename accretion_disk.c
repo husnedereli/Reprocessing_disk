@@ -72,14 +72,15 @@ int main()
     }
     
     /** fill the disks with regions **/
-    int i;
+    int j;
     for (i=0; i < Nr; i++){
         r[i] = r_in*pow(step,i);
-        int j
         for (j=0; j < Ntheta; j++){
             theta[j] = j*(360.0/Ntheta);
-            disk[i,j]= r[i]*theta[j]
-
+            disk[i j]= r[i]*theta[j];
+        }
+    }
+    
     double inc_angle = 45.0; /** inclination angle **/
     double h_star = 10.0*Rg; /** the vertical distance from the cetral variable source to disk **/
     double M_rate = 100.0; /** ??? the accretion rate **/
@@ -90,13 +91,12 @@ int main()
 
     
     
-    int i;
     for (i=0; i < Nr; i++){
         double t = 10.0;
         double lag = lag_tao (r[i], theta[i], inc_angle, h_star);
         double rstar = r_star(r[i], h_star);
         double temperature = temp_profile (t, r[i], theta[i], M, M_rate, r_in, A, h_star, L_star, inc_angle, lag, rstar);
-        printf ("Output: %f", temperature);
+        //printf ("Output: %f", temperature);
         //create_disk.temp1 = temperature;
     }
 
