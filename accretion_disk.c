@@ -34,11 +34,11 @@ double temp_profile (double t, double r, double theta, double M, double M_rate, 
 }
 
 
-struct disk {
-    double r1;
-    double theta1;
-    double temp1;
-};
+typedef struct region {
+    double r;
+    double theta;
+    double temp;
+} region;
 
 
 
@@ -54,22 +54,23 @@ int main()
     double r_in= 6.0 * Rg; /** inner radius **/
     double r_out=3200.0*Rg; /** outer radius **/
 
-    
-    
-    struct disk create_disk;
+        
+    region *disk;
+    disk = (region *) malloc(Nr*Ntheta*sizeof(region));
 
     /** the ratio of the outher and inner radius of each rings fixed **/
     double step = exp(log(r_out/r_in)/Nr);
     int i;
     for (i=0; i < Nr; i++){
         r[i] = r_in*pow(step,i);
-        create_disk.r1 = r[i];
+        //create_disk.r1 = r[i];
     }
 
     for (i=0; i < Ntheta; i++){
         theta[i] = i*(360.0/Ntheta);
-        create_disk.theta1 = theta[i];
+        //create_disk.theta1 = theta[i];
     }
+
 
 
 
@@ -90,13 +91,14 @@ int main()
         double rstar = r_star(r[i], h_star);
         double temperature = temp_profile (t, r[i], theta[i], M, M_rate, r_in, A, h_star, L_star, inc_angle, lag, rstar);
         printf ("Output: %f", temperature);
-        create_disk.temp1 = temperature;
+        //create_disk.temp1 = temperature;
     }
 
 
     
     free(r);
     free(theta);
+    free(disk);
 
     return 0;
 }
