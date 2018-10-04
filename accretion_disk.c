@@ -33,7 +33,7 @@ double temp_profile (double t, double r, double theta, double M, double M_rate, 
     return ((3.0*G*M*M_rate)/(8.0*pi*sigma1*pow(r,3.0)))*(1.0-sqrt(r_in/r))+(1.0-A)*((h_star*L_star*(t-lag_tao))/(4.0*pi*sigma1*pow(r_star,3.0)));
 }
 
-
+/** define new type as region **/
 typedef struct region {
     double r;
     double theta;
@@ -54,7 +54,7 @@ int main()
     double r_in= 6.0 * Rg; /** inner radius **/
     double r_out=3200.0*Rg; /** outer radius **/
 
-        
+    /** create disks **/
     region *disk;
     disk = (region *) malloc(Nr*Ntheta*sizeof(region));
 
@@ -70,9 +70,15 @@ int main()
         theta[i] = i*(360.0/Ntheta);
         //create_disk.theta1 = theta[i];
     }
-
-
-
+    
+    /** fill the disks with regions **/
+    int i;
+    for (i=0; i < Nr; i++){
+        r[i] = r_in*pow(step,i);
+        int j
+        for (j=0; j < Ntheta; j++){
+            theta[j] = j*(360.0/Ntheta);
+            disk[i,j]= r[i]*theta[j]
 
     double inc_angle = 45.0; /** inclination angle **/
     double h_star = 10.0*Rg; /** the vertical distance from the cetral variable source to disk **/
