@@ -98,9 +98,11 @@ int main()
             //printf("Temperature[%d]: %g\n",i, temperature);
             /** fill the disks with elements (temp) of regions **/
             disk[i*Ntheta+j].temp=temperature;
+            double F = sigma1*pow(temperature,4.0);
+            printf("F[%d]: %g\n",i, F);
         }
     }
-
+    
     
     
     free(r);
