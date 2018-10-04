@@ -88,7 +88,7 @@ int main()
     double L_star = 0.5*L_bol; /** the luminosity of central variable source **/
 
 
-  
+    /** call the functions **/
     for (i=0; i < Nr; i++){
         for (j=0; j < Ntheta; j++){
             double t = 10.0;
@@ -96,6 +96,7 @@ int main()
             double rstar = r_star(r[i], h_star);
             double temperature = temp_profile (t, r[i], theta[j], M, M_rate, r_in, A, h_star, L_star, inc_angle, lag, rstar);
             //printf("Temperature[%d]: %g\n",i, temperature);
+            /** fill the disks with elements (temp) of regions **/
             disk[i*Ntheta+j].temp=temperature;
         }
     }
