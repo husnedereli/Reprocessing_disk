@@ -95,7 +95,7 @@ int main()
         double lag = lag_tao (r[i], theta[i], inc_angle, h_star);
         double rstar = r_star(r[i], h_star);
         double temperature = temp_profile (t, r[i], theta[i], M, M_rate, r_in, A, h_star, L_star, inc_angle, lag, rstar);
-        //printf ("Output: %f", temperature);
+        printf ("Temperature[%d]: %g\n",i, temperature);
     }
 
    // /** fill the disks with element(temp) of regions **/
