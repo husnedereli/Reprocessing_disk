@@ -24,15 +24,9 @@ double lag_tao (double r, double theta, double inc_angle, double h_star){
 
 /** define the Function of the luminosity **/
 double L_star(double t, double lag_tao, double r, double theta, double inc_angle, double h_star){
-    return t-lag_tao;
+    //return t-lag_tao/c;
+    return 0;
 }
-
-
-
-///** define the Function of the luminosity **/
-//double L_star(double t, double r, double theta, double inc_angle, double h_star){
-//    return t-(sqrt(pow(h_star,2.0)+pow(r,2.0))+h_star*cos(inc_angle)-r*cos(theta)*sin(inc_angle));
-//}
 
 
 /** define the Function of the distance from the central variable source to disk elements **/
@@ -42,10 +36,18 @@ double r_star(double r, double h_star){
 
 /** define the Function of the temperature profile **/
 double temp_profile(double t, double r, double theta, double M, double M_rate, double r_in, double A, double h_star, double L_star, double inc_angle, double r_star){
-    return ((3.0*G*M*M_rate)/(8.0*pi*sigma1*pow(r,3.0)))*(1.0-sqrt(r_in/r))+(1.0-A)*((h_star*L_star)/(4.0*pi*sigma1*pow(r_star,3.0)));
+    return ((3.0*G*M*M_rate)/(8.0*pi*sigma1*pow(r,3.0)))*(1.0-sqrt(r_in/r))+((1.0-A)*((h_star*L_star)/(4.0*pi*sigma1*pow(r_star,3.0))));
 }
 
-/** define new type as regions and its elements **/
+///** define the Planck Function **/
+//double Planck_Function(){
+//    return (2*h*c)/pow(lambda,3)*pow((exp(h*c/lampda*k*temp_profile)-1),-1);
+//}
+
+
+
+
+/** define new type as regions and its elements to create disk **/
 typedef struct region {
     double radius;
     double theta;
@@ -64,7 +66,7 @@ int main()
     double M = 3.2e7; /** M_sun, the black hole mass **/
     double Rg= (G*pc*M)/(c*c); /** gravitational radius **/
     double r_in= 6.0 * Rg; /** inner radius **/
-    double r_out=3200.0*Rg; /** outer radius **/
+    double r_out=10000*Rg; /** outer radius **/
 
     /** create disks which contain the regions **/
     region *disk;
@@ -94,7 +96,7 @@ int main()
     
     double inc_angle = 45.0; /** inclination angle **/
     double h_star = 10.0*Rg; /** the vertical distance from the cetral variable source to disk **/
-    double M_rate = 100.0; /** ??? the accretion rate **/
+    double M_rate = 1.0; /** M_sun yr^-1, the typical black hole accretion rate **/
     double A = 0.5; /** the disk albedo **/
     double L_bol = 2.82e44; /** the bolometric luminosity **/
     //double L_star = 0.5*L_bol; /** the luminosity of central variable source **/
@@ -105,7 +107,6 @@ int main()
         for (j=0; j < Ntheta; j++){
             double t = 10.0;
             double lag = lag_tao (r[i], theta[j], inc_angle, h_star);
-            //double Lstar = L_star(t, r[i], theta[j], inc_angle, h_star);
             double Lstar = L_star(t, lag, r[i], theta[j], inc_angle, h_star);
             double rstar = r_star(r[i], h_star);
             double temperature = temp_profile (t, r[i], theta[j], M, M_rate, r_in, A, h_star, Lstar, inc_angle, rstar);
