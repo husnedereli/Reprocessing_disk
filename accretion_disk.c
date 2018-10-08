@@ -17,20 +17,26 @@
 
 
 
-/** define the Function of the lag **/
-double lag_tao (double r, double theta, double inc_angle, double h_star){
-    return sqrt(pow(h_star,2.0)+pow(r,2.0))+h_star*cos(inc_angle)-r*cos(theta)*sin(inc_angle);
+///** define the Function of the lag **/
+//double lag_tao (double r, double theta, double inc_angle, double h_star){
+//    return sqrt(pow(h_star,2.0)+pow(r,2.0))+h_star*cos(inc_angle)-r*cos(theta)*sin(inc_angle);
+//}
+
+
+/** define the Function of the luminosity **/
+double L_star(double t, double r, double theta, double inc_angle, double h_star){
+    return t-sqrt(pow(h_star,2.0)+pow(r,2.0))+h_star*cos(inc_angle)-r*cos(theta)*sin(inc_angle);
 }
+
 
 /** define the Function of the distance from the central variable source to disk elements **/
 double r_star(double r, double h_star){
     return sqrt(pow(h_star,2.0)+pow(r,2.0));
 }
 
-
 /** define the Function of the temperature profile **/
 double temp_profile (double t, double r, double theta, double M, double M_rate, double r_in, double A, double h_star, double L_star, double inc_angle, double lag_tao, double r_star){
-    return ((3.0*G*M*M_rate)/(8.0*pi*sigma1*pow(r,3.0)))*(1.0-sqrt(r_in/r))+(1.0-A)*((h_star*L_star*(t-lag_tao))/(4.0*pi*sigma1*pow(r_star,3.0)));
+    return ((3.0*G*M*M_rate)/(8.0*pi*sigma1*pow(r,3.0)))*(1.0-sqrt(r_in/r))+(1.0-A)*((h_star*L_star)/(4.0*pi*sigma1*pow(r_star,3.0)));
 }
 
 /** define new type as regions and its elements **/
@@ -98,8 +104,6 @@ int main()
             //printf("Temperature[%d]: %g\n",i, temperature);
             /** fill the disks with elements (temp) of regions **/
             disk[i*Ntheta+j].temp=temperature;
-            double F = sigma1*pow(temperature,4.0);
-            printf("F[%d]: %g\n",i, F);
         }
     }
     
