@@ -7,14 +7,33 @@
 #define Nr 66 			/** layers **/
 #define Ntheta 66		/** zones per layers **/
 
+
+/*** THIS NEEDS TO BE CORRECTED / REMOVED */
+
 /** Definition of the physical constants **/
 #define pc 3.08567758e13 	/** km **/
 #define G 4.302e-3 /** pc M_sun^-1 (km/s)^-1 **/
 #define c 3e5 /** km/s **/
 #define sigma1 5.670373e-8 /** W m^-2 K^4 the Stefan–Boltzmann constant  **/
+
+
+/**  Constant CGS */
+#define c 2.99792458e10                 /** cm.s^-1 */
+#define Msun 1.989e33                   /** g       */
+#define h 6.6260755e-27                 /** erg.s   */
+#define kb 1.380657e-16                 /**         */
+#define sigmaSB 5.67051e-5
+#define Ggrav 6.67259e-8                /** cm.s^-2 */
+#define pc 3.08568e18                   /** cm      */
+
+
+/**  Other constant */
 #define pi 3.14159265358979
 
 
+/**  Husne, 09/10/2018
+  *  Here I define all the function to create and fill the disk
+  */
 
 
 
@@ -40,10 +59,17 @@ double temp_profile(double t, double r, double theta, double M, double M_rate, d
     return ((3.0*G*M*M_rate)/(8.0*pi*sigma1*pow(r,3.0)))*(1.0-sqrt(r_in/r))+((1.0-A)*((h_star*L_star)/(4.0*pi*sigma1*pow(r_star,3.0))));
 }
 
-///** define the Planck Function **/
-//double Planck_Function(){
-//    return (2*h*c)/pow(lambda,3)*pow((exp(h*c/lampda*k*temp_profile)-1),-1);
-//}
+
+
+
+/**  Husne, 09/10/2018
+  *  Here I define all the function required to compute the spectra
+  */
+
+/** define the Planck Function **/
+double Planck_Function(double lambda, double T){
+    return (2.0*h*c)/pow(lambda,3.0)/(exp(h*c/(lambda*kb*T))-1.0);
+}
 
 
 
@@ -89,7 +115,7 @@ int main(){
     for (i=0; i < Ntheta; i++){
         theta[i] = i*(360.0/Ntheta);
     }
-    
+
     /** fill the disks with elements (radius and theta) of regions **/
     int j;
     for (i=0; i < Nr; i++){
@@ -99,8 +125,8 @@ int main(){
         }
     }
 
-    
-    
+
+
     double inc_angle = 45.0; /** inclination angle **/
     double h_star = 10.0*Rg; /** the vertical distance from the cetral variable source to disk **/
     double M_rate = 1.0; /** M_sun yr^-1, the typical black hole accretion rate **/
@@ -127,11 +153,11 @@ int main(){
             disk[i*Ntheta+j].temp=temperature;
         }
     }
-    
+
     /**  Husne,  9/10/2018
       *  Now I compute the radiation from such disk.
       */
-    
+
     free(r);
     free(theta);
     free(disk);
