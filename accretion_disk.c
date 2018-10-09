@@ -3,15 +3,16 @@
 #include <math.h>
 
 
-#define Nr 66 /** layers **/
-#define Ntheta 66 /** zones per layers **/
+/**  Code specific declaration */
+#define Nr 66 			/** layers **/
+#define Ntheta 66		/** zones per layers **/
 
 /** Definition of the physical constants **/
-#define pc 3.08567758e13 /** km **/
+#define pc 3.08567758e13 	/** km **/
 #define G 4.302e-3 /** pc M_sun^-1 (km/s)^-1 **/
 #define c 3e5 /** km/s **/
 #define sigma1 5.670373e-8 /** W m^-2 K^4 the Stefan–Boltzmann constant  **/
-#define pi 3.14
+#define pi 3.14159265358979
 
 
 
@@ -56,8 +57,14 @@ typedef struct region {
 
 
 
-int main()
-{
+int main(){
+
+
+    /**  Husne, 9/10/2018
+      *  Here I create and fill the disk. I compute the temperature and settle all the regions of the disk.
+      */
+
+
     double *r; 				/** radius **/
     double *theta; 			/** azimuth angle **/
     r = (double *) calloc(Nr,sizeof(double));
@@ -102,21 +109,28 @@ int main()
     //double L_star = 0.5*L_bol; /** the luminosity of central variable source **/
 
 
+    double t;
+    double lag;
+    double Lstar;
+    double rstar;
+    double temperature;
     /** call the functions **/
     for (i=0; i < Nr; i++){
-        for (j=0; j < Ntheta; j++){
-            double t = 10.0;
-            double lag = lag_tao (r[i], theta[j], inc_angle, h_star);
-            double Lstar = L_star(t, lag, r[i], theta[j], inc_angle, h_star);
-            double rstar = r_star(r[i], h_star);
-            double temperature = temp_profile (t, r[i], theta[j], M, M_rate, r_in, A, h_star, Lstar, inc_angle, rstar);
+	for (j=0; j < Ntheta; j++){
+            t = 10.0;
+            lag = lag_tao (r[i], theta[j], inc_angle, h_star);
+            Lstar = L_star(t, lag, r[i], theta[j], inc_angle, h_star);
+            rstar = r_star(r[i], h_star);
+            temperature = temp_profile (t, r[i], theta[j], M, M_rate, r_in, A, h_star, Lstar, inc_angle, rstar);
             printf("Temperature[%d]: %g\n",i, temperature);
             /** fill the disks with elements (temp) of regions **/
             disk[i*Ntheta+j].temp=temperature;
         }
     }
     
-    
+    /**  Husne,  9/10/2018
+      *  Now I compute the radiation from such disk.
+      */
     
     free(r);
     free(theta);
