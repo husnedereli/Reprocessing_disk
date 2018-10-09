@@ -7,16 +7,7 @@
 #define Nr 66 			/** layers **/
 #define Ntheta 66		/** zones per layers **/
 
-
-/*** THIS NEEDS TO BE CORRECTED / REMOVED */
-
 /** Definition of the physical constants **/
-#define pc 3.08567758e13 	/** km **/
-#define G 4.302e-3 /** pc M_sun^-1 (km/s)^-1 **/
-#define c 3e5 /** km/s **/
-#define sigma1 5.670373e-8 /** W m^-2 K^4 the Stefan–Boltzmann constant  **/
-
-
 /**  Constant CGS */
 #define c 2.99792458e10                 /** cm.s^-1 */
 #define Msun 1.989e33                   /** g       */
@@ -25,7 +16,6 @@
 #define sigmaSB 5.67051e-5
 #define Ggrav 6.67259e-8                /** cm.s^-2 */
 #define pc 3.08568e18                   /** cm      */
-
 
 /**  Other constant */
 #define pi 3.14159265358979
@@ -56,7 +46,7 @@ double r_star(double r, double h_star){
 
 /** define the Function of the temperature profile **/
 double temp_profile(double t, double r, double theta, double M, double M_rate, double r_in, double A, double h_star, double L_star, double inc_angle, double r_star){
-    return ((3.0*G*M*M_rate)/(8.0*pi*sigma1*pow(r,3.0)))*(1.0-sqrt(r_in/r))+((1.0-A)*((h_star*L_star)/(4.0*pi*sigma1*pow(r_star,3.0))));
+    return ((3.0*Ggrav*M*M_rate)/(8.0*pi*sigmaSB*pow(r,3.0)))*(1.0-sqrt(r_in/r))+((1.0-A)*((h_star*L_star)/(4.0*pi*sigmaSB*pow(r_star,3.0))));
 }
 
 
@@ -67,10 +57,22 @@ double temp_profile(double t, double r, double theta, double M, double M_rate, d
   */
 
 /** define the Planck Function **/
-double Planck_Function(double lambda, double T){
-    return (2.0*h*c)/pow(lambda,3.0)/(exp(h*c/(lambda*kb*T))-1.0);
+double Planck_Function(double lambda, double temperature){
+    return (2.0*h*c)/pow(lambda,3.0)/(exp(h*c/(lambda*kb*temperature))-1.0);
 }
 
+/** define the Function of predicted spectrum (SED) **/
+double spectrum(double inc_angle, D, double theta_in, double theta_out, double r_in, double r_out){
+    return (cos(inc_angle)/pow(D,2))*Planck_Function*(theta_out-theta_in)*(pow(r_out,2)/2-pow(r_in,2)/2)
+
+    
+    int j;
+    for (j=0; j < zones; j++){
+        Planck_Function[j]+ = 1;
+    }
+
+    
+}
 
 
 
@@ -91,15 +93,15 @@ int main(){
       */
 
 
-    double *r; 				/** radius **/
-    double *theta; 			/** azimuth angle **/
+    double *r;                      /** radius **/
+    double *theta;                  /** azimuth angle **/
     r = (double *) calloc(Nr,sizeof(double));
     theta = (double *) calloc(Ntheta,sizeof(double));
 
-    double M = 3.2e7; /** M_sun, the black hole mass **/
-    double Rg= (G*pc*M)/(c*c); /** gravitational radius **/
-    double r_in= 6.0 * Rg; /** inner radius **/
-    double r_out=10000*Rg; /** outer radius **/
+    double M = 3.2e7;               /** M_sun, the black hole mass **/
+    double Rg= (Ggrav*M)/(c*c);  /** gravitational radius **/
+    double r_in= 6.0 * Rg;          /** inner radius **/
+    double r_out=10000*Rg;          /** outer radius **/
 
     /** create disks which contain the regions **/
     region *disk;
@@ -158,6 +160,10 @@ int main(){
       *  Now I compute the radiation from such disk.
       */
 
+    double D;
+    D= 75.01 /** Mpc distance from observer to the source **/
+    
+    
     free(r);
     free(theta);
     free(disk);
