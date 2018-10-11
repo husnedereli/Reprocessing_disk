@@ -9,13 +9,13 @@
 
 /** Definition of the physical constants **/
 /**  Constant CGS */
-#define c 2.99792458e10                 /** cm.s^-1 */
-#define Msun 1.989e33                   /** gr       */
-#define h 6.6260755e-27                 /** erg.s   */
-#define kb 1.380657e-16                 /** erg.K^-1  */
+#define c 2.99792458e10                 /** cm.s^-1         */
+#define Msun 1.989e33                   /** g               */
+#define h 6.6260755e-27                 /** erg.s           */
+#define kb 1.380657e-16                 /** erg.K^-1        */
 #define sigmaSB 5.67051e-5
-#define Ggrav 6.67259e-8                /** cm.s^-2 */
-#define pc 3.08568e18                   /** cm      */
+#define Ggrav 6.67259e-8                /** cm^3.g^-1.s^-2  */
+#define pc 3.08568e18                   /** cm              */
 
 /**  Other constant */
 #define pi 3.14159265358979
@@ -24,8 +24,6 @@
 /**  Husne, 09/10/2018
   *  Here I define all the function to create and fill the disk
   */
-
-
 
 /** define the Function of the lag **/
 double lag_tao(double r, double theta, double inc_angle, double h_star){
@@ -46,7 +44,10 @@ double r_star(double r, double h_star){
 
 /** define the Function of the temperature profile **/
 double temp_profile(double t, double r, double theta, double M, double M_rate, double r_in, double A, double h_star, double inc_angle){
-    return ((3.0*Ggrav*M*M_rate)/(8.0*pi*sigmaSB*pow(r,3.0)))*(1.0-sqrt(r_in/r))+((1.0-A)*(h_star*L_star(t, r, theta, inc_angle, h_star)/(4.0*pi*sigmaSB*pow(r_star(r, h_star),3.0))));
+    
+    double Lstar = L_star(t, r, theta, inc_angle, h_star);
+    double rstar = r_star(r, h_star);
+    return pow(((3.0*Ggrav*M*M_rate)/(8.0*pi*sigmaSB*pow(r,3.0)))*(1.0-sqrt(r_in/r)) +((1.0-A)*(h_star*Lstar/(4.0*pi*sigmaSB*pow(rstar,3.0)))),0.25);
 }
 
 
@@ -90,11 +91,15 @@ int main(){
     r = (double *) calloc(Nr,sizeof(double));
     theta = (double *) calloc(Ntheta,sizeof(double));
 
-    double M = 3.2e7*Msun;               /** M_sun, the black hole mass, converted to gr **/
+    double M = 3.2e7*Msun;              /** M_sun, the black hole mass, converted to gr **/
     double Rg= (Ggrav*M)/(c*c);         /** gravitational radius **/
     double r_in= 6.0*Rg;                /** inner radius **/
     double r_out=10000*Rg;              /** outer radius **/
 
+    /** Checking the values of the radii */
+    // printf("Rg = %g\tR_int = %g\tR_out = %g \n", Rg, r_in, r_out);
+    // getchar();
+    
     /** create disks which contain the regions **/
     region *disk;
     disk = (region *) malloc(Nr*Ntheta*sizeof(region));
@@ -121,10 +126,10 @@ int main(){
 
 
 
-    double inc_angle = 45.0*0.0174532925; /** inclination angle , converted to radian **/
-    double h_star = 10.0*Rg; /** the vertical distance from the cetral variable source to disk **/
-    double M_rate = 1.0*Msun; /** M_sun yr^-1, the typical black hole accretion rate , converted to gr **/
-    double A = 0.5; /** the disk albedo **/
+    double inc_angle = 45.0*0.0174532925;   /** inclination angle , converted to radian **/
+    double h_star = 10.0*Rg;                /** the vertical distance from the cetral variable source to disk **/
+    double M_rate = 1.0*Msun;               /** M_sun yr^-1, the typical black hole accretion rate , converted to gr **/
+    double A = 0.5;                         /** the disk albedo **/
     //double L_bol = 2.82e44; /** the bolometric luminosity **/
     //double L_star = 0.5*L_bol; /** the luminosity of central variable source **/
 
@@ -139,7 +144,7 @@ int main(){
         for (j=0; j < Ntheta; j++){
             t = 10.0;
             temperature = temp_profile (t, r[i], theta[j], M, M_rate, r_in, A, h_star, inc_angle);
-            printf("Temperature[%d]: %g\n",i, temperature);
+            // printf("Temperature[%d]: %g\n",i, temperature);
             /** fill the disks with elements (temp) of regions **/
             disk[i*Ntheta+j].temp = temperature;
         }
@@ -149,7 +154,7 @@ int main(){
       *  Now I compute the radiation from such disk.
       */
 
-    double D;
+    double D = 75.01*1e6*pc;                   /** Mpc distance from observer to the source, converted to cm **/
     double R_in;
     double R_out;
     double theta_in;
@@ -158,8 +163,8 @@ int main(){
     double lambda;
     /** call the functions **/
     for (j=0; j < Nr*Ntheta; j++){
-        D = 75.01*1e6*pc;                   /** Mpc distance from observer to the source, converted to cm **/
-        lambda = h*c/(kb*disk[j].temp);
+        
+        
         R_in = disk[j].radius/sqrt(step);        /** from the center to the first layer of any region **/
         R_out = disk[j].radius*sqrt(step);       /** from the center to the last layer of any region **/
         theta_in = disk[j].theta-(step/2.0);    /** from the origine to the first layer of any region on the bottom**/
@@ -168,8 +173,22 @@ int main(){
         //printf("SED[%d]: %g\n",j, SED);
     }
     
+    /**  Husne,  11/10/2018
+     *  Read a txt file for U bandpass.
+     */
+        
+    FILE *f;
+    char c_file;
+    f=fopen("Bessel_U-1.txt","rt");
     
-
+    while((c_file=fgetc(f))!=EOF){
+        printf("%c",c_file);
+    }
+    fclose(f);
+    
+    
+    
+    
     
     
     
