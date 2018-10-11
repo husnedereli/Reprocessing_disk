@@ -68,6 +68,22 @@ double spectrum(double inc_angle, double D, double theta_in, double theta_out, d
 }
 
 
+/**  Husne, 09/10/2018
+ *  Here I define all the function required for the convolotion with the filter bandpass.
+ */
+
+/** define the response Function **/
+double response(double ){
+    return
+}
+/** define the convolation Function **/
+double convolation(double ){
+    double spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, lambda, temperature);
+    return
+}
+
+
+
 
 /** define new type as regions and its elements to create disk **/
 typedef struct region {
@@ -186,6 +202,7 @@ int main(){
     }
     fclose(f);
     
+
     
     
     
