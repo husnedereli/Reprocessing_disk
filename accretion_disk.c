@@ -62,16 +62,8 @@ double Planck_Function(double lambda, double temperature){
 }
 
 /** define the Function of predicted spectrum (SED) **/
-double spectrum(double inc_angle, D, double theta_in, double theta_out, double r_in, double r_out){
-    return (cos(inc_angle)/pow(D,2))*Planck_Function*(theta_out-theta_in)*(pow(r_out,2)/2-pow(r_in,2)/2)
-
-    
-    int j;
-    for (j=0; j < zones; j++){
-        Planck_Function[j]+ = 1;
-    }
-
-    
+double spectrum(double inc_angle, D, double theta_in, double theta_out, double R_in, double R_out, double Planck_Function, double lambda, double temperature){
+    return (cos(inc_angle)/pow(D,2))*Planck_Function*(theta_out-theta_in)*(pow(R_out,2)/2-pow(R_in,2)/2)
 }
 
 
@@ -93,8 +85,8 @@ int main(){
       */
 
 
-    double *r;                      /** radius **/
-    double *theta;                  /** azimuth angle **/
+    double *r;                      /** radius which is from the center of disk to the center of any region**/
+    double *theta;                  /** azimuth angle which is from the origine to the r for any region**/
     r = (double *) calloc(Nr,sizeof(double));
     theta = (double *) calloc(Ntheta,sizeof(double));
 
@@ -152,7 +144,7 @@ int main(){
             temperature = temp_profile (t, r[i], theta[j], M, M_rate, r_in, A, h_star, Lstar, inc_angle, rstar);
             printf("Temperature[%d]: %g\n",i, temperature);
             /** fill the disks with elements (temp) of regions **/
-            disk[i*Ntheta+j].temp=temperature;
+            disk[i*Ntheta+j].temp = temperature;
         }
     }
 
@@ -161,7 +153,26 @@ int main(){
       */
 
     double D;
-    D= 75.01 /** Mpc distance from observer to the source **/
+    double R_in;
+    double R_out;
+    double theta_in;
+    double theta_out;
+    double SED
+
+    
+    for (j=0; j < Nr*Ntheta; j++){
+        D= 75.01                    /** Mpc distance from observer to the source **/
+        R_in = r/sqrt(step);        /** from the ceter to the first layer of any region **/
+        R_out = r*sqrt(step);       /** from the ceter to the last layer of any region **/
+        theta_in = theta-(step/2)   /** from the origine to the first layer of any region on the bottom**/
+        theta_out = theta+(step/2)  /** from the origine to the last layer of any region on the top**/
+        SED = spectrum(inc_angle, D, theta_in[j], theta_out[j], R_in[j], R_out[j], Planck_Function, lambda,temperature[j]);
+        
+    }
+    
+    
+
+    
     
     
     free(r);
