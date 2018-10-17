@@ -208,37 +208,38 @@ int main(){
 
     FILE *input;
     double c1, c2;
-    int numberofloop;
-    
+    int numberofloop = 0;
+
     input=fopen("Bessel_U-1.txt","r"); //* open a text file for reading */
 
     /**  Here %lf means type double */
+    /// step 1
     while(fscanf(input,"%lf%lf", &c1, &c2) !=EOF ){
         numberofloop++;
-        printf("%lf", c1);
     }
     fclose(input);
-    printf("%lf", numberofloop.lenght)
-    
-   // Number = input.lenght
-    
+
+    /// step 2
     double *wavelenght;
-    for (i=0; i < numberofloop; i++){
-        wavelenght[i] = &c1;
-    }
+    wavelength = (double *) calloc(numberofloop,sizeof(double));
     double *transmission;
-    for (i=0; i < numberofloop; i++){
-        transmission[i] = &c2;
+    transmission = (double *) calloc(numberofloop,sizeof(double));
+
+
+    /// step 3
+    input=fopen("Bessel_U-1.txt","r"); //* open a text file for reading */
+    i = 0;
+    while(fscanf(input,"%lf%lf", &c1, &c2) !=EOF ){
+
+        wavelenght[i] = c1;
+        transmission[i] = c2;
+        i += 1 ;
     }
-    printf("%lf", transmission);
+    fclose(input);
 
 
-
-
-
-
-
-
+    free(wavelength);
+    free(transmission);
 
     free(r);
     free(theta);
