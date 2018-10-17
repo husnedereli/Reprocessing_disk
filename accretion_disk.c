@@ -213,6 +213,17 @@ int main(){
 
     /**  Here %lf means type double */
     while(    fscanf(input,"%lf%lf", &c1, &c2) !=EOF ){
+        
+        double *wavelenght;
+        wavelenght = (double *) calloc(c1,sizeof(double));
+        for (i=0; i < c1; i++){
+            r[i] = c1[i];
+        }
+        double *transmission
+        transmission = (double *) calloc(c2,sizeof(double));
+        for (i=0; i < c2; i++){
+            r[i] = c2[i];
+        }
 
         printf("%lf", c1);
     }
