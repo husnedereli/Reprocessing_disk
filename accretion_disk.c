@@ -73,15 +73,15 @@ double spectrum(double inc_angle, double D, double theta_in, double theta_out, d
  */
 
 /** define the response Function **/
-double response(double R, double lambda_max, double lambda_min){
+/*double response(double R, double lambda_max, double lambda_min){
     return (pow(R(lambda_max),2)/2)-(pow(R(lambda_min),2)/2);
-}
+}*/
 
 /** define the convolation Function **/
-double convolation(double inc_angle, double D, double theta_in, double theta_out, double R_in, double R_out, double lambda, double temperature, double R, double lambda_max, double lambda_min){
+/*double convolation(double inc_angle, double D, double theta_in, double theta_out, double R_in, double R_out, double lambda, double temperature, double R, double lambda_max, double lambda_min){
     double spectra = spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, lambda, temperature);
     return spectra*response(R, lambda_max, lambda_min);
-}
+}*/
 
 
 
@@ -220,7 +220,7 @@ int main(){
     fclose(input);
 
     /// step 2
-    double *wavelenght;
+    double *wavelength;
     wavelength = (double *) calloc(numberofloop,sizeof(double));
     double *transmission;
     transmission = (double *) calloc(numberofloop,sizeof(double));
@@ -231,11 +231,16 @@ int main(){
     i = 0;
     while(fscanf(input,"%lf%lf", &c1, &c2) !=EOF ){
 
-        wavelenght[i] = c1;
+        wavelength[i] = c1;
         transmission[i] = c2;
         i += 1 ;
     }
     fclose(input);
+
+    for(i = 0; i < numberofloop ; i++){
+        printf("%g\t%g\n",wavelength[i], transmission[i]);
+    }
+
 
 
     free(wavelength);
