@@ -73,13 +73,14 @@ double spectrum(double inc_angle, double D, double theta_in, double theta_out, d
  */
 
 /** define the response Function **/
-double response(double ){
-    return
+double response(double R, double lambda_max, double lambda_min){
+    return (pow(R(lambda_max),2)/2)-(pow(R(lambda_min),2)/2);
 }
+
 /** define the convolation Function **/
-double convolation(double ){
-    double spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, lambda, temperature);
-    return
+double convolation(double inc_angle, double D, double theta_in, double theta_out, double R_in, double R_out, double lambda, double temperature, double R, double lambda_max, double lambda_min){
+    double spectra = spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, lambda, temperature);
+    return spectra*response(R, lambda_max, lambda_min);
 }
 
 
