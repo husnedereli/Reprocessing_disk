@@ -44,7 +44,7 @@ double r_star(double r, double h_star){
 
 /** define the Function of the temperature profile **/
 double temp_profile(double t, double r, double theta, double M, double M_rate, double r_in, double A, double h_star, double inc_angle){
-    
+
     double Lstar = L_star(t, r, theta, inc_angle, h_star);
     double rstar = r_star(r, h_star);
     return pow(((3.0*Ggrav*M*M_rate)/(8.0*pi*sigmaSB*pow(r,3.0)))*(1.0-sqrt(r_in/r)) +((1.0-A)*(h_star*Lstar/(4.0*pi*sigmaSB*pow(rstar,3.0)))),0.25);
@@ -116,7 +116,7 @@ int main(){
     /** Checking the values of the radii */
     // printf("Rg = %g\tR_int = %g\tR_out = %g \n", Rg, r_in, r_out);
     // getchar();
-    
+
     /** create disks which contain the regions **/
     region *disk;
     disk = (region *) malloc(Nr*Ntheta*sizeof(region));
@@ -180,8 +180,8 @@ int main(){
     double lambda;
     /** call the functions **/
     for (j=0; j < Nr*Ntheta; j++){
-        
-        
+
+
         R_in = disk[j].radius/sqrt(step);        /** from the center to the first layer of any region **/
         R_out = disk[j].radius*sqrt(step);       /** from the center to the last layer of any region **/
         theta_in = disk[j].theta-(step/2.0);    /** from the origine to the first layer of any region on the bottom**/
@@ -189,27 +189,39 @@ int main(){
         SED = spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, lambda, disk[j].temp);
         //printf("SED[%d]: %g\n",j, SED);
     }
-    
+
+
+
+
+
+    /** ************************************************
+      * ************************************************
+      * ************************************************
+      * ************************************************
+      * ************************************************
+      */
+
+
     /**  Husne,  11/10/2018
-     *  Read a txt file for U bandpass.
-     */
-        
+      *  Read a txt file for U bandpass.
+      */
+
     FILE *f;
     char c_file;
-    f=fopen("Bessel_U-1.txt","rt");
-    
+    f=fopen("Bessel_U-1.txt","r");
+
     while((c_file=fgetc(f))!=EOF){
         printf("%c",c_file);
     }
     fclose(f);
-    
 
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
     free(r);
     free(theta);
     free(disk);
