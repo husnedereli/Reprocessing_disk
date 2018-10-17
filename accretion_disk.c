@@ -206,12 +206,15 @@ int main(){
       *  Read a txt file for U bandpass.
       */
 
-    FILE *f;
-    char c_file;
-    f=fopen("Bessel_U-1.txt","r");
+    FILE *input;
+    double c1, c2;
 
-    while((c_file=fgetc(f))!=EOF){
-        printf("%c",c_file);
+    input=fopen("Bessel_U-1.txt","r");
+
+    /**  Here %lf means type double */
+    while(    fscanf(input,"%lf%lf", &c1, &c2) !=EOF ){
+
+        printf("%lf", c1);
     }
     fclose(f);
 
