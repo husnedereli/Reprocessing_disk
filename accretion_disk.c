@@ -232,7 +232,7 @@ int main(){
 
 
     /// step 3
-    input=fopen("bess-u.pass.txt","r"); //* open a text file for reading */
+    input=fopen("bess_u.txt","r"); //* open a text file for reading */
     i = 0;
     while(fscanf(input,"%lf%lf", &c1, &c2) !=EOF ){
 
