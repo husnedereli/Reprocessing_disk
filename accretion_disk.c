@@ -252,7 +252,6 @@ int main(){
      *  Now compute the integral.
      */
     double compute_integral = 0.0;
-    //double N = 100;
     double deltaLambda;
     double summ_region_with_i;
     double summ_region_with_im1;
