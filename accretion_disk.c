@@ -68,9 +68,21 @@ double spectrum(double inc_angle, double D, double theta_in, double theta_out, d
 }
 
 
-/**  Husne, 09/10/2018
+/**  Husne, 18/10/2018
  *  Here I define all the function required for the convolotion with the filter bandpass.
  */
+
+/** use the response Function with Trapezoidal rule **/
+double deltaLambda(double k, double wavelength){
+    return (wavelength[k]-wavelength[0])/k;
+}
+
+
+/** use the response Function with Trapezoidal rule **/
+double definite_integral(double k, double transmission, double wavelength, double N){
+    return (deltaLambda(k, wavelength)/2)*transmission[0] + deltaLambda(k, wavelength)*(sum(transmission[k]+transmission[N]));
+}
+
 
 /** define the response Function **/
 /*double response(double R, double lambda_max, double lambda_min){
@@ -242,6 +254,16 @@ int main(){
     }
 
 
+    /**  Husne,  18/10/2018
+     *  Now I make a transformation by computing integral.
+     */
+    double compute_int;
+    double k = numberofloop;
+    double N = 100;
+        for(i = 0; i < numberofloop ; i++){
+            compute_int=definite_integral(k, transmission[i], wavelength[i], N)
+        }
+    
 
     free(wavelength);
     free(transmission);
