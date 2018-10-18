@@ -216,6 +216,7 @@ int main(){
     /// step 1
     while(fscanf(input,"%lf%lf", &c1, &c2) !=EOF ){
         numberofloop++;                 //* caunt the number of loop */
+        /// Previous line is equivalent to      numberofloop = numberofloop + 1;                 //* caunt the number of loop */
     }
     fclose(input);
 
@@ -234,6 +235,7 @@ int main(){
         wavelength[i] = c1;             //* fill the array */
         transmission[i] = c2;
         i += 1 ;
+        /// i = i + 1 ;
     }
     fclose(input);
 
@@ -245,15 +247,15 @@ int main(){
     /**  Husne,  18/10/2018
      *  Now compute the integral.
      */
-    double compute_integral;
+    double compute_integral = 0.0;
     //double N = 100;
     double deltaLambda;
-        for(i = 0; i < numberofloop ; i++){
-            deltaLambda = (wavelength[numberofloop]-wavelength[0])/numberofloop;
-            compute_integral = (deltaLambda/2.0)*transmission[0] + deltaLambda*(transmission[i]+transmission[numberofloop]);
-            printf("%g\t\n",compute_integral);  //* print the arrays */
-        }
-    
+    for(i = 1; i < numberofloop ; i++){
+        deltaLambda = (wavelength[i]-wavelength[i-1]);
+        compute_integral = compute_integral + deltaLambda*0.5*(transmission[i-1]+transmission[i]) ;
+    }
+    printf("%g\t\n",compute_integral);  //* print the arrays */
+
 
     free(wavelength);
     free(transmission);
