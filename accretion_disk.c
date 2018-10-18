@@ -246,11 +246,12 @@ int main(){
      *  Now compute the integral.
      */
     double compute_integral;
-    double N = 100;
+    //double N = 100;
     double deltaLambda;
         for(i = 0; i < numberofloop ; i++){
             deltaLambda = (wavelength[i]-wavelength[0])/i;
-            compute_integral=(deltaLambda/2.0)*transmission[0] + deltaLambda*(sum(transmission[i]+transmission[N]));
+            compute_integral = (deltaLambda/2.0)*transmission[0] + deltaLambda*(transmission[i-1]+transmission[i]);
+            printf("%g\t\n",compute_integral);  //* print the arrays */
         }
     
 
