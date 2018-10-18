@@ -72,18 +72,6 @@ double spectrum(double inc_angle, double D, double theta_in, double theta_out, d
  *  Here I define all the function required for the convolotion with the filter bandpass.
  */
 
-/** use the response Function with Trapezoidal rule **/
-double deltaLambda(double k, double wavelength){
-    return (wavelength[k]-wavelength[0])/k;
-}
-
-
-/** use the response Function with Trapezoidal rule **/
-double definite_integral(double k, double transmission, double wavelength, double N){
-    return (deltaLambda(k, wavelength)/2)*transmission[0] + deltaLambda(k, wavelength)*(sum(transmission[k]+transmission[N]));
-}
-
-
 /** define the response Function **/
 /*double response(double R, double lambda_max, double lambda_min){
     return (pow(R(lambda_max),2)/2)-(pow(R(lambda_min),2)/2);
@@ -149,7 +137,7 @@ int main(){
     for (i=0; i < Nr; i++){
         for (j=0; j < Ntheta; j++){
             disk[i*Ntheta+j].radius = r[i];  /** disk[0] region1, ... **/
-            disk[i*Ntheta+j].theta=theta[j];
+            disk[i*Ntheta+j].theta = theta[j];
         }
     }
 
@@ -255,13 +243,14 @@ int main(){
 
 
     /**  Husne,  18/10/2018
-     *  Now I make a transformation by computing integral.
+     *  Now compute the integral.
      */
-    double compute_int;
-    double k = numberofloop;
+    double compute_integral;
     double N = 100;
+    double deltaLambda;
         for(i = 0; i < numberofloop ; i++){
-            compute_int=definite_integral(k, transmission[i], wavelength[i], N)
+            deltaLambda = (wavelength[i]-wavelength[0])/i;
+            compute_integral=(deltaLambda/2.0)*transmission[0] + deltaLambda*(sum(transmission[i]+transmission[N]));
         }
     
 
