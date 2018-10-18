@@ -251,15 +251,30 @@ int main(){
     double compute_integral = 0.0;
     //double N = 100;
     double deltaLambda;
+    double summ_region_with_i;
+    double summ_region_with_im1;
     for(i = 1; i < numberofloop ; i++){
-            for (j=0; j < Nr*Ntheta; j++){
+
         deltaLambda = (wavelength[i]-wavelength[i-1]);
-        compute_integral = compute_integral + deltaLambda*0.5*(transmission[i-1]*spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength[i-1], disk[j].temp)+transmission[i]*spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength[i], disk[j].temp)) ;
-            }
+        summ_region_with_i = 0.0;
+        summ_region_with_im1 = 0.0;
+
+        for (j=0; j < Nr*Ntheta; j++){
+            R_in = disk[j].radius/sqrt(step);        /** from the center to the first layer of any region **/
+            R_out = disk[j].radius*sqrt(step);       /** from the center to the last layer of any region **/
+            theta_in = disk[j].theta-(step/2.0);    /** from the origine to the first layer of any region on the bottom**/
+            theta_out = disk[j].theta+(step/2.0);   /** from the origine to the last layer of any region on the top**/
+
+            summ_region_with_i += spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength[i], disk[j].temp)
+            summ_region_with_im1 += spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength[i-1], disk[j].temp)
+
+        }
+        compute_integral = compute_integral + deltaLambda*0.5*(transmission[i-1]*summ_region_with_im1 + transmission[i]*summ_region_with_i ) ;
+
     }
     printf("%g\t\n",compute_integral);  //* print the arrays */
 
-    
+
     free(wavelength);
     free(transmission);
 
