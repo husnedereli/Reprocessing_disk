@@ -214,7 +214,7 @@ int main(){
     double c1, c2;
     int numberofloop = 0;
 
-    input=fopen("Bessel_U-1.txt","r");      //* open a text file for reading */
+    input=fopen("bess_U.txt","r");      //* open a text file for reading */
 
     /**  Here %lf means type double */
     /// step 1
@@ -232,7 +232,7 @@ int main(){
 
 
     /// step 3
-    input=fopen("bess_u.txt","r"); //* open a text file for reading */
+    input=fopen("bess_U.txt","r"); //* open a text file for reading */
     i = 0;
     while(fscanf(input,"%lf%lf", &c1, &c2) !=EOF ){
 
