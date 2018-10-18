@@ -194,6 +194,7 @@ int main(){
 
 
 
+
     /** ************************************************
       * ************************************************
       * ************************************************
@@ -251,12 +252,14 @@ int main(){
     //double N = 100;
     double deltaLambda;
     for(i = 1; i < numberofloop ; i++){
+            for (j=0; j < Nr*Ntheta; j++){
         deltaLambda = (wavelength[i]-wavelength[i-1]);
-        compute_integral = compute_integral + deltaLambda*0.5*(transmission[i-1]+transmission[i]) ;
+        compute_integral = compute_integral + deltaLambda*0.5*(transmission[i-1]*spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength[i-1], disk[j].temp)+transmission[i]*spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength[i], disk[j].temp)) ;
+            }
     }
     printf("%g\t\n",compute_integral);  //* print the arrays */
 
-
+    
     free(wavelength);
     free(transmission);
 
