@@ -16,6 +16,9 @@
 #define sigmaSB 5.67051e-5
 #define Ggrav 6.67259e-8                /** cm^3.g^-1.s^-2  */
 #define pc 3.08568e18                   /** cm              */
+#define nm 1e-7                         /** cm              */
+#define angstrom 1e-8                   /** cm              */
+
 
 /**  Other constant */
 #define pi 3.14159265358979
@@ -229,7 +232,7 @@ int main(){
 
 
     /// step 3
-    input=fopen("Bessel_U-1.txt","r"); //* open a text file for reading */
+    input=fopen("bess-u.pass.txt","r"); //* open a text file for reading */
     i = 0;
     while(fscanf(input,"%lf%lf", &c1, &c2) !=EOF ){
 
@@ -241,7 +244,7 @@ int main(){
     fclose(input);
 
     for(i = 0; i < numberofloop ; i++){
-        // printf("%g\t%g\n",wavelength[i], transmission[i]);  //* print the arrays */
+         printf("%g\t%g\n",wavelength[i], transmission[i]);  //* print the arrays */
     }
 
 
@@ -255,7 +258,7 @@ int main(){
     double summ_region_with_im1;
     for(i = 1; i < numberofloop ; i++){
 
-        deltaLambda = (wavelength[i]-wavelength[i-1]);
+        deltaLambda = (wavelength[i]*angstrom-wavelength[i-1]*angstrom);
         summ_region_with_i = 0.0;
         summ_region_with_im1 = 0.0;
 
@@ -265,8 +268,8 @@ int main(){
             theta_in = disk[j].theta-(step/2.0);    /** from the origine to the first layer of any region on the bottom**/
             theta_out = disk[j].theta+(step/2.0);   /** from the origine to the last layer of any region on the top**/
 
-            summ_region_with_i += spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength[i], disk[j].temp)
-            summ_region_with_im1 += spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength[i-1], disk[j].temp)
+            summ_region_with_i += spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength[i]*angstrom, disk[j].temp);
+            summ_region_with_im1 += spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength[i-1]*angstrom, disk[j].temp);
 
         }
         compute_integral = compute_integral + deltaLambda*0.5*(transmission[i-1]*summ_region_with_im1 + transmission[i]*summ_region_with_i ) ;
