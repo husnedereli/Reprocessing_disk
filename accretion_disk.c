@@ -152,7 +152,13 @@ int main(){
 
     //printf("Rg = %g\t r_star = %g\t M_rate = %g\t")
 
-    double t;
+    //double t;
+    double *t;
+    t = (double *) calloc(1000,sizeof(double));
+    for (i=0; i<100; i++){
+        t[i] = i/2.0;
+    }
+    
     double lag;
     double Lstar;
     double rstar;
@@ -161,14 +167,17 @@ int main(){
     /** call the functions **/
     //FILE *test;
     //test = fopen("temperature.txt","a");
+    int k;
     for (i=0; i < Nr; i++){
         for (j=0; j < Ntheta; j++){
-            t = 10.0;
-            temperature = temp_profile (t, r[i], theta[j], M, M_rate, r_in, A, h_star, inc_angle, L_bol, omega);
-            //printf("Temperature[%d]: %g\n",i, temperature);
-            //fprintf(test, "%g\t%g\t%g\n", r[i], theta[j], temperature);
-            /** fill the disks with elements (temp) of regions **/
-            disk[i*Ntheta+j].temp = temperature;
+            //t = 10.0;
+            for (k=0; k < 100; k++){
+                temperature = temp_profile (t[k], r[i], theta[j], M, M_rate, r_in, A, h_star, inc_angle, L_bol, omega);
+                printf("Temperature[%d]: %g\n",i, temperature);
+                //fprintf(test, "%g\t%g\t%g\n", r[i], theta[j], temperature);
+                /** fill the disks with elements (temp) of regions **/
+                disk[i*Ntheta+j].temp = temperature;
+            }
         }
         //fprintf(test, "\n");
     }
