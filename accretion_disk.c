@@ -218,56 +218,56 @@ int main(){
          Read a txt file for U bandpass.
       */
 
-    FILE *input;
-    double c1, c2;
-    int numberofloop = 0;
+    FILE *input_U;
+    double c1_U, c2_U;
+    int numberofloop_U = 0;
 
-    input=fopen("bess_U.txt","r");      //* open a text file for reading */
+    input_U=fopen("bess_U.txt","r");      //* open a text file for reading */
 
     /**  Here %lf means type double */
     /// step 1
-    while(fscanf(input,"%lf%lf", &c1, &c2) !=EOF ){
-        numberofloop++;                 //* caunt the number of loop */
-        /// Previous line is equivalent to      numberofloop = numberofloop + 1;                 //* caunt the number of loop */
+    while(fscanf(input_U,"%lf%lf", &c1_U, &c2_U) !=EOF ){
+        numberofloop_U++;                 //* caunt the number of loop */
+        /// Previous line is equivalent to      numberofloop_U = numberofloop_U + 1;                 //* caunt the number of loop */
     }
-    fclose(input);
+    fclose(input_U);
 
     /// step 2
-    double *wavelength;                 //* create an array */
-    wavelength = (double *) calloc(numberofloop,sizeof(double));
-    double *transmission;
-    transmission = (double *) calloc(numberofloop,sizeof(double));
+    double *wavelength_U;                 //* create an array */
+    wavelength_U = (double *) calloc(numberofloop_U,sizeof(double));
+    double *transmission_U;
+    transmission_U = (double *) calloc(numberofloop_U,sizeof(double));
 
 
     /// step 3
-    input=fopen("bess_U.txt","r"); //* open a text file for reading */
+    input_U=fopen("bess_U.txt","r"); //* open a text file for reading */
     i = 0;
-    while(fscanf(input,"%lf%lf", &c1, &c2) !=EOF ){
+    while(fscanf(input_U,"%lf%lf", &c1_U, &c2_U) !=EOF ){
 
-        wavelength[i] = c1;             //* fill the array */
-        transmission[i] = c2;
+        wavelength_U[i] = c1_U;             //* fill the array */
+        transmission_U[i] = c2_U;
         i += 1 ;
         /// i = i + 1 ;
     }
-    fclose(input);
+    fclose(input_U);
 
-    for(i = 0; i < numberofloop ; i++){
-         printf("%g\t%g\n",wavelength[i], transmission[i]);  //* print the arrays */
+    for(i = 0; i < numberofloop_U ; i++){
+         printf("%g\t%g\n",wavelength_U[i], transmission_U[i]);  //* print the arrays */
     }
 
 
     /**  Husne,  18/10/2018
-     *  Now compute the integral.
+     *  Now compute the integral for U band.
      */
-    double compute_integral = 0.0;
-    double deltaLambda;
-    double summ_region_with_i;
-    double summ_region_with_im1;
-    for(i = 1; i < numberofloop ; i++){
+    double compute_integral_U = 0.0;
+    double deltaLambda_U;
+    double summ_region_with_i_U;
+    double summ_region_with_im1_U;
+    for(i = 1; i < numberofloop_U ; i++){
 
-        deltaLambda = (wavelength[i]*angstrom-wavelength[i-1]*angstrom);
-        summ_region_with_i = 0.0;
-        summ_region_with_im1 = 0.0;
+        deltaLambda_U = (wavelength_U[i]*angstrom-wavelength_U[i-1]*angstrom);
+        summ_region_with_i_U = 0.0;
+        summ_region_with_im1_U = 0.0;
 
         for (j=0; j < Nr*Ntheta; j++){
             R_in = disk[j].radius/sqrt(step);        /** from the center to the first layer of any region **/
@@ -275,22 +275,119 @@ int main(){
             theta_in = disk[j].theta-(step/2.0);    /** from the origine to the first layer of any region on the bottom**/
             theta_out = disk[j].theta+(step/2.0);   /** from the origine to the last layer of any region on the top**/
 
-            summ_region_with_i += spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength[i]*angstrom, disk[j].temp);
-            summ_region_with_im1 += spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength[i-1]*angstrom, disk[j].temp);
+            summ_region_with_i_U += spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength_U[i]*angstrom, disk[j].temp);
+            summ_region_with_im1_U += spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength_U[i-1]*angstrom, disk[j].temp);
 
         }
-        compute_integral = compute_integral + deltaLambda*0.5*(transmission[i-1]*summ_region_with_im1 + transmission[i]*summ_region_with_i ) ;
+        compute_integral_U = compute_integral_U + deltaLambda_U*0.5*(transmission_U[i-1]*summ_region_with_im1_U + transmission_U[i]*summ_region_with_i_U ) ;
 
     }
-    printf("%g\t\n",compute_integral);  //* print the arrays */
+    printf("%g\t\n",compute_integral_U);  //* print the arrays */
 
 
-    free(wavelength);
-    free(transmission);
+    
+    /**  Husne,  19/10/2018
+     *  Convolotion with the filter bandpass.
+     Read a txt file for B bandpass.
+     */
+    
+    FILE *input_B;
+    double c1_B, c2_B;
+    int numberofloop_B = 0;
+    
+    input_B=fopen("bess_B.txt","r");      //* open a text file for reading */
+    
+    /**  Here %lf means type double */
+    /// step 1
+    while(fscanf(input_B,"%lf%lf", &c1_B, &c2_B) !=EOF ){
+        numberofloop_B++;                 //* caunt the number of loop */
+        /// Previous line is equivalent to      numberofloop_B = numberofloop_B + 1;                 //* caunt the number of loop */
+    }
+    fclose(input_B);
+    
+    /// step 2
+    double *wavelength_B;                 //* create an array */
+    wavelength_B = (double *) calloc(numberofloop_B,sizeof(double));
+    double *transmission_B;
+    transmission_B = (double *) calloc(numberofloop_B,sizeof(double));
+    
+    
+    /// step 3
+    input_B=fopen("bess_B.txt","r"); //* open a text file for reading */
+    i = 0;
+    while(fscanf(input_B,"%lf%lf", &c1_B, &c2_B) !=EOF ){
+        
+        wavelength_B[i] = c1_B;             //* fill the array */
+        transmission_B[i] = c2_B;
+        i += 1 ;
+        /// i = i + 1 ;
+    }
+    fclose(input_B);
+    
+    for(i = 0; i < numberofloop_B ; i++){
+        printf("%g\t%g\n",wavelength_B[i], transmission_B[i]);  //* print the arrays */
+    }
+    
+    
+    /**  Husne,  19/10/2018
+     *  Now compute the integral for B band.
+     */
+    double compute_integral_B = 0.0;
+    double deltaLambda_B;
+    double summ_region_with_i_B;
+    double summ_region_with_im1_B;
+    for(i = 1; i < numberofloop_B ; i++){
+        
+        deltaLambda_B = (wavelength_B[i]*angstrom-wavelength_B[i-1]*angstrom);
+        summ_region_with_i_B = 0.0;
+        summ_region_with_im1_B = 0.0;
+        
+        for (j=0; j < Nr*Ntheta; j++){
+            R_in = disk[j].radius/sqrt(step);        /** from the center to the first layer of any region **/
+            R_out = disk[j].radius*sqrt(step);       /** from the center to the last layer of any region **/
+            theta_in = disk[j].theta-(step/2.0);    /** from the origine to the first layer of any region on the bottom**/
+            theta_out = disk[j].theta+(step/2.0);   /** from the origine to the last layer of any region on the top**/
+            
+            summ_region_with_i_B += spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength_B[i]*angstrom, disk[j].temp);
+            summ_region_with_im1_B += spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength_B[i-1]*angstrom, disk[j].temp);
+            
+        }
+        compute_integral_B = compute_integral_B + deltaLambda_B*0.5*(transmission_B[i-1]*summ_region_with_im1_B + transmission_B[i]*summ_region_with_i_B ) ;
+        
+    }
+    printf("%g\t\n",compute_integral_B);  //* print the arrays */
+    
+    
+    
+    /** ************************************************
+     * ************************************************
+     * ************************************************
+     * ************************************************
+     * ************************************************
+     */
+    
+    
+    /**  Husne,  19/10/2018
+     *  compute the color variability and plot them
+     */
+    double *color_variation_BU;
+    color_variation_BU = (double *) calloc(numberofloop_B,sizeof(double));
+    for(i = 0; i < numberofloop_B ; i++){
+        //for(j = 0; j < numberofloop_U ; j++){
+        color_variation_BU[i] = wavelength_B[i]/ wavelength_U[i];
+        printf("%g\t\n",color_variation_BU[i]);  //* print the arrays */
+       // }
+    }
+
 
     free(r);
     free(theta);
     free(disk);
+    free(wavelength_U);
+    free(transmission_U);
+    free(wavelength_B);
+    free(transmission_B);
+
 
     return 0;
 }
