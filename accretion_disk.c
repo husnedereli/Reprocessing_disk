@@ -159,22 +159,21 @@ int main(){
     double temperature;
     double omega = 10.0*c/r_out;
     /** call the functions **/
-    FILE *test;
-    test = fopen("temperature.txt","a");
+    //FILE *test;
+    //test = fopen("temperature.txt","a");
     for (i=0; i < Nr; i++){
         for (j=0; j < Ntheta; j++){
             t = 10.0;
             temperature = temp_profile (t, r[i], theta[j], M, M_rate, r_in, A, h_star, inc_angle, L_bol, omega);
             //printf("Temperature[%d]: %g\n",i, temperature);
-            fprintf(test, "%g\t%g\t%g\n", r[i], theta[j], temperature);
+            //fprintf(test, "%g\t%g\t%g\n", r[i], theta[j], temperature);
             /** fill the disks with elements (temp) of regions **/
             disk[i*Ntheta+j].temp = temperature;
         }
-        fprintf(test, "\n");
+        //fprintf(test, "\n");
     }
-    fclose(test);
+    //fclose(test);
 
-    return 0;
 
 
 
