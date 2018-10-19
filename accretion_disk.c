@@ -153,12 +153,16 @@ int main(){
     //printf("Rg = %g\t r_star = %g\t M_rate = %g\t")
 
     //double t;
+    int Ntime = 1000;
     double *t;
-    t = (double *) calloc(1000,sizeof(double));
-    for (i=0; i<100; i++){
+    t = (double *) calloc(Ntime,sizeof(double));
+    for (i=0; i<Ntime; i++){
         t[i] = i/2.0;
+    //    printf("t=%g\n", t[i]);
     }
-    
+
+    //getchar();
+
     double lag;
     double Lstar;
     double rstar;
@@ -171,9 +175,9 @@ int main(){
     for (i=0; i < Nr; i++){
         for (j=0; j < Ntheta; j++){
             //t = 10.0;
-            for (k=0; k < 100; k++){
+            for (k=0; k < Ntime; k++){
                 temperature = temp_profile (t[k], r[i], theta[j], M, M_rate, r_in, A, h_star, inc_angle, L_bol, omega);
-                printf("Temperature[%d]: %g\n",i, temperature);
+                //printf("Temperature[%d]: %g\n",i, temperature);
                 //fprintf(test, "%g\t%g\t%g\n", r[i], theta[j], temperature);
                 /** fill the disks with elements (temp) of regions **/
                 disk[i*Ntheta+j].temp = temperature;
@@ -294,18 +298,18 @@ int main(){
     printf("%g\t\n",compute_integral_U);  //* print the arrays */
 
 
-    
+
     /**  Husne,  19/10/2018
      *  Convolotion with the filter bandpass.
      Read a txt file for B bandpass.
      */
-    
+
     FILE *input_B;
     double c1_B, c2_B;
     int numberofloop_B = 0;
-    
+
     input_B=fopen("bess_B.txt","r");      //* open a text file for reading */
-    
+
     /**  Here %lf means type double */
     /// step 1
     while(fscanf(input_B,"%lf%lf", &c1_B, &c2_B) !=EOF ){
@@ -313,31 +317,31 @@ int main(){
         /// Previous line is equivalent to      numberofloop_B = numberofloop_B + 1;                 //* caunt the number of loop */
     }
     fclose(input_B);
-    
+
     /// step 2
     double *wavelength_B;                 //* create an array */
     wavelength_B = (double *) calloc(numberofloop_B,sizeof(double));
     double *transmission_B;
     transmission_B = (double *) calloc(numberofloop_B,sizeof(double));
-    
-    
+
+
     /// step 3
     input_B=fopen("bess_B.txt","r"); //* open a text file for reading */
     i = 0;
     while(fscanf(input_B,"%lf%lf", &c1_B, &c2_B) !=EOF ){
-        
+
         wavelength_B[i] = c1_B;             //* fill the array */
         transmission_B[i] = c2_B;
         i += 1 ;
         /// i = i + 1 ;
     }
     fclose(input_B);
-    
+
     for(i = 0; i < numberofloop_B ; i++){
         printf("%g\t%g\n",wavelength_B[i], transmission_B[i]);  //* print the arrays */
     }
-    
-    
+
+
     /**  Husne,  19/10/2018
      *  Now compute the integral for B band.
      */
@@ -346,36 +350,36 @@ int main(){
     double summ_region_with_i_B;
     double summ_region_with_im1_B;
     for(i = 1; i < numberofloop_B ; i++){
-        
+
         deltaLambda_B = (wavelength_B[i]*angstrom-wavelength_B[i-1]*angstrom);
         summ_region_with_i_B = 0.0;
         summ_region_with_im1_B = 0.0;
-        
+
         for (j=0; j < Nr*Ntheta; j++){
             R_in = disk[j].radius/sqrt(step);        /** from the center to the first layer of any region **/
             R_out = disk[j].radius*sqrt(step);       /** from the center to the last layer of any region **/
             theta_in = disk[j].theta-(step/2.0);    /** from the origine to the first layer of any region on the bottom**/
             theta_out = disk[j].theta+(step/2.0);   /** from the origine to the last layer of any region on the top**/
-            
+
             summ_region_with_i_B += spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength_B[i]*angstrom, disk[j].temp);
             summ_region_with_im1_B += spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength_B[i-1]*angstrom, disk[j].temp);
-            
+
         }
         compute_integral_B = compute_integral_B + deltaLambda_B*0.5*(transmission_B[i-1]*summ_region_with_im1_B + transmission_B[i]*summ_region_with_i_B ) ;
-        
+
     }
     printf("%g\t\n",compute_integral_B);  //* print the arrays */
-    
-    
-    
+
+
+
     /** ************************************************
      * ************************************************
      * ************************************************
      * ************************************************
      * ************************************************
      */
-    
-    
+
+
     /**  Husne,  19/10/2018
      *  compute the color variability and plot them
      */
