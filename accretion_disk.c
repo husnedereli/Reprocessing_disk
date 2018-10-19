@@ -33,11 +33,17 @@ double lag_tao(double r, double theta, double inc_angle, double h_star){
     return sqrt(pow(h_star,2.0)+pow(r,2.0))+h_star*cos(inc_angle)-r*cos(theta)*sin(inc_angle);
 }
 
-/** define the Function of the luminosity **/
-double L_star(double t, double r, double theta, double inc_angle, double h_star){
-    //return t-lag_tao(r, theta, inc_angle, h_star)/c;
-    return 0;
+///** define the Function of the luminosity **/
+//double L_star(double t, double r, double theta, double inc_angle, double h_star){
+//    //return t-lag_tao(r, theta, inc_angle, h_star)/c;
+//    return 0;
+//}
+
+double L_star(double L_bol, double omega, double t){
+    //omega = 3*c/R_out
+    return 0.15*L_bol*(1+sin(omega*t));
 }
+
 
 
 /** define the Function of the distance from the central variable source to disk elements **/
@@ -46,9 +52,10 @@ double r_star(double r, double h_star){
 }
 
 /** define the Function of the temperature profile **/
-double temp_profile(double t, double r, double theta, double M, double M_rate, double r_in, double A, double h_star, double inc_angle){
+double temp_profile(double t, double r, double theta, double M, double M_rate, double r_in, double A, double h_star, double inc_angle, double L_bol, double omega){
 
-    double Lstar = L_star(t, r, theta, inc_angle, h_star);
+    //double Lstar = L_star(t, r, theta, inc_angle, h_star);
+    double Lstar = L_star(L_bol, omega, t);
     double rstar = r_star(r, h_star);
     return pow(((3.0*Ggrav*M*M_rate)/(8.0*pi*sigmaSB*pow(r,3.0)))*(1.0-sqrt(r_in/r)) +((1.0-A)*(h_star*Lstar/(4.0*pi*sigmaSB*pow(rstar,3.0)))),0.25);
 }
@@ -69,23 +76,6 @@ double Planck_Function(double lambda, double temperature){
 double spectrum(double inc_angle, double D, double theta_in, double theta_out, double R_in, double R_out, double lambda, double temperature){
     return (cos(inc_angle)/pow(D,2.0))*Planck_Function(lambda, temperature)*(theta_out-theta_in)*(pow(R_out,2.0)/2.0-pow(R_in,2.0)/2.0);
 }
-
-
-/**  Husne, 18/10/2018
- *  Here I define all the function required for the convolotion with the filter bandpass.
- */
-
-/** define the response Function **/
-/*double response(double R, double lambda_max, double lambda_min){
-    return (pow(R(lambda_max),2)/2)-(pow(R(lambda_min),2)/2);
-}*/
-
-/** define the convolation Function **/
-/*double convolation(double inc_angle, double D, double theta_in, double theta_out, double R_in, double R_out, double lambda, double temperature, double R, double lambda_max, double lambda_min){
-    double spectra = spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, lambda, temperature);
-    return spectra*response(R, lambda_max, lambda_min);
-}*/
-
 
 
 
@@ -150,7 +140,7 @@ int main(){
     double h_star = 10.0*Rg;                /** the vertical distance from the cetral variable source to disk **/
     double M_rate = 1.0*Msun;               /** M_sun yr^-1, the typical black hole accretion rate , converted to gr **/
     double A = 0.5;                         /** the disk albedo **/
-    //double L_bol = 2.82e44; /** the bolometric luminosity **/
+    double L_bol = 2.82e44; /** the bolometric luminosity **/
     //double L_star = 0.5*L_bol; /** the luminosity of central variable source **/
 
 
@@ -159,12 +149,13 @@ int main(){
     double Lstar;
     double rstar;
     double temperature;
+    double omega = 3*c/r_out;
     /** call the functions **/
     for (i=0; i < Nr; i++){
         for (j=0; j < Ntheta; j++){
             t = 10.0;
-            temperature = temp_profile (t, r[i], theta[j], M, M_rate, r_in, A, h_star, inc_angle);
-            // printf("Temperature[%d]: %g\n",i, temperature);
+            temperature = temp_profile (t, r[i], theta[j], M, M_rate, r_in, A, h_star, inc_angle, L_bol, omega);
+             printf("Temperature[%d]: %g\n",i, temperature);
             /** fill the disks with elements (temp) of regions **/
             disk[i*Ntheta+j].temp = temperature;
         }
@@ -207,7 +198,8 @@ int main(){
 
 
     /**  Husne,  11/10/2018
-      *  Read a txt file for U bandpass.
+      *  Convolotion with the filter bandpass.
+         Read a txt file for U bandpass.
       */
 
     FILE *input;
