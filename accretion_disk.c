@@ -55,9 +55,15 @@ double r_star(double r, double h_star){
 double temp_profile(double t, double r, double theta, double M, double M_rate, double r_in, double A, double h_star, double inc_angle, double L_bol, double omega){
 
     //double Lstar = L_star(t, r, theta, inc_angle, h_star);
-    double Lstar = L_star(L_bol, omega, t);
+    /// Compute the time lag up to the radius.
+    double tau = sqrt(pow(h_star,2.0)+pow(r,2.0))+h_star*cos(inc_angle)-r*cos(theta*0.0174532925)*sin(inc_angle);
+    tau = tau/c;
+    double Lstar = L_star(L_bol, omega, t - tau);
     double rstar = r_star(r, h_star);
-    return pow(((3.0*Ggrav*M*M_rate)/(8.0*pi*sigmaSB*pow(r,3.0)))*(1.0-sqrt(r_in/r)) +((1.0-A)*(h_star*Lstar/(4.0*pi*sigmaSB*pow(rstar,3.0)))),0.25);
+    //printf("Contrib 1 = %g\t contrib 2 = %g\n ",((3.0*Ggrav*M*M_rate)/(8.0*pi*sigmaSB*pow(r,3.0)))*(1.0-sqrt(r_in/r)),  ((1.0-A)*(h_star*Lstar/(4.0*pi*sigmaSB*pow(rstar,3.0)))));
+    //getchar();
+    //printf()
+    return pow(((3.0*Ggrav*M*M_rate)/(8.0*pi*sigmaSB*pow(r,3.0)))*(1.0-sqrt(r_in/r)) +((1.0-A)*(h_star*Lstar/(4.0*pi*sigmaSB*pow(rstar,3.0)))) ,0.25);
 }
 
 
@@ -138,28 +144,39 @@ int main(){
 
     double inc_angle = 45.0*0.0174532925;   /** inclination angle , converted to radian **/
     double h_star = 10.0*Rg;                /** the vertical distance from the cetral variable source to disk **/
-    double M_rate = 1.0*Msun;               /** M_sun yr^-1, the typical black hole accretion rate , converted to gr **/
+    double M_rate = 1.0*Msun/31557600.0;    /** M_sun yr^-1, the typical black hole accretion rate , converted to gr **/
+                                            /** the numerical factor converts from year to second: we are working in cgs: cm gram second.*/
     double A = 0.5;                         /** the disk albedo **/
-    double L_bol = 2.82e44; /** the bolometric luminosity **/
+    double L_bol = 2.82e46; /** the bolometric luminosity **/
     //double L_star = 0.5*L_bol; /** the luminosity of central variable source **/
 
+    //printf("Rg = %g\t r_star = %g\t M_rate = %g\t")
 
     double t;
     double lag;
     double Lstar;
     double rstar;
     double temperature;
-    double omega = 3*c/r_out;
+    double omega = 10.0*c/r_out;
     /** call the functions **/
+    FILE *test;
+    test = fopen("temperature.txt","a");
     for (i=0; i < Nr; i++){
         for (j=0; j < Ntheta; j++){
             t = 10.0;
             temperature = temp_profile (t, r[i], theta[j], M, M_rate, r_in, A, h_star, inc_angle, L_bol, omega);
-             printf("Temperature[%d]: %g\n",i, temperature);
+            //printf("Temperature[%d]: %g\n",i, temperature);
+            fprintf(test, "%g\t%g\t%g\n", r[i], theta[j], temperature);
             /** fill the disks with elements (temp) of regions **/
             disk[i*Ntheta+j].temp = temperature;
         }
+        fprintf(test, "\n");
     }
+    fclose(test);
+
+    return 0;
+
+
 
     /**  Husne,  9/10/2018
       *  Now I compute the radiation from such disk.
