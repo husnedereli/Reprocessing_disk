@@ -323,7 +323,6 @@ int main(){
             for (l=0; l < Nr; l++){
                 int m;
                 for (m=0; m < Ntheta; m++){
-                    //t = 10.0;
                     for (k=0; k < Ntime; k++){
                         Temperature_U = temp_profile(time[k], r[l], theta[m], M, M_rate, r_in, A, h_star, inc_angle, L_bol, omega);
                         summ_region_with_i_U += spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength_U[i]*angstrom, Temperature_U);
@@ -335,17 +334,11 @@ int main(){
                         
                         compute_integral_U[k] = compute_integral_U[k] + deltaLambda_U*0.5*(transmission_U[i-1]*summ_region_with_im1_U + transmission_U[i]*summ_region_with_i_U );
                         compute_integral_U_tplustau[k] = compute_integral_U_tplustau[k] + deltaLambda_U*0.5*(transmission_U[i-1]*summ_region_with_im1_U_tplustau + transmission_U[i]*summ_region_with_i_U_tplustau);
-                        
                         //printf("%g\t\n",compute_integral_U[k]);  //* print the arrays */
-
                     }
                 }
             }
-            
-
         }
-        
-
     }
     
 
@@ -427,7 +420,6 @@ int main(){
             for (l=0; l < Nr; l++){
                 int m;
                 for (m=0; m < Ntheta; m++){
-                    //t = 10.0;
                     for (k=0; k < Ntime; k++){
                         Temperature_B = temp_profile(time[k], r[l], theta[m], M, M_rate, r_in, A, h_star, inc_angle, L_bol, omega);
                         summ_region_with_i_B += spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength_B[i]*angstrom, Temperature_B);
@@ -439,17 +431,11 @@ int main(){
                         
                         compute_integral_B[k] = compute_integral_B[k] + deltaLambda_B*0.5*(transmission_B[i-1]*summ_region_with_im1_B + transmission_B[i]*summ_region_with_i_B );
                         compute_integral_B_tplustau[k] = compute_integral_B_tplustau[k] + deltaLambda_B*0.5*(transmission_B[i-1]*summ_region_with_im1_B_tplustau + transmission_B[i]*summ_region_with_i_B_tplustau);
-                        
                         //printf("%g\t\n",compute_integral_B[k]);  //* print the arrays */
-                        
                     }
                 }
             }
-            
-            
         }
-        
-        
     }
 
 
@@ -477,8 +463,11 @@ int main(){
 
     
 
-
-    
+    free(compute_integral_U);
+    free(compute_integral_U_tplustau);
+    free(compute_integral_B);
+    free(compute_integral_B_tplustau);
+    free(S_BU);
     free(r);
     free(theta);
     free(disk);
