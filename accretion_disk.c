@@ -336,7 +336,7 @@ int main(){
                         compute_integral_U[k] = compute_integral_U[k] + deltaLambda_U*0.5*(transmission_U[i-1]*summ_region_with_im1_U + transmission_U[i]*summ_region_with_i_U );
                         compute_integral_U_tplustau[k] = compute_integral_U_tplustau[k] + deltaLambda_U*0.5*(transmission_U[i-1]*summ_region_with_im1_U_tplustau + transmission_U[i]*summ_region_with_i_U_tplustau);
                         
-                        printf("%g\t\n",compute_integral_U[k]);  //* print the arrays */
+                        //printf("%g\t\n",compute_integral_U[k]);  //* print the arrays */
 
                     }
                 }
@@ -440,7 +440,7 @@ int main(){
                         compute_integral_B[k] = compute_integral_B[k] + deltaLambda_B*0.5*(transmission_B[i-1]*summ_region_with_im1_B + transmission_B[i]*summ_region_with_i_B );
                         compute_integral_B_tplustau[k] = compute_integral_B_tplustau[k] + deltaLambda_B*0.5*(transmission_B[i-1]*summ_region_with_im1_B_tplustau + transmission_B[i]*summ_region_with_i_B_tplustau);
                         
-                        printf("%g\t\n",compute_integral_B[k]);  //* print the arrays */
+                        //printf("%g\t\n",compute_integral_B[k]);  //* print the arrays */
                         
                     }
                 }
@@ -472,7 +472,7 @@ int main(){
     for(i = 0; i < tau_value ; i++){
         S_BU[i] = S_BU[i] + (compute_integral_B_tplustau[i]-compute_integral_B[i])/(compute_integral_U_tplustau[i]-compute_integral_U[i]);
         avarage_SBU = S_BU[i]/tau_value;
-        printf("%g\t\n",S_BU[i]);  //* print the arrays */
+        //printf("%g\t\n",avarage_SBU);  //* print the arrays */
     }
 
     
