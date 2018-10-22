@@ -266,7 +266,7 @@ int main(){
      */
     
 
-    int Ntime = 5000;            /** 5000days*86400 = seconds **/
+    int Ntime = 10;            /** 5000days*86400 = seconds **/
     double *time;
     time = (double *) calloc(Ntime,sizeof(double));
     for (i=0; i<Ntime; i++){
@@ -315,23 +315,23 @@ int main(){
             theta_out = disk[j].theta+(step/2.0);   /** from the origine to the last layer of any region on the top**/
             
             int k;
-            double *Temperature_U;
-            Temperature_U = (double *) calloc(Ntime,sizeof(double));
-            double *Temperature_tplustau_U;
-            Temperature_tplustau_U = (double *) calloc(Ntime,sizeof(double));
+            double Temperature_U = 0.0;
+            //Temperature_U = (double *) calloc(Ntime,sizeof(double));
+            double Temperature_tplustau_U = 0.0;
+            //Temperature_tplustau_U = (double *) calloc(Ntime,sizeof(double));
             int l;
             for (l=0; l < Nr; l++){
                 int m;
                 for (m=0; m < Ntheta; m++){
                     //t = 10.0;
                     for (k=0; k < Ntime; k++){
-                        Temperature_U[k] = temp_profile(time[k], r[l], theta[m], M, M_rate, r_in, A, h_star, inc_angle, L_bol, omega);
-                        summ_region_with_i_U += spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength_U[i]*angstrom, Temperature_U[k]);
-                        summ_region_with_im1_U += spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength_U[i-1]*angstrom, Temperature_U[k]);
+                        Temperature_U = temp_profile(time[k], r[l], theta[m], M, M_rate, r_in, A, h_star, inc_angle, L_bol, omega);
+                        summ_region_with_i_U += spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength_U[i]*angstrom, Temperature_U);
+                        summ_region_with_im1_U += spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength_U[i-1]*angstrom, Temperature_U);
                         
-                        Temperature_tplustau_U[k] = temp_profile(time[k]+tau_time, r[l], theta[m], M, M_rate, r_in, A, h_star, inc_angle, L_bol, omega);
-                        summ_region_with_i_U_tplustau += spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength_U[i]*angstrom, Temperature_tplustau_U[k]);
-                        summ_region_with_im1_U_tplustau += spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength_U[i-1]*angstrom, Temperature_tplustau_U[k]);
+                        Temperature_tplustau_U = temp_profile(time[k]+tau_time, r[l], theta[m], M, M_rate, r_in, A, h_star, inc_angle, L_bol, omega);
+                        summ_region_with_i_U_tplustau += spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength_U[i]*angstrom, Temperature_tplustau_U);
+                        summ_region_with_im1_U_tplustau += spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength_U[i-1]*angstrom, Temperature_tplustau_U);
                         
                         compute_integral_U[k] = compute_integral_U[k] + deltaLambda_U*0.5*(transmission_U[i-1]*summ_region_with_im1_U + transmission_U[i]*summ_region_with_i_U );
                         compute_integral_U_tplustau[k] = compute_integral_U_tplustau[k] + deltaLambda_U*0.5*(transmission_U[i-1]*summ_region_with_im1_U_tplustau + transmission_U[i]*summ_region_with_i_U_tplustau);
@@ -419,23 +419,23 @@ int main(){
             theta_out = disk[j].theta+(step/2.0);   /** from the origine to the last layer of any region on the top**/
             
             int k;
-            double *Temperature_B;
-            Temperature_B = (double *) calloc(Ntime,sizeof(double));
-            double *Temperature_tplustau_B;
-            Temperature_tplustau_B = (double *) calloc(Ntime,sizeof(double));
+            double Temperature_B = 0.0;
+            //Temperature_B = (double *) calloc(Ntime,sizeof(double));
+            double Temperature_tplustau_B = 0.0;
+            //Temperature_tplustau_B = (double *) calloc(Ntime,sizeof(double));
             int l;
             for (l=0; l < Nr; l++){
                 int m;
                 for (m=0; m < Ntheta; m++){
                     //t = 10.0;
                     for (k=0; k < Ntime; k++){
-                        Temperature_B[k] = temp_profile(time[k], r[l], theta[m], M, M_rate, r_in, A, h_star, inc_angle, L_bol, omega);
-                        summ_region_with_i_B += spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength_B[i]*angstrom, Temperature_B[k]);
-                        summ_region_with_im1_B += spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength_B[i-1]*angstrom, Temperature_B[k]);
+                        Temperature_B = temp_profile(time[k], r[l], theta[m], M, M_rate, r_in, A, h_star, inc_angle, L_bol, omega);
+                        summ_region_with_i_B += spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength_B[i]*angstrom, Temperature_B);
+                        summ_region_with_im1_B += spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength_B[i-1]*angstrom, Temperature_B);
                         
-                        Temperature_tplustau_B[k] = temp_profile(time[k]+tau_time, r[l], theta[m], M, M_rate, r_in, A, h_star, inc_angle, L_bol, omega);
-                        summ_region_with_i_B_tplustau += spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength_B[i]*angstrom, Temperature_tplustau_B[k]);
-                        summ_region_with_im1_B_tplustau += spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength_B[i-1]*angstrom, Temperature_tplustau_B[k]);
+                        Temperature_tplustau_B = temp_profile(time[k]+tau_time, r[l], theta[m], M, M_rate, r_in, A, h_star, inc_angle, L_bol, omega);
+                        summ_region_with_i_B_tplustau += spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength_B[i]*angstrom, Temperature_tplustau_B);
+                        summ_region_with_im1_B_tplustau += spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength_B[i-1]*angstrom, Temperature_tplustau_B);
                         
                         compute_integral_B[k] = compute_integral_B[k] + deltaLambda_B*0.5*(transmission_B[i-1]*summ_region_with_im1_B + transmission_B[i]*summ_region_with_i_B );
                         compute_integral_B_tplustau[k] = compute_integral_B_tplustau[k] + deltaLambda_B*0.5*(transmission_B[i-1]*summ_region_with_im1_B_tplustau + transmission_B[i]*summ_region_with_i_B_tplustau);
