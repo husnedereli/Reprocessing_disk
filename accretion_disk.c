@@ -200,7 +200,7 @@ int main(){
                 //fprintf(test, "%g\t%g\t%g\n", r[i], theta[j], temperature);
                 /** fill the disks with elements (temp) of regions **/
                 //disk[i*Ntheta+j].temp = temperature;
-                disk[i*Ntheta+j].temp = temperature/k;
+                disk[i*Ntheta+j].temp = temperature/Ntime;
             }
         }
         //fprintf(test, "\n");
@@ -231,7 +231,7 @@ int main(){
                 //fprintf(test, "%g\t%g\t%g\n", r[i], theta[j], temperature);
                 /** fill the disks with elements (temp) of regions **/
                 //disk[i*Ntheta+j].temp_tplustau = temperature_tplustau;
-                disk[i*Ntheta+j].temp_tplustau = temperature_tplustau/k;
+                disk[i*Ntheta+j].temp_tplustau = temperature_tplustau/Ntime;
             }
         }
         //fprintf(test, "\n");
