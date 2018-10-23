@@ -174,8 +174,8 @@ int main(){
         //fprintf(test, "\n");
     }
     //fclose(test);
-    
-    
+
+
 
     /**  Husne,  9/10/2018
       *  Now I compute the radiation from such disk.
@@ -204,10 +204,10 @@ int main(){
 
 
 
-    
-    
-    
-    
+
+
+
+
 
 
     /** ************************************************
@@ -260,8 +260,8 @@ int main(){
          //printf("%g\t%g\n",wavelength_U[i], transmission_U[i]);  //* print the arrays */
     }
 
-    
-    
+
+
 
     /**  Husne,  19/10/2018
      *  Convolotion with the filter bandpass.
@@ -306,7 +306,7 @@ int main(){
     }
 
 
- 
+
     /** ************************************************
      * ************************************************
      * ************************************************
@@ -315,17 +315,17 @@ int main(){
      */
 
 
-    
-    
-    
+
+
+
     /**  Husne, 20/10/2018
      * I define the time and tau_time as arrays
      */
     // 1) SET the tau so give the value of tau
     double tau_time = 3;
-    
+
     // a) make the sum of all the S(tau, t)*1/Ntime
-    
+
     int Ntime = 10;            /** 5000days*86400 = seconds **/
     double *time;
     time = (double *) calloc(Ntime,sizeof(double));
@@ -339,12 +339,12 @@ int main(){
     //avarage_SBU = (double *) calloc(Ntau,sizeof(double));
     double *S_BU; /**color_variation of BU */
     S_BU = (double *) calloc(Ntime,sizeof(double));
-    
-    
-    // ii) compute f(tau, t), f(t) for U band and f(tau, t), f(t) for B band
-    
-    
-    
+
+
+    ///  ii) compute f(tau, t) , f(t) for U band and f(tau, t), f(t) for B band
+
+
+
     /**  Husne,  18/10/2018 *  Now compute the integral for U band. */
     double *compute_integral_U;
     compute_integral_U = (double *) calloc(Ntime,sizeof(double));
@@ -357,7 +357,7 @@ int main(){
     double summ_region_with_im1_U_tplustau;
     double Temperature_U = 0.0;
     double Temperature_tplustau_U = 0.0;
-    
+
     /**  Husne,  19/10/2018 *  Now compute the integral for B band.*/
     double *compute_integral_B;
     compute_integral_B = (double *) calloc(Ntime,sizeof(double));
@@ -370,14 +370,17 @@ int main(){
     double summ_region_with_im1_B_tplustau;
     double Temperature_B = 0.0;
     double Temperature_tplustau_B = 0.0;
-    
+
+    /** Loop for the time, because I need to compute an average with respect to time */
     for (k=0; k < Ntime; k++){
-        
+        /**  I need to compute S for all t
+          *  I need to compute f(t+tau),
+          */
         for(i = 1; i < numberofloop_B ; i++){
             deltaLambda_U = (wavelength_U[i]*angstrom-wavelength_U[i-1]*angstrom);
             summ_region_with_i_U = 0.0;
             summ_region_with_im1_U = 0.0;
-            
+
             deltaLambda_B = (wavelength_B[i]*angstrom-wavelength_B[i-1]*angstrom);
             summ_region_with_i_B = 0.0;
             summ_region_with_im1_B = 0.0;
@@ -387,7 +390,7 @@ int main(){
                 R_out = disk[j].radius*sqrt(step);       /** from the center to the last layer of any region **/
                 theta_in = disk[j].theta-(step/2.0);    /** from the origine to the first layer of any region on the bottom**/
                 theta_out = disk[j].theta+(step/2.0);   /** from the origine to the last layer of any region on the top**/
-                
+
                 /** compute the integral for U band.*/
                 /**  Husne, 22/10/2018 * Compute the temperature for t */
                 Temperature_U = temp_profile(time[k], disk[j].radius, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, omega);
@@ -397,17 +400,17 @@ int main(){
                 Temperature_tplustau_U = temp_profile(time[k]+tau_time, disk[j].radius, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, omega);
                 summ_region_with_i_U_tplustau += spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength_U[i]*angstrom, Temperature_tplustau_U);
                 summ_region_with_im1_U_tplustau += spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength_U[i-1]*angstrom, Temperature_tplustau_U);
-                
+
                 compute_integral_U[k] = compute_integral_U[k] + deltaLambda_U*0.5*(transmission_U[i-1]*summ_region_with_im1_U + transmission_U[i]*summ_region_with_i_U );
                 compute_integral_U_tplustau[k] = compute_integral_U_tplustau[k] + deltaLambda_U*0.5*(transmission_U[i-1]*summ_region_with_im1_U_tplustau + transmission_U[i]*summ_region_with_i_U_tplustau);
                         //printf("%g\t\n",compute_integral_U[k]);  //* print the arrays *
-                
+
                 //for (k=0; k < Ntime; k++){
                 //    printf("%g\t\n",compute_integral_U[k]);  //* print the arrays */
                 //     printf("%g\t\n",compute_integral_U_tplustau[k]);  //* print the arrays */
                 // }
-                
-                
+
+
                 /** compute the integral for B band.*/
                 /**  Husne, 22/10/2018 * Compute the temperature for t */
                 Temperature_B = temp_profile(time[k], disk[j].radius, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, omega);
@@ -417,7 +420,7 @@ int main(){
                 Temperature_tplustau_B = temp_profile(time[k]+tau_time, disk[j].radius, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, omega);
                 summ_region_with_i_B_tplustau += spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength_B[i]*angstrom, Temperature_tplustau_B);
                 summ_region_with_im1_B_tplustau += spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength_B[i-1]*angstrom, Temperature_tplustau_B);
-                
+
                 compute_integral_B[k] = compute_integral_B[k] + deltaLambda_B*0.5*(transmission_B[i-1]*summ_region_with_im1_B + transmission_B[i]*summ_region_with_i_B );
                 compute_integral_B_tplustau[k] = compute_integral_B_tplustau[k] + deltaLambda_B*0.5*(transmission_B[i-1]*summ_region_with_im1_B_tplustau + transmission_B[i]*summ_region_with_i_B_tplustau);
                 //printf("%g\t\n",compute_integral_B[k]);  //* print the arrays */
@@ -436,18 +439,18 @@ int main(){
         //printf("%g\t\n",(compute_integral_U_tplustau[i]-compute_integral_U[i]));  //* print the arrays */
     }
     printf("%g\t\n",avarage_SBU);  //* print the arrays */
-    
-    
-    
-    
+
+
+
+
     //FILE *gnuplot = popen("gnuplot", "w");
     //fprintf(gnuplot, "plot '-'\n");
     //for (i = 0; i < Ntau; i++)
     //    fprintf(gnuplot, "%g %g\n", tau_time[i], avarage_SBU[i]);
     // fprintf(gnuplot, "e\n");
     // fflush(gnuplot);
-    
-    
+
+
 
 
     free(compute_integral_U);
