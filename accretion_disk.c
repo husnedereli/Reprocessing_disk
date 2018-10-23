@@ -147,9 +147,6 @@ int main(){
     //printf("Rg = %g\t r_star = %g\t M_rate = %g\t")
 
     double t;
-    double lag;
-    double Lstar;
-    double rstar;
     double temperature;
     double omega = 10.0*c/r_out;
     /** call the functions **/
@@ -182,7 +179,7 @@ int main(){
     double theta_in;
     double theta_out;
     double SED;
-    double lambda;
+    double lambda = 0.0;
     /** call the functions **/
     for (j=0; j < Nr*Ntheta; j++){
 
@@ -316,7 +313,16 @@ int main(){
      * I define the time and tau_time as arrays
      */
     // 1) SET the tau so give the value of tau
-    double tau_time = 3;
+    int tau_bin[7] = {3, 6, 10, 20, 40, 100, 200};
+    double Ntau = 7;
+    double *tau_time;
+    tau_time = (double *) calloc(Ntau,sizeof(double));
+    for (i=0; i<Ntau; i++){
+        tau_time[i] = tau_bin[i];
+        printf("%g\t\n",tau_time[i]);  //* print the arrays */
+    }
+    
+    
     int Ntime = 10;            /** 5000days*86400 = seconds **/
     double *time;
     time = (double *) calloc(Ntime,sizeof(double));
@@ -356,6 +362,9 @@ int main(){
     double f_U_i;
     double f_B_i;
 
+    
+    /** Loop for the tau, because I need to compute the average S for all tau */
+    for (l=0; l < Ntau; l++){
 
     /** Loop for the time, because I need to compute an average with respect to time */
     for (k=0; k < Ntime; k++){
@@ -449,13 +458,9 @@ int main(){
 
     }
     avarage_SBU = S_BU/Ntime;
-    printf("%g\t\n", avarage_SBU );
-
-
-
-
-
-
+    printf("%g\t\n", avarage_SBU);
+    }
+    
     free(r);
     free(theta);
     free(disk);
