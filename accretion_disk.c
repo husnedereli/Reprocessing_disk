@@ -281,7 +281,7 @@ int main(){
     tau_time = (double *) calloc(Ntau,sizeof(double));
     for (i=0; i<Ntau; i++){
         tau_time[i] = tau_bin[i];
-        printf("%g\t\n",tau_time[i]);  //* print the arrays */
+        //printf("%g\t\n",tau_time[i]);  //* print the arrays */
     }
     
     //int tau_time = 3;
@@ -487,6 +487,15 @@ int main(){
         printf("%g\t\n",avarage_SBU[j]);  //* print the arrays */
     }
     
+    
+    
+    //FILE *gnuplot = popen("gnuplot", "w");
+    //fprintf(gnuplot, "plot '-'\n");
+    //for (i = 0; i < Ntau; i++)
+    //    fprintf(gnuplot, "%g %g\n", tau_time[i], avarage_SBU[i]);
+   // fprintf(gnuplot, "e\n");
+   // fflush(gnuplot);
+
 
     free(compute_integral_U);
     free(compute_integral_U_tplustau);
