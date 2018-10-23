@@ -323,9 +323,6 @@ int main(){
      */
     // 1) SET the tau so give the value of tau
     double tau_time = 3;
-
-    // a) make the sum of all the S(tau, t)*1/Ntime
-
     int Ntime = 10;            /** 5000days*86400 = seconds **/
     double *time;
     time = (double *) calloc(Ntime,sizeof(double));
@@ -333,6 +330,8 @@ int main(){
         time[i] = i/2.0;
         //printf("time=%g\n", t[i]);
     }
+
+    // a) make the sum of all the S(tau, t)*1/Ntime
     // i) compute all S for all t
     /**  Husne,  19/10/2018 *  compute the color variability and plot them */
     double avarage_SBU = 0.0;
@@ -374,9 +373,9 @@ int main(){
     /** Loop for the time, because I need to compute an average with respect to time */
     for (k=0; k < Ntime; k++){
         /**  I need to compute S for all t
-          *  I need to compute f(t+tau),
+          *  I need to compute f(t+tau), f(t) for U band
           */
-        for(i = 1; i < numberofloop_B ; i++){
+        for(i = 1; i < numberofloop_U ; i++){
             deltaLambda_U = (wavelength_U[i]*angstrom-wavelength_U[i-1]*angstrom);
             summ_region_with_i_U = 0.0;
             summ_region_with_im1_U = 0.0;
@@ -410,6 +409,22 @@ int main(){
                 //     printf("%g\t\n",compute_integral_U_tplustau[k]);  //* print the arrays */
                 // }
 
+            }
+        }
+        /**
+         *  I need to compute f(t+tau), f(t) for B band
+         */
+        for(i = 1; i < numberofloop_B ; i++){
+            
+            deltaLambda_B = (wavelength_B[i]*angstrom-wavelength_B[i-1]*angstrom);
+            summ_region_with_i_B = 0.0;
+            summ_region_with_im1_B = 0.0;
+            
+            for (j=0; j < Nr*Ntheta; j++){
+                R_in = disk[j].radius/sqrt(step);        /** from the center to the first layer of any region **/
+                R_out = disk[j].radius*sqrt(step);       /** from the center to the last layer of any region **/
+                theta_in = disk[j].theta-(step/2.0);    /** from the origine to the first layer of any region on the bottom**/
+                theta_out = disk[j].theta+(step/2.0);   /** from the origine to the last layer of any region on the top**/
 
                 /** compute the integral for B band.*/
                 /**  Husne, 22/10/2018 * Compute the temperature for t */
