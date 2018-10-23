@@ -33,23 +33,20 @@ double lag_tao(double r, double theta, double inc_angle, double h_star){
     return sqrt(pow(h_star,2.0)+pow(r,2.0))+h_star*cos(inc_angle)-r*cos(theta)*sin(inc_angle);
 }
 
-
+///** define the Function of the luminosity **/
 double L_star(double L_bol, double omega, double t){
     //omega = 3*c/R_out
     return 0.15*L_bol*(1.0+sin(omega*t));
 }
-
-
 
 /** define the Function of the distance from the central variable source to disk elements **/
 double r_star(double r, double h_star){
     return sqrt(pow(h_star,2.0)+pow(r,2.0));
 }
 
+
 /** define the Function of the temperature profile **/
 double temp_profile(double t, double r, double theta, double M, double M_rate, double r_in, double A, double h_star, double inc_angle, double L_bol, double omega){
-
-    //double Lstar = L_star(t, r, theta, inc_angle, h_star);
     /// Compute the time lag up to the radius.
     double tau = sqrt(pow(h_star,2.0)+pow(r,2.0))+h_star*cos(inc_angle)-r*cos(theta*0.0174532925)*sin(inc_angle);
     tau = tau/c;
@@ -143,62 +140,27 @@ int main(){
     double A = 0.5;                         /** the disk albedo **/
     double L_bol = 2.82e46; /** the bolometric luminosity **/
     //double L_star = 0.5*L_bol; /** the luminosity of central variable source **/
-
     //printf("Rg = %g\t r_star = %g\t M_rate = %g\t")
 
-    double t;
-    double temperature;
-    double omega = 10.0*c/r_out;
-    /** call the functions **/
-    //FILE *test;
-    //test = fopen("temperature.txt","a");
-    int k;
-    for (i=0; i < Nr; i++){
-        for (j=0; j < Ntheta; j++){
-            t = 10.0;
-            temperature = temp_profile (t, r[i], theta[j], M, M_rate, r_in, A, h_star, inc_angle, L_bol, omega);
-            //printf("Temperature[%d]: %g\n",i, temperature);
-            //fprintf(test, "%g\t%g\t%g\n", r[i], theta[j], temperature);
-            /** fill the disks with elements (temp) of regions **/
-            disk[i*Ntheta+j].temp = temperature;
-        }
-        //fprintf(test, "\n");
-    }
-    //fclose(test);
+
+
+
+
 
 
 
     /**  Husne,  9/10/2018
-      *  Now I compute the radiation from such disk.
+      *
       */
-
-
+    /** for the computation of luminosity so it is for temperature **/
+    double omega = 10.0*c/r_out;
+    /** for the computation of the radiation from the disk. **/
     double D = 75.01*1e6*pc;                   /** Mpc distance from observer to the source, converted to cm **/
     double R_in;
     double R_out;
     double theta_in;
     double theta_out;
-    double SED;
-    double lambda = 0.0;
-    /** call the functions **/
-    for (j=0; j < Nr*Ntheta; j++){
-
-
-        R_in = disk[j].radius/sqrt(step);        /** from the center to the first layer of any region **/
-        R_out = disk[j].radius*sqrt(step);       /** from the center to the last layer of any region **/
-        theta_in = disk[j].theta-(step/2.0);    /** from the origine to the first layer of any region on the bottom**/
-        theta_out = disk[j].theta+(step/2.0);   /** from the origine to the last layer of any region on the top**/
-        SED = spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, lambda, disk[j].temp);
-        //printf("SED[%d]: %g\n",j, SED);
-    }
-
-
-
-
-
-
-
-
+    
 
 
     /** ************************************************
@@ -247,11 +209,6 @@ int main(){
     }
     fclose(input_U);
 
-    for(i = 0; i < numberofloop_U ; i++){
-         //printf("%g\t%g\n",wavelength_U[i], transmission_U[i]);  //* print the arrays */
-    }
-
-
 
 
     /**  Husne,  19/10/2018
@@ -292,10 +249,6 @@ int main(){
     }
     fclose(input_B);
 
-    for(i = 0; i < numberofloop_B ; i++){
-        //printf("%g\t%g\n",wavelength_B[i], transmission_B[i]);  //* print the arrays */
-    }
-
 
 
     /** ************************************************
@@ -313,14 +266,9 @@ int main(){
      * I define the time and tau_time as arrays
      */
     // 1) SET the tau so give the value of tau
-    int tau_bin[7] = {3, 6, 10, 20, 40, 100, 200};
+    double tau_time[7] = {3, 6, 10, 20, 40, 100, 200};
     double Ntau = 7;
-    double *tau_time;
-    tau_time = (double *) calloc(Ntau,sizeof(double));
-    for (i=0; i<Ntau; i++){
-        tau_time[i] = tau_bin[i];
-        printf("%g\t\n",tau_time[i]);  //* print the arrays */
-    }
+    //printf("%g\t\n",tau_time);  //* print the arrays */
 
 
     int Ntime = 10;            /** 5000days*86400 = seconds **/
@@ -346,8 +294,6 @@ int main(){
 
     double deltaLambda_B;
 
-
-
     double flux_t_U = 0.0;
     double flux_t_B = 0.0;
     double flux_tptau_U = 0.0;
@@ -364,6 +310,8 @@ int main(){
 
 
     /** Loop for the tau, because I need to compute the average S for all tau */
+    int l;
+    int k;
     for (l=0; l < Ntau; l++){
 
         /** Loop for the time, because I need to compute an average with respect to time */
@@ -402,7 +350,7 @@ int main(){
 
 
                 /// temperature at time t + tau in U
-                Temperature_tptau = temp_profile(time[k] + tau_time, disk[j].radius, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, omega);
+                Temperature_tptau = temp_profile(time[k] + tau_time[l], disk[j].radius, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, omega);
                 /// Initialization of the sum to compute the integral over the filter
                 Integral = 0.0;
                 for(i = 1; i < numberofloop_U ; i++){
@@ -437,7 +385,7 @@ int main(){
 
 
                 /// temperature at time t + tau in U
-                Temperature_tptau = temp_profile(time[k] + tau_time, disk[j].radius, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, omega);
+                Temperature_tptau = temp_profile(time[k] + tau_time[l], disk[j].radius, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, omega);
                 /// Initialization of the sum to compute the integral over the filter
                 Integral = 0.0;
                 for(i = 1; i < numberofloop_B ; i++){
