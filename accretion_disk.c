@@ -33,15 +33,10 @@ double lag_tao(double r, double theta, double inc_angle, double h_star){
     return sqrt(pow(h_star,2.0)+pow(r,2.0))+h_star*cos(inc_angle)-r*cos(theta)*sin(inc_angle);
 }
 
-///** define the Function of the luminosity **/
-//double L_star(double t, double r, double theta, double inc_angle, double h_star){
-//    //return t-lag_tao(r, theta, inc_angle, h_star)/c;
-//    return 0;
-//}
 
 double L_star(double L_bol, double omega, double t){
     //omega = 3*c/R_out
-    return 0.15*L_bol*(1+sin(omega*t));
+    return 0.15*L_bol*(1.0+sin(omega*t));
 }
 
 
@@ -91,7 +86,6 @@ typedef struct region {
     double theta;
     double temp;
 } region;
-
 
 
 int main(){
@@ -335,38 +329,33 @@ int main(){
     // i) compute all S for all t
     /**  Husne,  19/10/2018 *  compute the color variability and plot them */
     double avarage_SBU = 0.0;
-    //avarage_SBU = (double *) calloc(Ntau,sizeof(double));
-    double *S_BU; /**color_variation of BU */
-    S_BU = (double *) calloc(Ntime,sizeof(double));
-
-
-    ///  ii) compute f(tau, t) , f(t) for U band and f(tau, t), f(t) for B band
-
+    double S_BU;            /**color_variation of BU */
 
 
     /**  Husne,  18/10/2018 *  Now compute the integral for U band. */
-    double compute_integral_U;
-    double compute_integral_U_tplustau;
 
     double deltaLambda_U;
-    double summ_region_with_i_U;
-    double summ_region_with_im1_U;
-    double summ_region_with_i_U_tplustau;
-    double summ_region_with_im1_U_tplustau;
-    double Temperature_U = 0.0;
-    double Temperature_tplustau_U = 0.0;
 
     /**  Husne,  19/10/2018 *  Now compute the integral for B band.*/
-    double compute_integral_B;
-    double compute_integral_B_tplustau;
 
     double deltaLambda_B;
-    double summ_region_with_i_B;
-    double summ_region_with_im1_B;
-    double summ_region_with_i_B_tplustau;
-    double summ_region_with_im1_B_tplustau;
-    double Temperature_B = 0.0;
-    double Temperature_tplustau_B = 0.0;
+
+
+
+    double flux_t_U = 0.0;
+    double flux_t_B = 0.0;
+    double flux_tptau_U = 0.0;
+    double flux_tptau_B = 0.0;
+
+    double Temperature_t;
+    double Temperature_tptau;
+    double Integral;
+
+    double f_U_im1;
+    double f_B_im1;
+    double f_U_i;
+    double f_B_i;
+
 
     /** Loop for the time, because I need to compute an average with respect to time */
     for (k=0; k < Ntime; k++){
@@ -467,10 +456,6 @@ int main(){
 
 
 
-    free(compute_integral_U);
-    free(compute_integral_U_tplustau);
-    free(compute_integral_B);
-    free(compute_integral_B_tplustau);
     free(r);
     free(theta);
     free(disk);
