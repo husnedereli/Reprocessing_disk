@@ -4,8 +4,8 @@
 
 
 /**  Code specific declaration */
-#define Nr 10 //66 			/** layers **/
-#define Ntheta 10 //66		/** zones per layers **/
+#define Nr 66 			/** layers **/
+#define Ntheta 66		/** zones per layers **/
 
 /** Definition of the physical constants **/
 /**  Constant CGS */
