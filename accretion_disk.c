@@ -172,6 +172,66 @@ int main(){
      */
     
     
+    
+    
+    /**  Husne,  11/10/2018
+     *  Convolotion with the filter bandpass.
+     Read a txt file for U bandpass.
+     */
+    //double filtername[6] = {1, 2, 3, 4, 5, 6}; //* filter names: 1=UVW2, 2=UVM2, 3=UVW1, 4=U, 5=B, 6=V */
+    int Nfilter = 6;
+    for (j=1; j < Nfilter; j++){
+        FILE *input_filtername;
+        double c1_filtername, c2_filtername;
+        int numberofloop_filtername = 0.0;
+    
+        input_filtername=fopen("swuftrans20041120v102_t1_U.txt","r");      //* open a text file for reading */
+    
+        /**  Here %lf means type double */
+        /// step 1
+        while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
+            numberofloop_filtername++;                 //* caunt the number of loop */
+            /// Previous line is equivalent to      numberofloop_U = numberofloop_U + 1;                 //* caunt the number of loop */
+        }
+        fclose(input_filtername);
+    
+        /// step 2
+        double *wavelength_filtername;                 //* create an array */
+        wavelength_filtername = (double *) calloc(numberofloop_filtername,sizeof(double));
+        double *transmission_filtername;
+        transmission_filtername = (double *) calloc(numberofloop_filtername,sizeof(double));
+    
+    
+        /// step 3
+        input_filtername=fopen("swuftrans20041120v102_t1_U.txt","r"); //* open a text file for reading */
+        i = 0;
+        while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
+        
+            wavelength_filtername[i] = c1_filtername;             //* fill the array */
+            transmission_filtername[i] = c2_filtername;
+            i += 1 ;
+            /// i = i + 1 ;
+        }
+
+        fclose(input_filtername);
+    }
+    
+    //for(i = 0; i < numberofloop_filtername ; i++){
+    //    printf("%g\t%g\n",wavelength_filtername[i], transmission_filtername[i]);  //* print the arrays */
+   // }
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /**  Husne,  11/10/2018
      *  Convolotion with the filter bandpass.
      Read a txt file for U bandpass.
@@ -179,7 +239,7 @@ int main(){
     
     FILE *input_U;
     double c1_U, c2_U;
-    int numberofloop_U = 0;
+    int numberofloop_U = 0.0;
     
     input_U=fopen("swuftrans20041120v102_t1_U.txt","r");      //* open a text file for reading */
     
@@ -226,7 +286,7 @@ int main(){
 
     FILE *input_B;
     double c1_B, c2_B;
-    int numberofloop_B = 0;
+    int numberofloop_B = 0.0;
 
     input_B=fopen("swuftrans20041120v102_t2_B.txt","r");      //* open a text file for reading */
 
