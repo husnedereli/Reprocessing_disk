@@ -85,7 +85,7 @@ typedef struct region {
 } region;
 
 
-int main(){
+int make_computation(){
 
 
     /**  Husne, 9/10/2018
@@ -160,20 +160,22 @@ int main(){
     double R_out;
     double theta_in;
     double theta_out;
-    
 
 
-    
+
+
     /** ************************************************
      * ************************************************
      * ************************************************
      * ************************************************
      * ************************************************
      */
-    
-    
-    
-    
+
+
+    double *wavelength_U;
+    double *wavelength_V;
+    double *wavelength_R;
+
     /**  Husne,  11/10/2018
      *  Convolotion with the filter bandpass.
      Read a txt file for U bandpass.
@@ -184,9 +186,16 @@ int main(){
         FILE *input_filtername;
         double c1_filtername, c2_filtername;
         int numberofloop_filtername = 0.0;
-    
+
+        if j == 0 : it is V filter then
+        input_filtername=fopen("swuftrans20041120v102_t1_V.txt","r");      //* open a text file for reading */
+        if j == 1: it is B filter then
+        input_filtername=fopen("swuftrans20041120v102_t1_B.txt","r");      //* open a text file for reading */
+        ...
+
+
         input_filtername=fopen("swuftrans20041120v102_t1_U.txt","r");      //* open a text file for reading */
-    
+
         /**  Here %lf means type double */
         /// step 1
         while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
@@ -194,19 +203,19 @@ int main(){
             /// Previous line is equivalent to      numberofloop_U = numberofloop_U + 1;                 //* caunt the number of loop */
         }
         fclose(input_filtername);
-    
+
         /// step 2
         double *wavelength_filtername;                 //* create an array */
         wavelength_filtername = (double *) calloc(numberofloop_filtername,sizeof(double));
         double *transmission_filtername;
         transmission_filtername = (double *) calloc(numberofloop_filtername,sizeof(double));
-    
-    
+
+
         /// step 3
         input_filtername=fopen("swuftrans20041120v102_t1_U.txt","r"); //* open a text file for reading */
         i = 0;
         while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
-        
+
             wavelength_filtername[i] = c1_filtername;             //* fill the array */
             transmission_filtername[i] = c2_filtername;
             i += 1 ;
@@ -215,34 +224,34 @@ int main(){
 
         fclose(input_filtername);
     }
-    
+
     //for(i = 0; i < numberofloop_filtername ; i++){
     //    printf("%g\t%g\n",wavelength_filtername[i], transmission_filtername[i]);  //* print the arrays */
    // }
-    
-    
-    
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
+
     /**  Husne,  11/10/2018
      *  Convolotion with the filter bandpass.
      Read a txt file for U bandpass.
      */
-    
+
     FILE *input_U;
     double c1_U, c2_U;
     int numberofloop_U = 0.0;
-    
+
     input_U=fopen("swuftrans20041120v102_t1_U.txt","r");      //* open a text file for reading */
-    
+
     /**  Here %lf means type double */
     /// step 1
     while(fscanf(input_U,"%lf%lf", &c1_U, &c2_U) !=EOF ){
@@ -250,35 +259,35 @@ int main(){
         /// Previous line is equivalent to      numberofloop_U = numberofloop_U + 1;                 //* caunt the number of loop */
     }
     fclose(input_U);
-    
+
     /// step 2
     double *wavelength_U;                 //* create an array */
     wavelength_U = (double *) calloc(numberofloop_U,sizeof(double));
     double *transmission_U;
     transmission_U = (double *) calloc(numberofloop_U,sizeof(double));
-    
-    
+
+
     /// step 3
     input_U=fopen("swuftrans20041120v102_t1_U.txt","r"); //* open a text file for reading */
     i = 0;
     while(fscanf(input_U,"%lf%lf", &c1_U, &c2_U) !=EOF ){
-        
+
         wavelength_U[i] = c1_U;             //* fill the array */
         transmission_U[i] = c2_U;
         i += 1 ;
         /// i = i + 1 ;
     }
     fclose(input_U);
-    
+
     //for(i = 0; i < numberofloop_U ; i++){
     //    printf("%g\t%g\n",wavelength_U[i], transmission_U[i]);  //* print the arrays */
     //}
 
-    
-    
 
-    
- 
+
+
+
+
     /**  Husne,  19/10/2018
      *  Convolotion with the filter bandpass.
      Read a txt file for B bandpass.
@@ -491,6 +500,18 @@ int main(){
 
 
 
+
+
+int main(){
+
+
+    /** Define argument for the filters */
+
+    make_computation();
+
+    return 0;
+
+}
 
 
 
