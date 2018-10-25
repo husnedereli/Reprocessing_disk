@@ -172,29 +172,38 @@ int make_computation(){
      */
 
 
-    double *wavelength_U;
-    double *wavelength_V;
-    double *wavelength_R;
+
 
     /**  Husne,  11/10/2018
      *  Convolotion with the filter bandpass.
      Read a txt file for U bandpass.
      */
-    //double filtername[6] = {1, 2, 3, 4, 5, 6}; //* filter names: 1=UVW2, 2=UVM2, 3=UVW1, 4=U, 5=B, 6=V */
+    //double filtername[6] = {0, 1, 2, 3, 4, 5}; //* filter names: 0=UVW2, 1=UVM2, 2=UVW1, 3=U, 4=B, 5=V */
     int Nfilter = 6;
-    for (j=1; j < Nfilter; j++){
+    double **wavelength;
+    double **transmission;
+    double c1_filtername, c2_filtername;
+    for (j=0; j < Nfilter; j++){
         FILE *input_filtername;
-        double c1_filtername, c2_filtername;
         int numberofloop_filtername = 0.0;
-
-        if j == 0 : it is V filter then
+        if (j == 0){//*it is UVW2 filter then*/
+            input_filtername=fopen("swuftrans20041120v102_t1_UVW2.txt","r");//* open a text file for reading */
+        }
+        if (j == 1){//*it is UVM2 filter then*/
+            input_filtername=fopen("swuftrans20041120v102_t1_UVM2.txt","r");      //* open a text file for reading */
+        }
+        if (j == 2){//*it is UVW1 filter then*/
+            input_filtername=fopen("swuftrans20041120v102_t1_UVW1.txt","r");      //* open a text file for reading */
+        }
+        if (j == 3){//*it is U filter then*/
+            input_filtername=fopen("swuftrans20041120v102_t1_U.txt","r");      //* open a text file for reading */
+        }
+        if (j == 4){//*it is B filter then*/
+            input_filtername=fopen("swuftrans20041120v102_t1_B.txt","r");      //* open a text file for reading */
+        }
+        if (j == 5){//*it is V filter then*/
         input_filtername=fopen("swuftrans20041120v102_t1_V.txt","r");      //* open a text file for reading */
-        if j == 1: it is B filter then
-        input_filtername=fopen("swuftrans20041120v102_t1_B.txt","r");      //* open a text file for reading */
-        ...
-
-
-        input_filtername=fopen("swuftrans20041120v102_t1_U.txt","r");      //* open a text file for reading */
+        }
 
         /**  Here %lf means type double */
         /// step 1
@@ -205,26 +214,56 @@ int make_computation(){
         fclose(input_filtername);
 
         /// step 2
-        double *wavelength_filtername;                 //* create an array */
-        wavelength_filtername = (double *) calloc(numberofloop_filtername,sizeof(double));
-        double *transmission_filtername;
-        transmission_filtername = (double *) calloc(numberofloop_filtername,sizeof(double));
+        wavelength = (double **) malloc(Nfilter*numberofloop_filtername*sizeof(double*)); //* create an array */
+        transmission = (double **) malloc(Nfilter*numberofloop_filtername*sizeof(double*));
+
 
 
         /// step 3
-        input_filtername=fopen("swuftrans20041120v102_t1_U.txt","r"); //* open a text file for reading */
+        if (j == 0){//*it is UVW2 filter then*/
+            input_filtername=fopen("swuftrans20041120v102_t1_UVW2.txt","r");//* open a text file for reading */
+        }
+        if (j == 1){//*it is UVM2 filter then*/
+            input_filtername=fopen("swuftrans20041120v102_t1_UVM2.txt","r");      //* open a text file for reading */
+        }
+        if (j == 2){//*it is UVW1 filter then*/
+            input_filtername=fopen("swuftrans20041120v102_t1_UVW1.txt","r");      //* open a text file for reading */
+        }
+        if (j == 3){//*it is U filter then*/
+            input_filtername=fopen("swuftrans20041120v102_t1_U.txt","r");      //* open a text file for reading */
+        }
+        if (j == 4){//*it is B filter then*/
+            input_filtername=fopen("swuftrans20041120v102_t1_B.txt","r");      //* open a text file for reading */
+        }
+        if (j == 5){//*it is V filter then*/
+            input_filtername=fopen("swuftrans20041120v102_t1_V.txt","r");      //* open a text file for reading */
+        }
         i = 0;
         while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
+            printf("\n");
 
-            wavelength_filtername[i] = c1_filtername;             //* fill the array */
-            transmission_filtername[i] = c2_filtername;
-            i += 1 ;
+            //wavelength_filtername = c1_filtername;             //* fill the array */
+            //transmission_filtername = c2_filtername;
             /// i = i + 1 ;
+            wavelength[j][i]= c1_filtername;
+            transmission[j][i]= c2_filtername;
+            i += 1 ;
+            printf("%g\t%g",wavelength[j][i], transmission[j][i]);
         }
-
         fclose(input_filtername);
+        free(wavelength);
+        free(transmission);
+        //printf("%g\t%g\n",wavelength[j][i], transmission[j][i]);
     }
 
+    
+    
+    //for (j=0;j<Nfilter;j++){
+    //    for (i=0;i<numberofloop_filtername;i++){
+    //        printf("\n");
+    //        printf("%g\t%g",wavelength[j][i], transmission[j][i]);
+    //        }
+    //    }
     //for(i = 0; i < numberofloop_filtername ; i++){
     //    printf("%g\t%g\n",wavelength_filtername[i], transmission_filtername[i]);  //* print the arrays */
    // }
