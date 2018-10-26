@@ -187,43 +187,44 @@ int make_computation(int Nfilter, int *computed_filter){
     double c1_filtername, c2_filtername;
     int numberofloop_filtername;
     int *numberofloop;
-    
-    
+    numberofloop = (int*) calloc(Nfilter,sizeof(int)); //* create an array */
+
     for (j=0; j < Nfilter; j++){
+        printf("Begining of loop \t j = %d\tNfilter = %d\n", j, Nfilter);
+        getchar();
         FILE *input_filtername;
         numberofloop_filtername = 0.0;
-        numberofloop = (int*) calloc(Nfilter,sizeof(int)); //* create an array */
         if (computed_filter[j] == 0){
             switch(j) {
                 case 0 : //*it is UVW2 filter then*/
-                    input_filtername=fopen("swuftrans20041120v102_t1_UVW2.txt","r");//* open a text file for reading */
+                    input_filtername=fopen("swuftrans20041120v102_t5_UVW2.txt","r");//* open a text file for reading */
                     /**  Here %lf means type double */
                     /// step 1
                     while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
-                        numberofloop_filtername++;                 //* caunt the number of loop */
+                        numberofloop_filtername = numberofloop_filtername + 1;                 //* caunt the number of loop */
                         /// Previous line is equivalent to      numberofloop_U = numberofloop_U + 1;                 //* caunt the number of loop */
                     }
-                    numberofloop[j] = numberofloop_filtername++;
+                    numberofloop[j] = numberofloop_filtername;
                     break;
                 case 1 : //*it is UVM2 filter then*/
-                    input_filtername=fopen("swuftrans20041120v102_t1_UVM2.txt","r");      //* open a text file for reading */
+                    input_filtername=fopen("swuftrans20041120v102_t6_UVM2.txt","r");      //* open a text file for reading */
                     /**  Here %lf means type double */
                     /// step 1
                     while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
                         numberofloop_filtername++;                 //* caunt the number of loop */
                         /// Previous line is equivalent to      numberofloop_U = numberofloop_U + 1;                 //* caunt the number of loop */
                     }
-                    numberofloop[j] = numberofloop_filtername++;
+                    numberofloop[j] = numberofloop_filtername;
                     break;
                 case 2 : //*it is UVW1 filter then*/
-                    input_filtername=fopen("swuftrans20041120v102_t1_UVW1.txt","r");      //* open a text file for reading */
+                    input_filtername=fopen("swuftrans20041120v102_t4_UVW1.txt","r");      //* open a text file for reading */
                     /**  Here %lf means type double */
                     /// step 1
                     while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
                         numberofloop_filtername++;                 //* caunt the number of loop */
                         /// Previous line is equivalent to      numberofloop_U = numberofloop_U + 1;                 //* caunt the number of loop */
                     }
-                    numberofloop[j] = numberofloop_filtername++;
+                    numberofloop[j] = numberofloop_filtername;
                     break;
                 case 3 : //*it is U filter then*/
                     input_filtername=fopen("swuftrans20041120v102_t1_U.txt","r");      //* open a text file for reading */
@@ -233,35 +234,35 @@ int make_computation(int Nfilter, int *computed_filter){
                         numberofloop_filtername++;                 //* caunt the number of loop */
                         /// Previous line is equivalent to      numberofloop_U = numberofloop_U + 1;                 //* caunt the number of loop */
                     }
-                    numberofloop[j] = numberofloop_filtername++;
+                    numberofloop[j] = numberofloop_filtername;
                     break;
                 case 4 : //*it is B filter then*/
-                    input_filtername=fopen("swuftrans20041120v102_t1_B.txt","r");      //* open a text file for reading */
+                    input_filtername=fopen("swuftrans20041120v102_t2_B.txt","r");      //* open a text file for reading */
                     /**  Here %lf means type double */
                     /// step 1
                     while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
                         numberofloop_filtername++;                 //* caunt the number of loop */
                         /// Previous line is equivalent to      numberofloop_U = numberofloop_U + 1;                 //* caunt the number of loop */
                     }
-                    numberofloop[j] = numberofloop_filtername++;
+                    numberofloop[j] = numberofloop_filtername;
                     break;
                 case 5 : //*it is V filter then*/
-                    input_filtername=fopen("swuftrans20041120v102_t1_V.txt","r");      //* open a text file for reading */
+                    input_filtername=fopen("swuftrans20041120v102_t3_V.txt","r");      //* open a text file for reading */
                     /**  Here %lf means type double */
                     /// step 1
                     while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
                         numberofloop_filtername++;                 //* caunt the number of loop */
                         /// Previous line is equivalent to      numberofloop_U = numberofloop_U + 1;                 //* caunt the number of loop */
                     }
-                    numberofloop[j] = numberofloop_filtername++;
+                    numberofloop[j] = numberofloop_filtername;
             }
             fclose(input_filtername);
         }
-        
+
         /// step 2 to create arrays
-        wavelength[j] = (double *) calloc(Nfilter,sizeof(double)); //* create an array */
-        transmission[j] = (double *) calloc(Nfilter,sizeof(double));
-        
+        wavelength[j] = (double *) calloc(numberofloop[j],sizeof(double)); //* create an array */
+        transmission[j] = (double *) calloc(numberofloop[j],sizeof(double));
+
         /// step 3
         if (computed_filter[j] == 0){
             switch(j) {
@@ -340,14 +341,17 @@ int make_computation(int Nfilter, int *computed_filter){
             fclose(input_filtername);
         }
     }
-    
-    
-    //for (j=0;j<Nfilter;j++){
-    //    for (i=0;i<numberofloop_filtername;i++){
-    //        printf("\n");
-    //        printf("%g\t%g",wavelength[j][i], transmission[j][i]);
-    //    }
-    //}
+
+
+    for (j=0;j<Nfilter;j++){
+        for (i=0;i<numberofloop_filtername;i++){
+            printf("%g\t%g\n",wavelength[j][i], transmission[j][i]);
+        }
+        getchar();
+        printf("\n");
+    }
+
+
     //for(i = 0; i < numberofloop_filtername ; i++){
     //    printf("%g\t%g\n",wavelength_filtername[i], transmission_filtername[i]);  //* print the arrays */
    // }
@@ -458,8 +462,8 @@ int make_computation(int Nfilter, int *computed_filter){
      */
     // 1) SET the tau so give the value of tau
     const int Ntau = 7;
-    int tau_time[Ntau] = {3, 6, 10, 20, 40, 100, 200};
- 
+    double tau_time[7] = {3.0, 6.0, 10.0, 20.0, 40.0, 100.0, 200.0};
+
     //printf("%g\t\n",tau_time);  //* print the arrays */
 
 
@@ -621,9 +625,10 @@ int main(){
 
 
     /** Define argument for the filters */
-    const int Nfilter = 6;
-    int computed_filter[Nfilter] = {1, 1, 1, 0, 0, 1};
-    
+    int Nfilter = 6;
+    int computed_filter[6] = {1, 1, 1, 0, 0, 1};
+
+
     make_computation(Nfilter, computed_filter);
 
     return 0;
