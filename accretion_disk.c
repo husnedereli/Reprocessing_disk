@@ -255,6 +255,7 @@ int make_computation(int Nfilter, int *computed_filter){
                         /// Previous line is equivalent to      numberofloop_U = numberofloop_U + 1;                 //* caunt the number of loop */
                     }
                     numberofloop[j] = numberofloop_filtername;
+                    break;
             }
             fclose(input_filtername);
         }
@@ -337,6 +338,7 @@ int make_computation(int Nfilter, int *computed_filter){
                         transmission[j][i]= c2_filtername;
                         i += 1;
                     }
+                    break;
             }
             fclose(input_filtername);
         }
@@ -344,14 +346,14 @@ int make_computation(int Nfilter, int *computed_filter){
 
 
     for (j=0;j<Nfilter;j++){
-        for (i=0;i<numberofloop_filtername;i++){
-            printf("%g\t%g\n",wavelength[j][i], transmission[j][i]);
+        for (i=0;i<numberofloop[j];i++){
+            printf("j = %d\t i = %d\t %g\t%g\n",j, i, wavelength[j][i], transmission[j][i]);
         }
         getchar();
         printf("\n");
     }
 
-
+    return 0;
     //for(i = 0; i < numberofloop_filtername ; i++){
     //    printf("%g\t%g\n",wavelength_filtername[i], transmission_filtername[i]);  //* print the arrays */
    // }
