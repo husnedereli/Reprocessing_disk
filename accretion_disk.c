@@ -197,7 +197,7 @@ int make_computation(int Nfilter, int *computed_filter){
         if (computed_filter[j] == 0){
             switch(j) {
                 case 0 : //*it is UVW2 filter then*/
-                    input_filtername=fopen("swuftrans20041120v102_t5_UVW2.txt","r");//* open a text file for reading */
+                    input_filtername=fopen("UVW2.txt","r");//* open a text file for reading */
                     /**  Here %lf means type double */
                     /// step 1
                     while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
@@ -207,7 +207,7 @@ int make_computation(int Nfilter, int *computed_filter){
                     numberofloop[j] = numberofloop_filtername;
                     break;
                 case 1 : //*it is UVM2 filter then*/
-                    input_filtername=fopen("swuftrans20041120v102_t6_UVM2.txt","r");      //* open a text file for reading */
+                    input_filtername=fopen("UVM2.txt","r");      //* open a text file for reading */
                     /**  Here %lf means type double */
                     /// step 1
                     while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
@@ -217,7 +217,7 @@ int make_computation(int Nfilter, int *computed_filter){
                     numberofloop[j] = numberofloop_filtername;
                     break;
                 case 2 : //*it is UVW1 filter then*/
-                    input_filtername=fopen("swuftrans20041120v102_t4_UVW1.txt","r");      //* open a text file for reading */
+                    input_filtername=fopen("UVW1.txt","r");      //* open a text file for reading */
                     /**  Here %lf means type double */
                     /// step 1
                     while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
@@ -227,7 +227,7 @@ int make_computation(int Nfilter, int *computed_filter){
                     numberofloop[j] = numberofloop_filtername;
                     break;
                 case 3 : //*it is U filter then*/
-                    input_filtername=fopen("swuftrans20041120v102_t1_U.txt","r");      //* open a text file for reading */
+                    input_filtername=fopen("U.txt","r");      //* open a text file for reading */
                     /**  Here %lf means type double */
                     /// step 1
                     while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
@@ -237,7 +237,7 @@ int make_computation(int Nfilter, int *computed_filter){
                     numberofloop[j] = numberofloop_filtername;
                     break;
                 case 4 : //*it is B filter then*/
-                    input_filtername=fopen("swuftrans20041120v102_t2_B.txt","r");      //* open a text file for reading */
+                    input_filtername=fopen("B.txt","r");      //* open a text file for reading */
                     /**  Here %lf means type double */
                     /// step 1
                     while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
@@ -247,7 +247,7 @@ int make_computation(int Nfilter, int *computed_filter){
                     numberofloop[j] = numberofloop_filtername;
                     break;
                 case 5 : //*it is V filter then*/
-                    input_filtername=fopen("swuftrans20041120v102_t3_V.txt","r");      //* open a text file for reading */
+                    input_filtername=fopen("V.txt","r");      //* open a text file for reading */
                     /**  Here %lf means type double */
                     /// step 1
                     while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
@@ -267,7 +267,7 @@ int make_computation(int Nfilter, int *computed_filter){
         if (computed_filter[j] == 0){
             switch(j) {
                 case 0 : //*it is UVW2 filter then*/
-                    input_filtername=fopen("swuftrans20041120v102_t1_UVW2.txt","r");//* open a text file for reading */
+                    input_filtername=fopen("UVW2.txt","r");//* open a text file for reading */
                     /**  Here %lf means type double */
                     /// step 1
                     i = 0;
@@ -279,7 +279,7 @@ int make_computation(int Nfilter, int *computed_filter){
                     }
                     break;
                 case 1 : //*it is UVM2 filter then*/
-                    input_filtername=fopen("swuftrans20041120v102_t1_UVM2.txt","r");      //* open a text file for reading */
+                    input_filtername=fopen("UVM2.txt","r");      //* open a text file for reading */
                     /**  Here %lf means type double */
                     /// step 1
                     i = 0;
@@ -291,7 +291,7 @@ int make_computation(int Nfilter, int *computed_filter){
                     }
                     break;
                 case 2 : //*it is UVW1 filter then*/
-                    input_filtername=fopen("swuftrans20041120v102_t1_UVW1.txt","r");      //* open a text file for reading */
+                    input_filtername=fopen("UVW1.txt","r");      //* open a text file for reading */
                     /**  Here %lf means type double */
                     /// step 1
                     i = 0;
@@ -303,7 +303,7 @@ int make_computation(int Nfilter, int *computed_filter){
                     }
                     break;
                 case 3 : //*it is U filter then*/
-                    input_filtername=fopen("swuftrans20041120v102_t1_U.txt","r");      //* open a text file for reading */
+                    input_filtername=fopen("U.txt","r");      //* open a text file for reading */
                     /**  Here %lf means type double */
                     /// step 1
                     i = 0;
@@ -315,7 +315,7 @@ int make_computation(int Nfilter, int *computed_filter){
                     }
                     break;
                 case 4 : //*it is B filter then*/
-                    input_filtername=fopen("swuftrans20041120v102_t1_B.txt","r");      //* open a text file for reading */
+                    input_filtername=fopen("B.txt","r");      //* open a text file for reading */
                     /**  Here %lf means type double */
                     /// step 1
                     i = 0;
@@ -327,7 +327,7 @@ int make_computation(int Nfilter, int *computed_filter){
                     }
                     break;
                 case 5 : //*it is V filter then*/
-                    input_filtername=fopen("swuftrans20041120v102_t1_V.txt","r");      //* open a text file for reading */
+                    input_filtername=fopen("V.txt","r");      //* open a text file for reading */
                     /**  Here %lf means type double */
                     /// step 1
                     i = 0;
