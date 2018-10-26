@@ -190,8 +190,8 @@ int make_computation(int Nfilter, int *computed_filter){
     numberofloop = (int*) calloc(Nfilter,sizeof(int)); //* create an array */
 
     for (j=0; j < Nfilter; j++){
-        printf("Begining of loop \t j = %d\tNfilter = %d\n", j, Nfilter);
-        getchar();
+        //printf("Begining of loop \t j = %d\tNfilter = %d\n", j, Nfilter);
+        //getchar();
         FILE *input_filtername;
         numberofloop_filtername = 0.0;
         if (computed_filter[j] == 0){
