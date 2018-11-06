@@ -36,7 +36,7 @@ double lag_tao(double r, double theta, double inc_angle, double h_star){
 ///** define the Function of the luminosity **/
 double L_star(double L_bol, double omega, double t){
     //omega = 3*c/R_out
-    return 0.15*L_bol*(1.0+sin(omega*t));
+    return 0.8*L_bol*(1.0+sin(omega*t)); ///** 0.15*L_bol **/
 }
 
 /** define the Function of the distance from the central variable source to disk elements **/
@@ -426,16 +426,17 @@ int make_computation(int Nfilter, int *computed_filter){
 
 
 
-    /** Loop for the Number of filter, because I need to compute the average S for all tau by using two bands */
+
     int m;
     int n;
+    int l;
+    int k;
+    /** Loop for the Number of filter, because I need to compute the average S for all tau by using two bands */
     for (m=0;m<Nfilter;m++){
         for (n=m+1;n<Nfilter;n++){
             //*it is important, when the filter number given as a "0" make computation for all casses between two filters */
             if(computed_filter[m] == 0 && computed_filter[n] == 0){
                 /** Loop for the tau, because I need to compute the average S for all tau */
-                int l;
-                int k;
                 for (l=0; l < Ntau; l++){
                     S_BU = 0.0;
                     printf("\n");
@@ -451,13 +452,16 @@ int make_computation(int Nfilter, int *computed_filter){
                         flux_tptau_U = 0.0;
                         flux_tptau_B = 0.0;
 
-                        /** Loop for the redius and theta, because I need to compute the temparature and spectrum of disk */
-                        /// f is the summ of constribution from all the disk elements.
+                        /** Loop for the radius and theta, because I need to compute the temparature and spectrum of disk */
+                        /// f is the summ of contribution from all the disk elements.
+                        double stepR = exp(log(R_out/R_in)/Nr);
+                        double stepT = 360.0/Ntheta
+                        
                         for (j=0; j < Nr*Ntheta; j++){
-                            R_in = disk[j].radius/sqrt(step);            /** from the center to the first layer of any region **/
-                            R_out = disk[j].radius*sqrt(step);           /** from the center to the last layer of any region **/
-                            theta_in = disk[j].theta-(step/2.0);         /** from the origine to the first layer of any region on the bottom**/
-                            theta_out = disk[j].theta+(step/2.0);        /** from the origine to the last layer of any region on the top**/
+                            R_in = disk[j].radius/sqrt(stepR);            /** from the center to the first layer of any region **/
+                            R_out = disk[j].radius*sqrt(stepR);           /** from the center to the last layer of any region **/
+                            theta_in = disk[j].theta-(stepT/2.0);         /** from the origine to the first layer of any region on the bottom**/
+                            theta_out = disk[j].theta+(stepT/2.0);        /** from the origine to the last layer of any region on the top**/
 
                             /**  Now I compute the integral for the U-band */
                             /// temperature at time t in U
@@ -542,6 +546,13 @@ int make_computation(int Nfilter, int *computed_filter){
                     printf("%.13g\t\n", avarage_SBU);
                 }
             }
+        }
+    }
+    
+    for (j=0; j < Nfilter; j++){
+        for(i = 1; i < numberofloop[m] ; i++){
+            free(wavelength[j][i]);
+            free(transmission[j][i]);
         }
     }
 
