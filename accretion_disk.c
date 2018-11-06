@@ -397,71 +397,74 @@ int make_computation(int Nfilter, int *computed_filter){
     double S_BU;            /**color_variation of BU */
 
 
-    
+
     /**  Husne,  18/10/2018 *  Now compute the integral for U band. */
-    
+
     double deltaLambda_U;
-    
+
     /**  Husne,  19/10/2018 *  Now compute the integral for B band.*/
-    
+
     double deltaLambda_B;
-    
-    
-    
+
+
+
     double flux_t_U;
     double flux_t_B;
     double flux_tptau_U;
     double flux_tptau_B;
-    
+
     double Temperature_t;
     double Temperature_tptau;
     double Integral;
-    
+
     double f_U_im1 = 0.0;
     double f_B_im1 = 0.0;
     double f_U_i = 0.0;
     double f_B_i = 0.0;
 
-    
-    
-    
-    
+
+
+
+
     /** Loop for the Number of filter, because I need to compute the average S for all tau by using two bands */
     int m;
     int n;
     for (m=0;m<Nfilter;m++){
-        /** Loop for the tau, because I need to compute the average S for all tau */
-        int l;
-        int k;
-        for (l=0; l < Ntau; l++){
-            /** Loop for the time, because I need to compute an average with respect to time */
-            for (k=0; k < Ntime; k++){
-                        
-                /**  I need to compute S for all t
-                *  I need to compute f(t+tau), f(t) for U band
-                */
+        for (n=m+1;n<Nfilter;n++){
+            //*it is important, when the filter number given as a "0" make computation for all casses between two filters */
+            if(computed_filter[m] == 0 && computed_filter[n] == 0){
+                /** Loop for the tau, because I need to compute the average S for all tau */
+                int l;
+                int k;
+                for (l=0; l < Ntau; l++){
+                    S_BU = 0.0;
+                    printf("\n");
+                    /** Loop for the time, because I need to compute an average with respect to time */
+                    for (k=0; k < Ntime; k++){
 
-                flux_t_U = 0.0;
-                flux_t_B = 0.0;
-                flux_tptau_U = 0.0;
-                flux_tptau_B = 0.0;
-            
-                /** Loop for the redius and theta, because I need to compute the temparature and spectrum of disk */
-                /// f is the summ of constribution from all the disk elements.
-                for (j=0; j < Nr*Ntheta; j++){
-                    R_in = disk[j].radius/sqrt(step);            /** from the center to the first layer of any region **/
-                    R_out = disk[j].radius*sqrt(step);           /** from the center to the last layer of any region **/
-                    theta_in = disk[j].theta-(step/2.0);         /** from the origine to the first layer of any region on the bottom**/
-                    theta_out = disk[j].theta+(step/2.0);        /** from the origine to the last layer of any region on the top**/
+                        /**  I need to compute S for all t
+                         *  I need to compute f(t+tau), f(t) for U band
+                         */
 
-                    /**  Now I compute the integral for the U-band */
-                    /// temperature at time t in U
-                    Temperature_t = temp_profile(time[k], disk[j].radius, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, omega);
-                    /// Initialization of the sum to compute the integral over the filter
-                    Integral = 0.0;
-                    for (n=m+1;n<Nfilter;n++){
-                        //*it is important, when the filter number given as a "0" make computation for all casses between two filters */
-                        if(computed_filter[m] == 0 && computed_filter[n] == 0){
+                        flux_t_U = 0.0;
+                        flux_t_B = 0.0;
+                        flux_tptau_U = 0.0;
+                        flux_tptau_B = 0.0;
+
+                        /** Loop for the redius and theta, because I need to compute the temparature and spectrum of disk */
+                        /// f is the summ of constribution from all the disk elements.
+                        for (j=0; j < Nr*Ntheta; j++){
+                            R_in = disk[j].radius/sqrt(step);            /** from the center to the first layer of any region **/
+                            R_out = disk[j].radius*sqrt(step);           /** from the center to the last layer of any region **/
+                            theta_in = disk[j].theta-(step/2.0);         /** from the origine to the first layer of any region on the bottom**/
+                            theta_out = disk[j].theta+(step/2.0);        /** from the origine to the last layer of any region on the top**/
+
+                            /**  Now I compute the integral for the U-band */
+                            /// temperature at time t in U
+                            Temperature_t = temp_profile(time[k], disk[j].radius, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, omega);
+                            /// Initialization of the sum to compute the integral over the filter
+                            Integral = 0.0;
+
                             /** Loop for the band, because I need to compute the integral over bandpass */
                             ///numberofloop_U = numberofloop[m]
                             for(i = 1; i < numberofloop[m] ; i++){
@@ -531,13 +534,13 @@ int make_computation(int Nfilter, int *computed_filter){
                             }
                             flux_tptau_B = flux_tptau_B + Integral;
                         }
+
+                        S_BU = S_BU + (flux_tptau_B-flux_t_B) / (flux_tptau_U-flux_t_U);
+
                     }
-
-                    S_BU = S_BU + (flux_tptau_B-flux_t_B) / (flux_tptau_U-flux_t_U);
-
+                    avarage_SBU = S_BU/Ntime;
+                    printf("%.13g\t\n", avarage_SBU);
                 }
-                avarage_SBU = S_BU/Ntime;
-                printf("%g\t\n", avarage_SBU);
             }
         }
     }
@@ -563,15 +566,15 @@ int main(){
     int Nfilter = 6;
     //int i;
     //int j;
-    int computed_filter[6] = {1, 1, 1, 0, 0, 1};
+    int computed_filter[6] = {1, 0, 1, 0, 0, 1};
     //for(i = 0; i < Nfilter ; i++){
         //for(j = i+1; j < Nfilter ; j++){
             //if(computed_filter[i] == 0 && computed_filter[j] == 0){
-                
+
             //}
         //}
    // }
-    
+
 
     make_computation(Nfilter, computed_filter);
 
