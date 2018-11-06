@@ -486,8 +486,8 @@ int make_computation(int Nfilter, int *computed_filter){
                             for(i = 1; i < numberofloop[m] ; i++){
 
                                 deltaLambda_U = (wavelength[m][i] - wavelength[m][i-1])*angstrom;
-                                f_U_i = spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength[m][i]*angstrom, Temperature_t)*transmission[m][i];
-                                f_U_im1 = spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength[m][i-1]*angstrom, Temperature_t)*transmission[m][i-1];
+                                f_U_i = spectrum(cos_inc_angle, D2, theta_in, theta_out, R_in, R_out, wavelength[m][i]*angstrom, Temperature_t)*transmission[m][i];
+                                f_U_im1 = spectrum(cos_inc_angle, D2, theta_in, theta_out, R_in, R_out, wavelength[m][i-1]*angstrom, Temperature_t)*transmission[m][i-1];
 
                                 Integral += (f_U_i+f_U_im1)*deltaLambda_U/2.0;
                             }
@@ -504,8 +504,8 @@ int make_computation(int Nfilter, int *computed_filter){
                             for(i = 1; i < numberofloop[m] ; i++){
 
                                 deltaLambda_U = (wavelength[m][i] - wavelength[m][i-1])*angstrom;
-                                f_U_i    = spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength[m][i]*angstrom, Temperature_tptau)*transmission[m][i];
-                                f_U_im1  = spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength[m][i-1]*angstrom, Temperature_tptau)*transmission[m][i-1];
+                                f_U_i    = spectrum(cos_inc_angle, D2, theta_in, theta_out, R_in, R_out, wavelength[m][i]*angstrom, Temperature_tptau)*transmission[m][i];
+                                f_U_im1  = spectrum(cos_inc_angle, D2, theta_in, theta_out, R_in, R_out, wavelength[m][i-1]*angstrom, Temperature_tptau)*transmission[m][i-1];
 
                                 Integral += (f_U_i+f_U_im1)*deltaLambda_U/2.0;
                             }
@@ -525,8 +525,8 @@ int make_computation(int Nfilter, int *computed_filter){
                             for(i = 1; i < numberofloop[n] ; i++){
 
                                 deltaLambda_B = (wavelength[n][i] - wavelength[n][i-1])*angstrom;
-                                f_B_i    = spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength[n][i]*angstrom, Temperature_t)*transmission[n][i];
-                                f_B_im1  = spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength[n][i-1]*angstrom, Temperature_t)*transmission[n][i-1];
+                                f_B_i    = spectrum(cos_inc_angle, D2, theta_in, theta_out, R_in, R_out, wavelength[n][i]*angstrom, Temperature_t)*transmission[n][i];
+                                f_B_im1  = spectrum(cos_inc_angle, D2, theta_in, theta_out, R_in, R_out, wavelength[n][i-1]*angstrom, Temperature_t)*transmission[n][i-1];
 
                                 Integral += (f_B_i+f_B_im1)*deltaLambda_B/2.0;
                             }
@@ -543,8 +543,8 @@ int make_computation(int Nfilter, int *computed_filter){
                             for(i = 1; i < numberofloop[n] ; i++){
 
                                 deltaLambda_B = (wavelength[n][i] - wavelength[n][i-1])*angstrom;
-                                f_B_i    = spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength[n][i]*angstrom, Temperature_tptau)*transmission[n][i];
-                                f_B_im1  = spectrum(inc_angle, D, theta_in, theta_out, R_in, R_out, wavelength[n][i-1]*angstrom, Temperature_tptau)*transmission[n][i-1];
+                                f_B_i    = spectrum(cos_inc_angle, D2, theta_in, theta_out, R_in, R_out, wavelength[n][i]*angstrom, Temperature_tptau)*transmission[n][i];
+                                f_B_im1  = spectrum(cos_inc_angle, D2, theta_in, theta_out, R_in, R_out, wavelength[n][i-1]*angstrom, Temperature_tptau)*transmission[n][i-1];
 
                                 Integral += (f_B_i+f_B_im1)*deltaLambda_B/2.0;
                             }
@@ -561,14 +561,11 @@ int make_computation(int Nfilter, int *computed_filter){
         }
     }
 
-    //for (j=0; j < Nfilter; j++){
-    //    for(i = 0; i < numberofloop[j] ; i++){
-     //       free(wavelength[j][i]);
-     //       free(transmission[j][i]);
-    //    }
-   // }
+    for (j=0; j < Nfilter; j++){
+        free(wavelength[j]);
+        free(transmission[j]);
+    }
 
- r[i]
     free(r);
     free(theta);
     free(disk);
