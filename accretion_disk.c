@@ -431,18 +431,19 @@ int make_computation(int Nfilter, int *computed_filter){
     int n;
     int l;
     int k;
+    double stepR = exp(log(r_out/r_in)/Nr);
+    double stepT = 360.0/Ntheta;
     /** Loop for the Number of filter, because I need to compute the average S for all tau by using two bands */
     for (m=0;m<Nfilter;m++){
         for (n=m+1;n<Nfilter;n++){
             //*it is important, when the filter number given as a "0" make computation for all casses between two filters */
             if(computed_filter[m] == 0 && computed_filter[n] == 0){
+                printf("\n");
                 /** Loop for the tau, because I need to compute the average S for all tau */
                 for (l=0; l < Ntau; l++){
                     S_BU = 0.0;
-                    printf("\n");
                     /** Loop for the time, because I need to compute an average with respect to time */
                     for (k=0; k < Ntime; k++){
-
                         /**  I need to compute S for all t
                          *  I need to compute f(t+tau), f(t) for U band
                          */
@@ -454,8 +455,6 @@ int make_computation(int Nfilter, int *computed_filter){
 
                         /** Loop for the radius and theta, because I need to compute the temparature and spectrum of disk */
                         /// f is the summ of contribution from all the disk elements.
-                        double stepR = exp(log(R_out/R_in)/Nr);
-                        double stepT = 360.0/Ntheta
                         
                         for (j=0; j < Nr*Ntheta; j++){
                             R_in = disk[j].radius/sqrt(stepR);            /** from the center to the first layer of any region **/
@@ -549,12 +548,12 @@ int make_computation(int Nfilter, int *computed_filter){
         }
     }
     
-    for (j=0; j < Nfilter; j++){
-        for(i = 1; i < numberofloop[m] ; i++){
-            free(wavelength[j][i]);
-            free(transmission[j][i]);
-        }
-    }
+    //for (j=0; j < Nfilter; j++){
+    //    for(i = 1; i < numberofloop[j] ; i++){
+     //       free(wavelength[j][i]);
+     //       free(transmission[j][i]);
+    //    }
+   // }
 
     free(r);
     free(theta);
