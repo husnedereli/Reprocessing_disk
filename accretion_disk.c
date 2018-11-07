@@ -217,7 +217,9 @@ int make_computation(int Nfilter, int *computed_filter){
                     /**  Here %lf means type double */
                     /// step 1 caunt the number of loop
                     while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
-                        numberofloop_filtername = numberofloop_filtername + 1;                 //* caunt the number of loop */
+                        if(c2_filtername > 0.01){
+                            numberofloop_filtername = numberofloop_filtername + 1;                 //* caunt the number of loop */
+                        }
                         /// Previous line is equivalent to      numberofloop_U = numberofloop_U + 1;                 //* caunt the number of loop */
                     }
                     numberofloop[j] = numberofloop_filtername;
@@ -227,7 +229,9 @@ int make_computation(int Nfilter, int *computed_filter){
                     /**  Here %lf means type double */
                     /// step 1
                     while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
-                        numberofloop_filtername++;                 //* caunt the number of loop */
+                        if(c2_filtername > 0.01){
+                            numberofloop_filtername = numberofloop_filtername + 1;                 //* caunt the number of loop */
+                        }
                         /// Previous line is equivalent to      numberofloop_U = numberofloop_U + 1;                 //* caunt the number of loop */
                     }
                     numberofloop[j] = numberofloop_filtername;
@@ -237,7 +241,9 @@ int make_computation(int Nfilter, int *computed_filter){
                     /**  Here %lf means type double */
                     /// step 1
                     while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
-                        numberofloop_filtername++;                 //* caunt the number of loop */
+                        if(c2_filtername > 0.01){
+                            numberofloop_filtername = numberofloop_filtername + 1;                 //* caunt the number of loop */
+                        }
                         /// Previous line is equivalent to      numberofloop_U = numberofloop_U + 1;                 //* caunt the number of loop */
                     }
                     numberofloop[j] = numberofloop_filtername;
@@ -247,7 +253,9 @@ int make_computation(int Nfilter, int *computed_filter){
                     /**  Here %lf means type double */
                     /// step 1
                     while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
-                        numberofloop_filtername++;                 //* caunt the number of loop */
+                        if(c2_filtername > 0.01){
+                            numberofloop_filtername = numberofloop_filtername + 1;                 //* caunt the number of loop */
+                        }
                         /// Previous line is equivalent to      numberofloop_U = numberofloop_U + 1;                 //* caunt the number of loop */
                     }
                     numberofloop[j] = numberofloop_filtername;
@@ -257,7 +265,9 @@ int make_computation(int Nfilter, int *computed_filter){
                     /**  Here %lf means type double */
                     /// step 1
                     while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
-                        numberofloop_filtername++;                 //* caunt the number of loop */
+                        if(c2_filtername > 0.01){
+                            numberofloop_filtername = numberofloop_filtername + 1;                 //* caunt the number of loop */
+                        }
                         /// Previous line is equivalent to      numberofloop_U = numberofloop_U + 1;                 //* caunt the number of loop */
                     }
                     numberofloop[j] = numberofloop_filtername;
@@ -267,7 +277,9 @@ int make_computation(int Nfilter, int *computed_filter){
                     /**  Here %lf means type double */
                     /// step 1
                     while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
-                        numberofloop_filtername++;                 //* caunt the number of loop */
+                        if(c2_filtername > 0.01){
+                            numberofloop_filtername = numberofloop_filtername + 1;                 //* caunt the number of loop */
+                        }
                         /// Previous line is equivalent to      numberofloop_U = numberofloop_U + 1;                 //* caunt the number of loop */
                     }
                     numberofloop[j] = numberofloop_filtername;
@@ -292,10 +304,12 @@ int make_computation(int Nfilter, int *computed_filter){
                     i = 0;
                     while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
                         /// i = i + 1 ;
-                        wavelength[j][i]= c1_filtername*angstrom;
-                        wavelength3[j][i]= wavelength[j][i]*wavelength[j][i]*wavelength[j][i];
-                        transmission[j][i]= c2_filtername;
-                        i += 1;
+                        if(c2_filtername > 0.01){
+                            wavelength[j][i]= c1_filtername*angstrom;
+                            wavelength3[j][i]= wavelength[j][i]*wavelength[j][i]*wavelength[j][i];
+                            transmission[j][i]= c2_filtername;
+                            i += 1;
+                        }
                     }
                     break;
                 case 1 : //*it is UVM2 filter then*/
@@ -305,10 +319,12 @@ int make_computation(int Nfilter, int *computed_filter){
                     i = 0;
                     while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
                         /// i = i + 1 ;
-                        wavelength[j][i]= c1_filtername*angstrom;
-                        wavelength3[j][i]= wavelength[j][i]*wavelength[j][i]*wavelength[j][i];
-                        transmission[j][i]= c2_filtername;
-                        i += 1;
+                        if(c2_filtername > 0.01){
+                            wavelength[j][i]= c1_filtername*angstrom;
+                            wavelength3[j][i]= wavelength[j][i]*wavelength[j][i]*wavelength[j][i];
+                            transmission[j][i]= c2_filtername;
+                            i += 1;
+                        }
                     }
                     break;
                 case 2 : //*it is UVW1 filter then*/
@@ -318,10 +334,12 @@ int make_computation(int Nfilter, int *computed_filter){
                     i = 0;
                     while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
                         /// i = i + 1 ;
-                        wavelength[j][i]= c1_filtername*angstrom;
-                        wavelength3[j][i]= wavelength[j][i]*wavelength[j][i]*wavelength[j][i];
-                        transmission[j][i]= c2_filtername;
-                        i += 1;
+                        if(c2_filtername > 0.01){
+                            wavelength[j][i]= c1_filtername*angstrom;
+                            wavelength3[j][i]= wavelength[j][i]*wavelength[j][i]*wavelength[j][i];
+                            transmission[j][i]= c2_filtername;
+                            i += 1;
+                        }
                     }
                     break;
                 case 3 : //*it is U filter then*/
@@ -331,10 +349,12 @@ int make_computation(int Nfilter, int *computed_filter){
                     i = 0;
                     while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
                         /// i = i + 1 ;
-                        wavelength[j][i]= c1_filtername*angstrom;
-                        wavelength3[j][i]= wavelength[j][i]*wavelength[j][i]*wavelength[j][i];
-                        transmission[j][i]= c2_filtername;
-                        i += 1;
+                        if(c2_filtername > 0.01){
+                            wavelength[j][i]= c1_filtername*angstrom;
+                            wavelength3[j][i]= wavelength[j][i]*wavelength[j][i]*wavelength[j][i];
+                            transmission[j][i]= c2_filtername;
+                            i += 1;
+                        }
                     }
                     break;
                 case 4 : //*it is B filter then*/
@@ -344,10 +364,12 @@ int make_computation(int Nfilter, int *computed_filter){
                     i = 0;
                     while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
                         /// i = i + 1 ;
-                        wavelength[j][i]= c1_filtername*angstrom;
-                        wavelength3[j][i]= wavelength[j][i]*wavelength[j][i]*wavelength[j][i];
-                        transmission[j][i]= c2_filtername;
-                        i += 1;
+                        if(c2_filtername > 0.01){
+                            wavelength[j][i]= c1_filtername*angstrom;
+                            wavelength3[j][i]= wavelength[j][i]*wavelength[j][i]*wavelength[j][i];
+                            transmission[j][i]= c2_filtername;
+                            i += 1;
+                        }
                     }
                     break;
                 case 5 : //*it is V filter then*/
@@ -357,10 +379,12 @@ int make_computation(int Nfilter, int *computed_filter){
                     i = 0;
                     while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
                         /// i = i + 1 ;
-                        wavelength[j][i]= c1_filtername*angstrom;
-                        wavelength3[j][i]= wavelength[j][i]*wavelength[j][i]*wavelength[j][i];
-                        transmission[j][i]= c2_filtername;
-                        i += 1;
+                        if(c2_filtername > 0.01){
+                            wavelength[j][i]= c1_filtername*angstrom;
+                            wavelength3[j][i]= wavelength[j][i]*wavelength[j][i]*wavelength[j][i];
+                            transmission[j][i]= c2_filtername;
+                            i += 1;
+                        }
                     }
                     break;
             }
@@ -369,14 +393,10 @@ int make_computation(int Nfilter, int *computed_filter){
     }
 
 
-    //for (j=0;j<Nfilter;j++){
-    //    for (i=0;i<numberofloop[j];i++){
-    //        printf("j = %d\t i = %d\t %g\t%g\n",j, i, wavelength[j][i], transmission[j][i]);
-   //     }
-   //     getchar();
-   //     printf("\n");
-   // }
-
+    for (j=0;j<Nfilter;j++){
+        printf("j = %d\t  %d\n",j, numberofloop[j]);
+    }
+    getchar();
 
 
 
@@ -404,7 +424,7 @@ int make_computation(int Nfilter, int *computed_filter){
     //printf("%g\t\n",tau_time);  //* print the arrays */
 
 
-    int Ntime = 10000;            /** 5000days*86400 = seconds **/
+    int Ntime = 100;            /** 5000days*86400 = seconds **/
     double *time;
     time = (double *) calloc(Ntime,sizeof(double));
     for (i=0; i<Ntime; i++){
@@ -454,6 +474,7 @@ int make_computation(int Nfilter, int *computed_filter){
     int l;
     int k;
     double stepR = exp(log(r_out/r_in)/Nr);
+    double sqrt_stepR = sqrt(stepR);
     double stepT = 360.0/Ntheta;
     /** Loop for the Number of filter, because I need to compute the average S for all tau by using two bands */
     for (m=0;m<Nfilter;m++){
@@ -466,6 +487,9 @@ int make_computation(int Nfilter, int *computed_filter){
                     S_BU = 0.0;
                     /** Loop for the time, because I need to compute an average with respect to time */
                     for (k=0; k < Ntime; k++){
+                        if(k % 10 == 0){
+                            printf("k = %d\n", k);
+                        }
                         /**  I need to compute S for all t
                          *  I need to compute f(t+tau), f(t) for U band
                          */
@@ -480,10 +504,10 @@ int make_computation(int Nfilter, int *computed_filter){
 
                         for (j=0; j < Nr*Ntheta; j++){
 
-                            R_in = disk[j].radius/sqrt(stepR);            /** from the center to the first layer of any region **/
-                            R_out = disk[j].radius*sqrt(stepR);           /** from the center to the last layer of any region **/
-                            theta_in = disk[j].theta-(stepT/2.0);         /** from the origine to the first layer of any region on the bottom**/
-                            theta_out = disk[j].theta+(stepT/2.0);        /** from the origine to the last layer of any region on the top**/
+                            R_in = disk[j].radius/sqrt_stepR;            /** from the center to the first layer of any region **/
+                            R_out = disk[j].radius*sqrt_stepR;           /** from the center to the last layer of any region **/
+                            theta_in = disk[j].theta - 0.5*stepT;         /** from the origine to the first layer of any region on the bottom**/
+                            theta_out = disk[j].theta + 0.5*stepT;        /** from the origine to the last layer of any region on the top**/
 
                             /**  Now I compute the integral for the U-band */
                             /// temperature at time t in U
@@ -573,6 +597,7 @@ int make_computation(int Nfilter, int *computed_filter){
 
     for (j=0; j < Nfilter; j++){
         free(wavelength[j]);
+        free(wavelength3[j]);
         free(transmission[j]);
     }
 
@@ -580,6 +605,7 @@ int make_computation(int Nfilter, int *computed_filter){
     free(theta);
     free(disk);
     free(wavelength);
+    free(wavelength3);
     free(transmission);
 
 
@@ -595,16 +621,8 @@ int main(){
 
     /** Define argument for the filters */
     int Nfilter = 6;
-    //int i;
-    //int j;
-    int computed_filter[6] = {1, 0, 1, 0, 0, 1};
-    //for(i = 0; i < Nfilter ; i++){
-        //for(j = i+1; j < Nfilter ; j++){
-            //if(computed_filter[i] == 0 && computed_filter[j] == 0){
+    int computed_filter[6] = {1, 1, 1, 1, 0, 0};
 
-            //}
-        //}
-   // }
 
 
     make_computation(Nfilter, computed_filter);
