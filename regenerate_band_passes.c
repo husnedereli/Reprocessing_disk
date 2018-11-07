@@ -37,8 +37,8 @@ int main(){
     i = 0;
     while(fscanf(input_U,"%lf%lf", &c1_U, &c2_U) !=EOF ){
         if(c2_U > 0.01){
-            wavelength_U[i] = c1;             //* fill the array */
-            transmission_U[i] = c2;
+            wavelength_U[i] = c1_U;             //* fill the array */
+            transmission_U[i] = c2_U;
             i += 1 ;
         /// i = i + 1 ;
         }
@@ -50,49 +50,18 @@ int main(){
     }
 
 
-
     int avarage_wavelength_U = 0.0;
-    int sum = 0.0;
-    for(i = 0; i < 5; i++){
-        sum = sum + wavelength_U[i];
+    int j = 0.0;
+    while (5+5*j< numberofloop_U) {
+        int sum = 0.0;
+        for(i = 0; i < 5; i++){
+            sum = sum + wavelength_U[i+5*j];
+        }
+        avarage_wavelength_U = sum/5;
+        printf("Average is: %d",avarage_wavelength_U);
     }
-    avarage_wavelength_U = sum/5;
-    printf("Average is: %d",avarage_wavelength_U);
-
-
-
-
-
-
-
-
-
-
-
-    //int avarage_wavelength_U = 0.0;
-    double *avarage_wavelength_U;                 //* create an array */
-    avarage_wavelength_U = (double *) calloc(numberofloop_U,sizeof(double));
-    //double *avarage_transmission_U;
-    //avarage_transmission_U = (double *) calloc(numberofloop_U,sizeof(double));
-    int sum = 0.0;
-    //int j;
-    for(i = 0; i < numberofloop_U ; i++){
-        for (j = i; j < 5 ; j++){
-        //sum = sum + wavelength_U[i];
-            sum = sum + j*wavelength_U[i];
-            //sum  = (wavelength_U[0]+wavelength_U[1]+wavelength_U[2]+wavelength_U[3]+wavelength_U[4]);
-
-        //avarage_wavelength_U = (wavelength_U[5]+wavelength_U[6]+wavelength_U[7]+wavelength_U[8]+wavelength_U[9])/5)
-       // avarage_wavelength_U = (wavelength_U[10]+wavelength_U[11]+wavelength_U[12]+wavelength_U[13]+wavelength_U[14])/5)
-       // }
-
-            avarage_wavelength_U = sum/5;
-    }
-    //avarage_wavelength_U = sum/5;
-
-    printf("Average is: %d",avarage_wavelength_U);
-
-
+    
+    
 
 
     return 0;
