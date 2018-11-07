@@ -65,13 +65,13 @@ double temp_profile(double t, double r, double rstar, double tau, double theta, 
   */
 
 /** define the Planck Function **/
-double Planck_Function(double lambda3, double temperature){
+double Planck_Function(double lambda3, double lambda, double temperature){
     return ((2.0*hc)/lambda3)/(exp(hc/(lambda*kb*temperature))-1.0);
 }
 
 /** define the Function of predicted spectrum (SED) **/
-double spectrum(double cos_inc_angle, double D2, double theta_in, double theta_out, double R_in, double R_out, double lambda3, double temperature){
-    return (cos_inc_angle/D2)*Planck_Function(lambda3, temperature)*(theta_out-theta_in)*0.5*(R_out*R_out - R_in*R_in);
+double spectrum(double cos_inc_angle, double D2, double theta_in, double theta_out, double R_in, double R_out, double lambda3, double lambda, double temperature){
+    return (cos_inc_angle/D2)*Planck_Function(lambda3, lambda, temperature)*(theta_out-theta_in)*0.5*(R_out*R_out - R_in*R_in);
 }
 
 
@@ -139,7 +139,7 @@ int make_computation(int Nfilter, int *computed_filter){
         for (j=0; j < Ntheta; j++){
             disk[i*Ntheta+j].radius = r[i];                 /** disk[0] region1, ... **/
             disk[i*Ntheta+j].theta = theta[j];
-            disk[i*Ntheta+j].rstar = r_star(r[i], hstar);   /** disk[0] region1, ... **/
+            disk[i*Ntheta+j].rstar = r_star(r[i], h_star);   /** disk[0] region1, ... **/
 
             /// Compute the time lag up to the radius.
             tau = sqrt(pow(h_star,2.0)+pow(r[i],2.0))+h_star*cos_inc_angle-r[i]*cos(theta[j]*0.0174532925)*sin(inc_angle);
@@ -168,6 +168,7 @@ int make_computation(int Nfilter, int *computed_filter){
     double omega = 10.0*c/r_out;
     /** for the computation of the radiation from the disk. **/
     double D = 75.01*1e6*pc;                   /** Mpc distance from observer to the source, converted to cm **/
+    double D2 = D*D;
     double R_in;
     double R_out;
     double theta_in;
@@ -193,7 +194,9 @@ int make_computation(int Nfilter, int *computed_filter){
     //double filtername[6] = {0, 1, 2, 3, 4, 5}; //* filter names: 0=UVW2, 1=UVM2, 2=UVW1, 3=U, 4=B, 5=V */
     //int Nfilter = 6;
     double **wavelength;
+    double **wavelength3;
     wavelength = (double **) malloc(Nfilter*sizeof(double*)); //* create an array */
+    wavelength3 = (double **) malloc(Nfilter*sizeof(double*)); //* create an array */
     double **transmission;
     transmission = (double **) malloc(Nfilter*sizeof(double*));
     double c1_filtername, c2_filtername;
@@ -275,6 +278,7 @@ int make_computation(int Nfilter, int *computed_filter){
 
         /// step 2 to create arrays
         wavelength[j] = (double *) calloc(numberofloop[j],sizeof(double)); //* create an array */
+        wavelength3[j] = (double *) calloc(numberofloop[j],sizeof(double)); //* create an array */
         transmission[j] = (double *) calloc(numberofloop[j],sizeof(double));
 
         /// step 3 fill the arrays
@@ -288,7 +292,8 @@ int make_computation(int Nfilter, int *computed_filter){
                     i = 0;
                     while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
                         /// i = i + 1 ;
-                        wavelength[j][i]= c1_filtername;
+                        wavelength[j][i]= c1_filtername*angstrom;
+                        wavelength3[j][i]= wavelength[j][i]*wavelength[j][i]*wavelength[j][i];
                         transmission[j][i]= c2_filtername;
                         i += 1;
                     }
@@ -300,7 +305,8 @@ int make_computation(int Nfilter, int *computed_filter){
                     i = 0;
                     while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
                         /// i = i + 1 ;
-                        wavelength[j][i]= c1_filtername;
+                        wavelength[j][i]= c1_filtername*angstrom;
+                        wavelength3[j][i]= wavelength[j][i]*wavelength[j][i]*wavelength[j][i];
                         transmission[j][i]= c2_filtername;
                         i += 1;
                     }
@@ -312,7 +318,8 @@ int make_computation(int Nfilter, int *computed_filter){
                     i = 0;
                     while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
                         /// i = i + 1 ;
-                        wavelength[j][i]= c1_filtername;
+                        wavelength[j][i]= c1_filtername*angstrom;
+                        wavelength3[j][i]= wavelength[j][i]*wavelength[j][i]*wavelength[j][i];
                         transmission[j][i]= c2_filtername;
                         i += 1;
                     }
@@ -324,7 +331,8 @@ int make_computation(int Nfilter, int *computed_filter){
                     i = 0;
                     while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
                         /// i = i + 1 ;
-                        wavelength[j][i]= c1_filtername;
+                        wavelength[j][i]= c1_filtername*angstrom;
+                        wavelength3[j][i]= wavelength[j][i]*wavelength[j][i]*wavelength[j][i];
                         transmission[j][i]= c2_filtername;
                         i += 1;
                     }
@@ -336,7 +344,8 @@ int make_computation(int Nfilter, int *computed_filter){
                     i = 0;
                     while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
                         /// i = i + 1 ;
-                        wavelength[j][i]= c1_filtername;
+                        wavelength[j][i]= c1_filtername*angstrom;
+                        wavelength3[j][i]= wavelength[j][i]*wavelength[j][i]*wavelength[j][i];
                         transmission[j][i]= c2_filtername;
                         i += 1;
                     }
@@ -348,7 +357,8 @@ int make_computation(int Nfilter, int *computed_filter){
                     i = 0;
                     while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
                         /// i = i + 1 ;
-                        wavelength[j][i]= c1_filtername;
+                        wavelength[j][i]= c1_filtername*angstrom;
+                        wavelength3[j][i]= wavelength[j][i]*wavelength[j][i]*wavelength[j][i];
                         transmission[j][i]= c2_filtername;
                         i += 1;
                     }
@@ -477,7 +487,7 @@ int make_computation(int Nfilter, int *computed_filter){
 
                             /**  Now I compute the integral for the U-band */
                             /// temperature at time t in U
-                            Temperature_t = temp_profile(time[k], disk[j].radius, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, omega);
+                            Temperature_t = temp_profile(time[k], disk[j].radius,disk[j].rstar, disk[j].tau, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, omega);
                             /// Initialization of the sum to compute the integral over the filter
                             Integral = 0.0;
 
@@ -486,8 +496,8 @@ int make_computation(int Nfilter, int *computed_filter){
                             for(i = 1; i < numberofloop[m] ; i++){
 
                                 deltaLambda_U = (wavelength[m][i] - wavelength[m][i-1])*angstrom;
-                                f_U_i = spectrum(cos_inc_angle, D2, theta_in, theta_out, R_in, R_out, wavelength[m][i]*angstrom, Temperature_t)*transmission[m][i];
-                                f_U_im1 = spectrum(cos_inc_angle, D2, theta_in, theta_out, R_in, R_out, wavelength[m][i-1]*angstrom, Temperature_t)*transmission[m][i-1];
+                                f_U_i = spectrum(cos_inc_angle, D2, theta_in, theta_out, R_in, R_out, wavelength3[m][i], wavelength[m][i], Temperature_t)*transmission[m][i];
+                                f_U_im1 = spectrum(cos_inc_angle, D2, theta_in, theta_out, R_in, R_out, wavelength3[m][i-1], wavelength[m][i-1], Temperature_t)*transmission[m][i-1];
 
                                 Integral += (f_U_i+f_U_im1)*deltaLambda_U/2.0;
                             }
@@ -496,7 +506,7 @@ int make_computation(int Nfilter, int *computed_filter){
 
 
                             /// temperature at time t + tau in U
-                            Temperature_tptau = temp_profile(time[k] + tau_time[l], disk[j].radius, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, omega);
+                            Temperature_tptau = temp_profile(time[k] + tau_time[l], disk[j].radius, disk[j].rstar, disk[j].tau, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, omega);
                             /// Initialization of the sum to compute the integral over the filter
                             Integral = 0.0;
                             /** Loop for the one band, because I need to compute the integral over bandpass */
@@ -504,8 +514,8 @@ int make_computation(int Nfilter, int *computed_filter){
                             for(i = 1; i < numberofloop[m] ; i++){
 
                                 deltaLambda_U = (wavelength[m][i] - wavelength[m][i-1])*angstrom;
-                                f_U_i    = spectrum(cos_inc_angle, D2, theta_in, theta_out, R_in, R_out, wavelength[m][i]*angstrom, Temperature_tptau)*transmission[m][i];
-                                f_U_im1  = spectrum(cos_inc_angle, D2, theta_in, theta_out, R_in, R_out, wavelength[m][i-1]*angstrom, Temperature_tptau)*transmission[m][i-1];
+                                f_U_i    = spectrum(cos_inc_angle, D2, theta_in, theta_out, R_in, R_out, wavelength3[m][i], wavelength[m][i], Temperature_tptau)*transmission[m][i];
+                                f_U_im1  = spectrum(cos_inc_angle, D2, theta_in, theta_out, R_in, R_out, wavelength3[m][i-1], wavelength[m][i-1], Temperature_tptau)*transmission[m][i-1];
 
                                 Integral += (f_U_i+f_U_im1)*deltaLambda_U/2.0;
                             }
@@ -517,7 +527,7 @@ int make_computation(int Nfilter, int *computed_filter){
 
                             /**  Now I compute the integral for the B-band */
                             /// temperature at time t in B
-                            Temperature_t = temp_profile(time[k], disk[j].radius, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, omega);
+                            Temperature_t = temp_profile(time[k], disk[j].radius, disk[j].rstar, disk[j].tau, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, omega);
                             /// Initialization of the sum to compute the integral over the filter
                             Integral = 0.0;
                             /** Loop for the another band, because I need to compute the integral over bandpass */
@@ -525,8 +535,8 @@ int make_computation(int Nfilter, int *computed_filter){
                             for(i = 1; i < numberofloop[n] ; i++){
 
                                 deltaLambda_B = (wavelength[n][i] - wavelength[n][i-1])*angstrom;
-                                f_B_i    = spectrum(cos_inc_angle, D2, theta_in, theta_out, R_in, R_out, wavelength[n][i]*angstrom, Temperature_t)*transmission[n][i];
-                                f_B_im1  = spectrum(cos_inc_angle, D2, theta_in, theta_out, R_in, R_out, wavelength[n][i-1]*angstrom, Temperature_t)*transmission[n][i-1];
+                                f_B_i    = spectrum(cos_inc_angle, D2, theta_in, theta_out, R_in, R_out, wavelength3[n][i], wavelength[n][i], Temperature_t)*transmission[n][i];
+                                f_B_im1  = spectrum(cos_inc_angle, D2, theta_in, theta_out, R_in, R_out, wavelength3[n][i-1], wavelength[n][i-1], Temperature_t)*transmission[n][i-1];
 
                                 Integral += (f_B_i+f_B_im1)*deltaLambda_B/2.0;
                             }
@@ -535,7 +545,7 @@ int make_computation(int Nfilter, int *computed_filter){
 
 
                             /// temperature at time t + tau in U
-                            Temperature_tptau = temp_profile(time[k] + tau_time[l], disk[j].radius, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, omega);
+                            Temperature_tptau = temp_profile(time[k] + tau_time[l], disk[j].radius, disk[j].rstar, disk[j].tau, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, omega);
                             /// Initialization of the sum to compute the integral over the filter
                             Integral = 0.0;
                             /** Loop for the another band, because I need to compute the integral over bandpass */
@@ -543,8 +553,8 @@ int make_computation(int Nfilter, int *computed_filter){
                             for(i = 1; i < numberofloop[n] ; i++){
 
                                 deltaLambda_B = (wavelength[n][i] - wavelength[n][i-1])*angstrom;
-                                f_B_i    = spectrum(cos_inc_angle, D2, theta_in, theta_out, R_in, R_out, wavelength[n][i]*angstrom, Temperature_tptau)*transmission[n][i];
-                                f_B_im1  = spectrum(cos_inc_angle, D2, theta_in, theta_out, R_in, R_out, wavelength[n][i-1]*angstrom, Temperature_tptau)*transmission[n][i-1];
+                                f_B_i    = spectrum(cos_inc_angle, D2, theta_in, theta_out, R_in, R_out, wavelength3[n][i], wavelength[n][i], Temperature_tptau)*transmission[n][i];
+                                f_B_im1  = spectrum(cos_inc_angle, D2, theta_in, theta_out, R_in, R_out, wavelength3[n][i-1], wavelength[n][i-1], Temperature_tptau)*transmission[n][i-1];
 
                                 Integral += (f_B_i+f_B_im1)*deltaLambda_B/2.0;
                             }
