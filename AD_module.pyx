@@ -4,7 +4,7 @@ import ctypes
 
 np.import_array()
 
-cdef extern from "regenerate_band_passes.h":
+cdef extern from "accretion_disk.h":
     int make_computation(int Nfilter, long int *computed_filter)
 
 # create the wrapper code, with numpy type annotations
