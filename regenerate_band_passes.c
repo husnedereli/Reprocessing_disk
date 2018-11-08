@@ -92,9 +92,10 @@ int rescal_filters(char *filter, int binningnumber){
     }
     fclose(output_U);
 
-    free();
-
-
+    free(wavelength_U);
+    free(average_wavelength_U);
+    free(transmission_U);
+    free(average_transmission_U);
 
 
 

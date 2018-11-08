@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 
+#include "regenerate_band_passes.h"
 
 /**  Code specific declaration */
 #define Nr 66 			/** layers **/
@@ -86,7 +87,7 @@ typedef struct region {
 } region;
 
 
-int make_computation(int Nfilter, int *computed_filter){
+int make_computation(int Nfilter, long int *computed_filter){
 
 
     /**  Husne, 9/10/2018
@@ -615,22 +616,22 @@ int make_computation(int Nfilter, int *computed_filter){
 
 
 
-
-int main(){
-
-
-    /** Define argument for the filters */
-    int Nfilter = 6;
-    int computed_filter[6] = {1, 1, 1, 1, 0, 0};
-
-
-
-    make_computation(Nfilter, computed_filter);
-
-    return 0;
-
-}
-
-
+//
+//int main(){
+//
+//
+//    /** Define argument for the filters */
+//    int Nfilter = 6;
+//    int computed_filter[6] = {1, 1, 1, 1, 0, 0};
+//
+//
+//
+//    make_computation(Nfilter, computed_filter);
+//
+//    return 0;
+//
+//}
+//
+//
 
 
