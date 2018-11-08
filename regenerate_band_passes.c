@@ -50,15 +50,20 @@ int main(){
     }
 
 
-    int avarage_wavelength_U = 0.0;
+    double *avarage_wavelength_U;
+    avarage_wavelength_U = (double *) calloc(numberofloop_U,sizeof(double));
+    int binningnumber = 5;
+    int sum;
     int j = 0.0;
-    while (5+5*j< numberofloop_U) {
-        int sum = 0.0;
-        for(i = 0; i < 5; i++){
-            sum = sum + wavelength_U[i+5*j];
+    while (binningnumber+binningnumber*j< numberofloop_U) {
+        sum = 0.0;
+        for(i = 0; i < binningnumber; i++){
+            sum = sum + wavelength_U[i+binningnumber*j];
         }
-        avarage_wavelength_U = sum/5;
-        printf("Average is: %d",avarage_wavelength_U);
+        j=j+1;
+        avarage_wavelength_U[j] = sum/binningnumber;
+        printf("%.13g\t\n", avarage_wavelength_U[j]);
+        //printf("Average is: %d",avarage_wavelength_U);
     }
     
     
