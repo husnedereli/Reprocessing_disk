@@ -45,9 +45,9 @@ int main(){
     }
     fclose(input_U);
 
-    for(i = 0; i < numberofloop_U ; i++){
-        //printf("%g\t%g\n",wavelength_U[i], transmission_U[i]);  //* print the arrays */
-    }
+    //for(i = 0; i < numberofloop_U ; i++){
+    //    printf("i = %d\t %g\t%g\n",i, wavelength_U[i], transmission_U[i]);  //* print the arrays */
+    //}
 
 
     double *average_wavelength_U;
@@ -55,36 +55,35 @@ int main(){
     double *average_transmission_U;
     average_transmission_U = (double *) calloc(numberofloop_U,sizeof(double));
 
-    int binningnumber = 5;
-    int sumW;
-    int sumT;
-    int j = 0.0;
+    int binningnumber = 3;
+    double sumW;
+    double sumT;
+    int j = 0;
+
+    FILE *output_U;
+    output_U=fopen("U_binned.txt", "a");
+
     while (binningnumber+binningnumber*j< numberofloop_U) {
         sumW = 0.0;
         sumT = 0.0;
         for(i = 0; i < binningnumber; i++){
             sumW = sumW + wavelength_U[i+binningnumber*j];
             sumT = sumT + transmission_U[i+binningnumber*j];
+        //    printf("binningnumber = %d\t sumW = %g\t sumT = %g\n", binningnumber, sumW, sumT);
         }
-        j=j+1;
         average_wavelength_U[j] = sumW/binningnumber;
-        //printf("%.13g\t\n", average_wavelength_U[j]);
         average_transmission_U[j] = sumT/binningnumber;
-        printf("%.13g\t\n", average_transmission_U[j]);
+        //printf("T = %g\t W = %g\n", average_transmission_U[j], average_wavelength_U[j]);
 
-    
-    
-        FILE *output_U;
-        output_U=fopen("U_binned.txt", "wb");
-        fprintf (output_U, "%g%g\n", average_wavelength_U[j], average_transmission_U[j]);
-        fclose(output_U);
+        fprintf (output_U, "%g\t%g\n", average_wavelength_U[j], average_transmission_U[j]);
+        j=j+1;
     }
+    fclose(output_U);
 
-    
-    
-    
-    
-    
+
+
+
+
 
 
     return 0;
