@@ -50,21 +50,39 @@ int main(){
     }
 
 
-    double *avarage_wavelength_U;
-    avarage_wavelength_U = (double *) calloc(numberofloop_U,sizeof(double));
+    double *average_wavelength_U;
+    average_wavelength_U = (double *) calloc(numberofloop_U,sizeof(double));
+    double *average_transmission_U;
+    average_transmission_U = (double *) calloc(numberofloop_U,sizeof(double));
+
     int binningnumber = 5;
-    int sum;
+    int sumW;
+    int sumT;
     int j = 0.0;
     while (binningnumber+binningnumber*j< numberofloop_U) {
-        sum = 0.0;
+        sumW = 0.0;
+        sumT = 0.0;
         for(i = 0; i < binningnumber; i++){
-            sum = sum + wavelength_U[i+binningnumber*j];
+            sumW = sumW + wavelength_U[i+binningnumber*j];
+            sumT = sumT + transmission_U[i+binningnumber*j];
         }
         j=j+1;
-        avarage_wavelength_U[j] = sum/binningnumber;
-        printf("%.13g\t\n", avarage_wavelength_U[j]);
-        //printf("Average is: %d",avarage_wavelength_U);
+        average_wavelength_U[j] = sumW/binningnumber;
+        //printf("%.13g\t\n", average_wavelength_U[j]);
+        average_transmission_U[j] = sumT/binningnumber;
+        printf("%.13g\t\n", average_transmission_U[j]);
+
+    
+    
+        FILE *output_U;
+        output_U=fopen("U_binned.txt", "wb");
+        fprintf (output_U, "%g%g\n", average_wavelength_U[j], average_transmission_U[j]);
+        fclose(output_U);
     }
+
+    
+    
+    
     
     
 
