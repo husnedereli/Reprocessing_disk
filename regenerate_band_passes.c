@@ -80,7 +80,7 @@ int main(){
     }
     fclose(output_U);
 
-
+    free();
 
 
 
