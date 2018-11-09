@@ -3,26 +3,17 @@
 #include <math.h>
 
 
-/**  Arguments:
-  *  char *filter: name of the filter without the ".txt" or of the file you want to rescall
-  *  int binningnumber: rescal parameter
-  */
 
-int rescal_filters(char *filter, int binningnumber){
-
-    /**  Husne,  11/10/2018
-      *  Read a txt file for U bandpass.
-      */
+int main(){
+/**  Husne,  11/10/2018
+ *Read a txt file for U bandpass.
+ */
     int i;
     FILE *input_U;
     double c1_U, c2_U;
     int numberofloop_U = 0;
 
-    char filtername = [100];
-    strcat(filtername, filter);
-    strcat(filtername, ".txt");
-
-    input_U=fopen(filtername,"r");      //* open a text file for reading */
+    input_U=fopen("Filter/B.txt","r");      //* open a text file for reading */
 
     /**  Here %lf means type double */
     /// step 1
@@ -42,7 +33,7 @@ int rescal_filters(char *filter, int binningnumber){
 
 
     /// step 3
-    input_U=fopen(filtername,"r"); //* open a text file for reading */
+    input_U=fopen("Filter/B.txt","r"); //* open a text file for reading */
     i = 0;
     while(fscanf(input_U,"%lf%lf", &c1_U, &c2_U) !=EOF ){
         if(c2_U > 0.01){
@@ -64,16 +55,13 @@ int rescal_filters(char *filter, int binningnumber){
     double *average_transmission_U;
     average_transmission_U = (double *) calloc(numberofloop_U,sizeof(double));
 
+    int binningnumber = 5;
     double sumW;
     double sumT;
     int j = 0;
 
     FILE *output_U;
-    char filter_new[100];
-    strcat(filter_new,filter);
-    strcat(filter_new,"_binned.txt");
-
-    output_U=fopen(filter_new, "a");
+    output_U=fopen("Filter/B_binned5.txt", "a");
 
     while (binningnumber+binningnumber*j< numberofloop_U) {
         sumW = 0.0;
@@ -92,12 +80,11 @@ int rescal_filters(char *filter, int binningnumber){
     }
     fclose(output_U);
 
+    
     free(wavelength_U);
     free(average_wavelength_U);
     free(transmission_U);
     free(average_transmission_U);
-
-
 
     return 0;
 }
