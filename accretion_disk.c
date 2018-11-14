@@ -87,7 +87,7 @@ typedef struct region {
 } region;
 
 
-int make_computation(int Nfilter, long int *computed_filter){
+int make_computation(int Nfilter, long int *computed_filter, long double *time, long double *flux){
 
 
     /**  Husne, 9/10/2018
