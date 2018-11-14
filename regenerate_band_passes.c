@@ -13,7 +13,7 @@ int main(){
     double c1_U, c2_U;
     int numberofloop_U = 0;
 
-    input_U=fopen("Filter/B.txt","r");      //* open a text file for reading */
+    input_U=fopen("Filter/U.txt","r");      //* open a text file for reading */
 
     /**  Here %lf means type double */
     /// step 1
@@ -33,7 +33,7 @@ int main(){
 
 
     /// step 3
-    input_U=fopen("Filter/B.txt","r"); //* open a text file for reading */
+    input_U=fopen("Filter/U.txt","r"); //* open a text file for reading */
     i = 0;
     while(fscanf(input_U,"%lf%lf", &c1_U, &c2_U) !=EOF ){
         if(c2_U > 0.01){
@@ -61,7 +61,7 @@ int main(){
     int j = 0;
 
     FILE *output_U;
-    output_U=fopen("Filter/B_binned5.txt", "a");
+    output_U=fopen("Filter/U_binned5.txt", "a");
 
     while (binningnumber+binningnumber*j< numberofloop_U) {
         sumW = 0.0;
