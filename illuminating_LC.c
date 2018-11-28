@@ -87,7 +87,7 @@ typedef struct region {
 } region;
 
 
-int make_computation(int Nfilter, long int *computed_filter, double *time, double *flux){
+int make_computation(int Nfilter, long int *computed_filter, double *time, double *flux, int Ntime){
 
 
     /**  Husne, 9/10/2018
@@ -426,7 +426,7 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
     double Integral;
     double f_UVW2_im1 = 0.0;
     double f_UVW2_i = 0.0;
-    int Ntime = 0;
+    ///int Ntime = 0;
 
 
     int m;
