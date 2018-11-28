@@ -87,7 +87,7 @@ typedef struct region {
 } region;
 
 
-int make_computation(int Nfilter, long int *computed_filter, double *time, double *flux){
+int make_computation(int Nfilter, long int *computed_filter, double *time, double *flux, int Ntime){
 
 
     /**  Husne, 9/10/2018
@@ -424,7 +424,7 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
     //printf("%g\t\n",tau_time);  //* print the arrays */
 
 
-    int Ntime = 0;            /** 5000days*86400 = seconds **/
+    ///int Ntime;            /** 5000days*86400 = seconds **/
     ///double *time;
     ///time = (double *) calloc(Ntime,sizeof(double));
     ///for (i=0; i<Ntime; i++){
