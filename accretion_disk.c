@@ -552,6 +552,10 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
                             /**  Now I compute the integral for the B-band */
                             /// temperature at time t in B
                             Temperature_t = temp_profile(time[k], disk[j].radius, disk[j].rstar, disk[j].tau, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, flux[k]);
+                            if(Temperature_t!=Temperature_t){};
+                            printf("%.13g\t\n", Temperature_t);
+                            getchar();
+                            
                             /// Initialization of the sum to compute the integral over the filter
                             Integral = 0.0;
                             /** Loop for the another band, because I need to compute the integral over bandpass */
