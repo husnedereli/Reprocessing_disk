@@ -397,7 +397,6 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
     for (j=0;j<Nfilter;j++){
         printf("j = %d\t  %d\n",j, numberofloop[j]);
     }
-    getchar();
 
 
 
