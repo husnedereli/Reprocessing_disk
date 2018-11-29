@@ -33,9 +33,9 @@
 
 
 ///** define the Function of the luminosity **/
-double L_star(double L_bol, double time, double flux){///double omega, double t){
+double L_star(double L_bol, double time, double tau, double flux){///double omega, double t){
     //omega = 3*c/R_out
-    return 0.8*L_bol*time*flux;///(1.0+sin(omega*t)); ///** 0.15*L_bol **/
+    return (0.15*L_bol*flux)/(time-tau);///(1.0+sin(omega*t)); ///** 0.15*L_bol **/
 }
 
 /** define the Function of the distance from the central variable source to disk elements **/
@@ -50,7 +50,7 @@ double temp_profile(double time, double r, double rstar, double tau, double thet
     /// Compute the time lag up to the radius. For speed purposed, it is now computed only one time in the main code.
     // double tau = sqrt(pow(h_star,2.0)+pow(r,2.0))+h_star*cos(inc_angle)-r*cos(theta*0.0174532925)*sin(inc_angle);
     // tau = tau/c;
-    double Lstar = L_star(L_bol, flux, time - tau);
+    double Lstar = L_star(L_bol, flux, time, tau);
     //double rstar = r_star(r, h_star);
     //printf("Contrib 1 = %g\t contrib 2 = %g\n ",((3.0*Ggrav*M*M_rate)/(8.0*pi*sigmaSB*pow(r,3.0)))*(1.0-sqrt(r_in/r)),  ((1.0-A)*(h_star*Lstar/(4.0*pi*sigmaSB*pow(rstar,3.0)))));
     //getchar();
