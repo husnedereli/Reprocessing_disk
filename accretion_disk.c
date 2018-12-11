@@ -30,12 +30,15 @@
   *  Here I define all the function to create and fill the disk
   */
 
-
+///** define the Function of the Flux **/
+double Flux(double flux, double time,  double tau){
+    return flux[time-tau];
+}
 
 ///** define the Function of the luminosity **/
-double L_star(double L_bol, double time, double tau, double flux){///double omega, double t){
+double L_star(double L_bol, double flux, double time,  double tau){///double omega, double t){
     //omega = 3*c/R_out
-    return (0.15*L_bol*flux)/(time-tau);///(1.0+sin(omega*t)); ///** 0.15*L_bol **/
+    return 0.15*L_bol*Flux(flux, time, tau);///(1.0+sin(omega*t)); ///** 0.15*L_bol **/
 }
 
 /** define the Function of the distance from the central variable source to disk elements **/
@@ -88,7 +91,6 @@ typedef struct region {
 
 
 int make_computation(int Nfilter, long int *computed_filter, double *time, double *flux, int Ntime){
-
 
     /**  Husne, 9/10/2018
       *  Here I create and fill the disk. I compute the temperature and settle all the regions of the disk.
@@ -552,10 +554,10 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
                             /**  Now I compute the integral for the B-band */
                             /// temperature at time t in B
                             Temperature_t = temp_profile(time[k], disk[j].radius, disk[j].rstar, disk[j].tau, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, flux[k]);
-                            if(Temperature_t!=Temperature_t){
-                            printf("%.13g\t\n", Temperature_t);
-                            getchar();
-                            }
+                            ///if(Temperature_t!=Temperature_t){
+                            ///printf("%.13g\t\n", Temperature_t);
+                            ///getchar();
+                            ///}
                             
                             /// Initialization of the sum to compute the integral over the filter
                             Integral = 0.0;
