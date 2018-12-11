@@ -31,15 +31,20 @@
   */
 
 ///** define the Function of the Flux **/
-double Flux(int k, double *flux, double *time,  double tau){
+double Flux(int i, int Ntime, int index, double t, double *time,  double tau, double *flux){
     ///return flux[time-tau];
-    return flux[k]+(flux[k+1]-flux[k])*(time[k+1]-tau-time[k])/(time[k+1]-time[k]);
+    for (i=0; i < Ntime-1; i++){
+        if (time[i] < t-tau and t-tau < time[i+1]){
+            index = i;
+    return flux[index]+(flux[index+1]-flux[index])*(t-tau-time[index])/(time[index+1]-time[index]);
+        }
+    }
 }
 
 ///** define the Function of the luminosity **/
-double L_star(int k, double L_bol, double *flux, double *time,  double tau){///double omega, double t){
+double L_star(double L_bol, int i, int Ntime, int index, double t, double *time,  double tau, double *flux){///double omega, double t){
     //omega = 3*c/R_out
-    return 0.15*L_bol*Flux(k, flux, time, tau);///(1.0+sin(omega*t)); ///** 0.15*L_bol **/
+    return 0.15*L_bol*Flux(i, Ntime, index, t, *time,  tau, *flux);///(1.0+sin(omega*t)); ///** 0.15*L_bol **/
 }
 
 /** define the Function of the distance from the central variable source to disk elements **/
@@ -49,12 +54,12 @@ double r_star(double r, double h_star){
 
 
 /** define the Function of the temperature profile **/
-double temp_profile(double *time, double r, double rstar, double tau, double theta, double M, double M_rate, double r_in, double A, double h_star, double inc_angle, double L_bol, int k, double *flux){
+double temp_profile(double r, double rstar, double tau, double theta, double M, double M_rate, double r_in, double A, double h_star, double inc_angle, double L_bol, int i, int Ntime, int index, double t, double *time,  double tau, double *flux){
 
     /// Compute the time lag up to the radius. For speed purposed, it is now computed only one time in the main code.
     // double tau = sqrt(pow(h_star,2.0)+pow(r,2.0))+h_star*cos(inc_angle)-r*cos(theta*0.0174532925)*sin(inc_angle);
     // tau = tau/c;
-    double Lstar = L_star(L_bol, k, flux, time, tau);
+    double Lstar = L_star(L_bol, i, Ntime, index, t, *time,  tau, *flux);
     //double rstar = r_star(r, h_star);
     //printf("Contrib 1 = %g\t contrib 2 = %g\n ",((3.0*Ggrav*M*M_rate)/(8.0*pi*sigmaSB*pow(r,3.0)))*(1.0-sqrt(r_in/r)),  ((1.0-A)*(h_star*Lstar/(4.0*pi*sigmaSB*pow(rstar,3.0)))));
     //getchar();
@@ -427,15 +432,15 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
     //printf("%g\t\n",tau_time);  //* print the arrays */
 
 
-    ///int Ntime;            /** 5000days*86400 = seconds **/
-    ///double *time;
-    ///time = (double *) calloc(Ntime,sizeof(double));
-    ///for (i=0; i<Ntime; i++){
-   ///     time[i] = i/2.0;
-   ///     //printf("time=%g\n", t[i]);
-   /// }
+    int Nt;            /** 5000days*86400 = seconds **/
+    double *t;
+    t = (double *) calloc(Nt,sizeof(double));
+    for (i=0; i<Nt; i++){
+        t[i] = i/2.0;
+        //printf("t=%g\n", t[i]);
+    }
 
-    // a) make the sum of all the S(tau, t)*1/Ntime
+    // a) make the sum of all the S(tau, t)*1/Nt
     // i) compute all S for all t
     /**  Husne,  19/10/2018 *  compute the color variability and plot them */
     double avarage_SBU = 0.0;
@@ -489,7 +494,7 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
                 for (l=0; l < Ntau; l++){
                     S_BU = 0.0;
                     /** Loop for the time, because I need to compute an average with respect to time */
-                    for (k=0; k < Ntime; k++){
+                    for (k=0; k < Nt; k++){
                         if(k % 10 == 0){
                             printf("k = %d\n", k);
                         }
@@ -514,7 +519,7 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
 
                             /**  Now I compute the integral for the U-band */
                             /// temperature at time t in U
-                            Temperature_t = temp_profile(time[k], disk[j].radius,disk[j].rstar, disk[j].tau, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, k, flux[k]);
+                            Temperature_t = temp_profile(t[k], disk[j].radius,disk[j].rstar, disk[j].tau, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, k, flux[k]);
                             /// Initialization of the sum to compute the integral over the filter
                             Integral = 0.0;
 
@@ -533,7 +538,7 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
 
 
                             /// temperature at time t + tau in U
-                            Temperature_tptau = temp_profile(time[k] + tau_time[l], disk[j].radius, disk[j].rstar, disk[j].tau, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, k, flux[k]);
+                            Temperature_tptau = temp_profile(t[k] + tau_time[l], disk[j].radius, disk[j].rstar, disk[j].tau, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, k, flux[k]);
                             /// Initialization of the sum to compute the integral over the filter
                             Integral = 0.0;
                             /** Loop for the one band, because I need to compute the integral over bandpass */
@@ -554,7 +559,7 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
 
                             /**  Now I compute the integral for the B-band */
                             /// temperature at time t in B
-                            Temperature_t = temp_profile(time[k], disk[j].radius, disk[j].rstar, disk[j].tau, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, k, flux[k]);
+                            Temperature_t = temp_profile(t[k], disk[j].radius, disk[j].rstar, disk[j].tau, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, k, flux[k]);
                             ///if(Temperature_t!=Temperature_t){
                             ///printf("%.13g\t\n", Temperature_t);
                             ///getchar();
@@ -577,7 +582,7 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
 
 
                             /// temperature at time t + tau in U
-                            Temperature_tptau = temp_profile(time[k] + tau_time[l], disk[j].radius, disk[j].rstar, disk[j].tau, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, k, flux[k]);
+                            Temperature_tptau = temp_profile(t[k] + tau_time[l], disk[j].radius, disk[j].rstar, disk[j].tau, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, k, flux[k]);
                             /// Initialization of the sum to compute the integral over the filter
                             Integral = 0.0;
                             /** Loop for the another band, because I need to compute the integral over bandpass */
@@ -599,7 +604,7 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
                         
 
                     }
-                    avarage_SBU = S_BU/Ntime;
+                    avarage_SBU = S_BU/Nt;
                     printf("%.13g\t\n", avarage_SBU);
                 }
             }
