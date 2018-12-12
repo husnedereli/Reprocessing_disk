@@ -31,11 +31,11 @@
   */
 
 ///** define the Function of the Flux **/
-double *time;
-double *flux;
-double Flux(int i, int Ntime, int indexN, double t, double *time,  double tau, double *flux){
-    time = (double *) calloc(Ntime,sizeof(double));
-    flux = (double *) calloc(Ntime,sizeof(double));
+
+double Flux(int Ntime, double t, double *time,  double tau, double *flux){
+
+    int i;
+    int indexN = -1;
     ///return flux[time-tau];
     for (i=0; i < Ntime-1; i++){
         if (time[i] < (t-tau) && (t-tau) < time[i+1]){
@@ -43,12 +43,13 @@ double Flux(int i, int Ntime, int indexN, double t, double *time,  double tau, d
             return flux[indexN]+(flux[indexN+1]-flux[indexN])*(t-tau-time[indexN])/(time[indexN+1]-time[indexN]);
         }
     }
+    return -1.0;
 }
 
 ///** define the Function of the luminosity **/
-double L_star(double L_bol, int i, int Ntime, int indexN, double t, double *time,  double tau, double *flux){///double omega, double t){
+double L_star(double L_bol, int Ntime, double t, double *time,  double tau, double *flux){///double omega, double t){
     //omega = 3*c/R_out
-    return 0.15*L_bol*Flux(i, Ntime, indexN, t, *time,  tau, *flux);///(1.0+sin(omega*t)); ///** 0.15*L_bol **/
+    return 0.15*L_bol*Flux(Ntime, t, time,  tau, flux);///(1.0+sin(omega*t)); ///** 0.15*L_bol **/
 }
 
 /** define the Function of the distance from the central variable source to disk elements **/
@@ -58,12 +59,12 @@ double r_star(double r, double h_star){
 
 
 /** define the Function of the temperature profile **/
-double temp_profile(double t, double r, double rstar, double tau, double theta, double M, double M_rate, double r_in, double A, double h_star, double inc_angle, double L_bol, int i, int Ntime, int indexN, double *time, double *flux){
+double temp_profile(double t, double r, double rstar, double tau, double theta, double M, double M_rate, double r_in, double A, double h_star, double inc_angle, double L_bol, int Ntime, double *time, double *flux){
 
     /// Compute the time lag up to the radius. For speed purposed, it is now computed only one time in the main code.
     // double tau = sqrt(pow(h_star,2.0)+pow(r,2.0))+h_star*cos(inc_angle)-r*cos(theta*0.0174532925)*sin(inc_angle);
     // tau = tau/c;
-    double Lstar = L_star(L_bol, i, Ntime, indexN, t, *time,  tau, *flux);
+    double Lstar = L_star(L_bol, Ntime, t, time,  tau, flux);
     //double rstar = r_star(r, h_star);
     //printf("Contrib 1 = %g\t contrib 2 = %g\n ",((3.0*Ggrav*M*M_rate)/(8.0*pi*sigmaSB*pow(r,3.0)))*(1.0-sqrt(r_in/r)),  ((1.0-A)*(h_star*Lstar/(4.0*pi*sigmaSB*pow(rstar,3.0)))));
     //getchar();
@@ -236,6 +237,7 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
                         /// Previous line is equivalent to      numberofloop_U = numberofloop_U + 1;                 //* caunt the number of loop */
                     }
                     numberofloop[j] = numberofloop_filtername;
+                    fclose(input_filtername);
                     break;
                 case 1 : //*it is UVM2 filter then*/
                     input_filtername=fopen("Filter/UVM2_binned5.txt","r");      //* open a text file for reading */
@@ -248,6 +250,7 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
                         /// Previous line is equivalent to      numberofloop_U = numberofloop_U + 1;                 //* caunt the number of loop */
                     }
                     numberofloop[j] = numberofloop_filtername;
+                    fclose(input_filtername);
                     break;
                 case 2 : //*it is UVW1 filter then*/
                     input_filtername=fopen("Filter/UVW1_binned5.txt","r");      //* open a text file for reading */
@@ -260,6 +263,7 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
                         /// Previous line is equivalent to      numberofloop_U = numberofloop_U + 1;                 //* caunt the number of loop */
                     }
                     numberofloop[j] = numberofloop_filtername;
+                    fclose(input_filtername);
                     break;
                 case 3 : //*it is U filter then*/
                     input_filtername=fopen("Filter/U_binned5.txt","r");      //* open a text file for reading */
@@ -272,6 +276,7 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
                         /// Previous line is equivalent to      numberofloop_U = numberofloop_U + 1;                 //* caunt the number of loop */
                     }
                     numberofloop[j] = numberofloop_filtername;
+                    fclose(input_filtername);
                     break;
                 case 4 : //*it is B filter then*/
                     input_filtername=fopen("Filter/B_binned5.txt","r");      //* open a text file for reading */
@@ -284,6 +289,7 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
                         /// Previous line is equivalent to      numberofloop_U = numberofloop_U + 1;                 //* caunt the number of loop */
                     }
                     numberofloop[j] = numberofloop_filtername;
+                    fclose(input_filtername);
                     break;
                 case 5 : //*it is V filter then*/
                     input_filtername=fopen("Filter/V_binned5.txt","r");      //* open a text file for reading */
@@ -296,9 +302,10 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
                         /// Previous line is equivalent to      numberofloop_U = numberofloop_U + 1;                 //* caunt the number of loop */
                     }
                     numberofloop[j] = numberofloop_filtername;
+                    fclose(input_filtername);
                     break;
             }
-            fclose(input_filtername);
+
         }
 
         /// step 2 to create arrays
@@ -324,6 +331,7 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
                             i += 1;
                         }
                     }
+                    fclose(input_filtername);
                     break;
                 case 1 : //*it is UVM2 filter then*/
                     input_filtername=fopen("Filter/UVM2_binned5.txt","r");      //* open a text file for reading */
@@ -339,6 +347,7 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
                             i += 1;
                         }
                     }
+                    fclose(input_filtername);
                     break;
                 case 2 : //*it is UVW1 filter then*/
                     input_filtername=fopen("Filter/UVW1_binned5.txt","r");      //* open a text file for reading */
@@ -354,6 +363,7 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
                             i += 1;
                         }
                     }
+                    fclose(input_filtername);
                     break;
                 case 3 : //*it is U filter then*/
                     input_filtername=fopen("Filter/U_binned5.txt","r");      //* open a text file for reading */
@@ -369,6 +379,7 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
                             i += 1;
                         }
                     }
+                    fclose(input_filtername);
                     break;
                 case 4 : //*it is B filter then*/
                     input_filtername=fopen("Filter/B_binned5.txt","r");      //* open a text file for reading */
@@ -384,6 +395,7 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
                             i += 1;
                         }
                     }
+                    fclose(input_filtername);
                     break;
                 case 5 : //*it is V filter then*/
                     input_filtername=fopen("Filter/V_binned5.txt","r");      //* open a text file for reading */
@@ -399,9 +411,9 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
                             i += 1;
                         }
                     }
+                    fclose(input_filtername);
                     break;
             }
-            fclose(input_filtername);
         }
     }
 
@@ -436,7 +448,7 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
     //printf("%g\t\n",tau_time);  //* print the arrays */
 
 
-    int Nt;            /** 5000days*86400 = seconds **/
+    int Nt = 1000;            /** 5000days*86400 = seconds **/
     double *t;
     t = (double *) calloc(Nt,sizeof(double));
     for (i=0; i<Nt; i++){
@@ -523,7 +535,7 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
 
                             /**  Now I compute the integral for the U-band */
                             /// temperature at time t in U
-                            Temperature_t = temp_profile(t[k], disk[j].radius,disk[j].rstar, disk[j].tau, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, i, Ntime, indexN, *time[k], *flux[k]);
+                            Temperature_t = temp_profile(t[k], disk[j].radius,disk[j].rstar, disk[j].tau, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, Ntime, time, flux);
                             /// Initialization of the sum to compute the integral over the filter
                             Integral = 0.0;
 
@@ -542,7 +554,7 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
 
 
                             /// temperature at time t + tau in U
-                            Temperature_tptau = temp_profile(t[k] + tau_time[l], disk[j].radius, disk[j].rstar, disk[j].tau, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, i, Ntime, indexN, *time[k], *flux[k]);
+                            Temperature_tptau = temp_profile(t[k] + tau_time[l], disk[j].radius, disk[j].rstar, disk[j].tau, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, Ntime, time, flux);
                             /// Initialization of the sum to compute the integral over the filter
                             Integral = 0.0;
                             /** Loop for the one band, because I need to compute the integral over bandpass */
@@ -563,12 +575,12 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
 
                             /**  Now I compute the integral for the B-band */
                             /// temperature at time t in B
-                            Temperature_t = temp_profile(t[k], disk[j].radius, disk[j].rstar, disk[j].tau, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, i, Ntime, indexN, *time[k], *flux[k]);
+                            Temperature_t = temp_profile(t[k], disk[j].radius, disk[j].rstar, disk[j].tau, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, Ntime, time, flux);
                             ///if(Temperature_t!=Temperature_t){
                             ///printf("%.13g\t\n", Temperature_t);
                             ///getchar();
                             ///}
-                            
+
                             /// Initialization of the sum to compute the integral over the filter
                             Integral = 0.0;
                             /** Loop for the another band, because I need to compute the integral over bandpass */
@@ -586,7 +598,7 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
 
 
                             /// temperature at time t + tau in U
-                            Temperature_tptau = temp_profile(t[k] + tau_time[l], disk[j].radius, disk[j].rstar, disk[j].tau, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, i, Ntime, indexN, *time[k], *flux[k]);
+                            Temperature_tptau = temp_profile(t[k] + tau_time[l], disk[j].radius, disk[j].rstar, disk[j].tau, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, Ntime, time, flux);
                             /// Initialization of the sum to compute the integral over the filter
                             Integral = 0.0;
                             /** Loop for the another band, because I need to compute the integral over bandpass */
@@ -605,7 +617,7 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
                         S_BU = S_BU + (flux_tptau_B-flux_t_B) / (flux_tptau_U-flux_t_U);
                         printf("%.13g\t\n", flux_t_B);
                         printf("%.13g\t\n", flux_t_U);
-                        
+
 
                     }
                     avarage_SBU = S_BU/Nt;
