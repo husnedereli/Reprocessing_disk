@@ -448,7 +448,7 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
     //printf("%g\t\n",tau_time);  //* print the arrays */
 
 
-    int Nt = 1000;            /** 5000days*86400 = seconds **/
+    int Nt = 1048;           /** time[Ntime-1]-time[0]=1048.1724000000004 **/
     double *t;
     t = (double *) calloc(Nt,sizeof(double));
     for (i=0; i<Nt; i++){
