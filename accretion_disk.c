@@ -103,6 +103,17 @@ typedef struct region {
 
 int make_computation(int Nfilter, long int *computed_filter, double *time, double *flux, int Ntime){
 
+
+/*
+    int ii;
+    FILE *output;
+    output = fopen("lc.txt","a");
+    for(ii = 0; ii < Ntime; ii++){
+        fprintf(output, "%g\t%g\n", time[ii], flux[ii]);
+    }
+    fclose(output);
+*/
+
     /**  Husne, 9/10/2018
       *  Here I create and fill the disk. I compute the temperature and settle all the regions of the disk.
       */
