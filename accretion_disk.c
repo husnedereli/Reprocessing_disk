@@ -21,6 +21,7 @@
 #define nm 1e-7                         /** cm              */
 #define angstrom 1e-8                   /** cm              */
 
+#define second_to_day 1.157407407e-5
 
 /**  Other constant */
 #define pi 3.14159265358979
@@ -168,7 +169,7 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
 
             /// Compute the time lag up to the radius.
             tau = sqrt(pow(h_star,2.0)+pow(r[i],2.0))+h_star*cos_inc_angle-r[i]*cos(theta[j]*0.0174532925)*sin(inc_angle);
-            tau = tau/c;
+            tau = (tau/c)*second_to_day;
             disk[i*Ntheta+j].tau = tau;
         }
     }
