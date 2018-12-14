@@ -32,20 +32,55 @@
   */
 
 ///** define the Function of the Flux **/
-
 double Flux(int Ntime, double t, double *time,  double tau, double *flux){
-
-    int i;
-    int indexN = -1;
-    ///return flux[time-tau];
-    for (i=0; i < Ntime-1; i++){
-        if (time[i] < (t-tau) && (t-tau) < time[i+1]){
-            indexN = i;
-            return flux[indexN]+(flux[indexN+1]-flux[indexN])*(t-tau-time[indexN])/(time[indexN+1]-time[indexN]);
+    /**  Husne, 13/12/2018
+     *   Find the position of the t-tau in the light curve using Binary search algorithm
+     */
+    double t_tau = t-tau;
+    int nb_loop = 0;
+    /** Step1 */
+    int L = time [0];
+    int R = Ntime-1;
+    /** Step2 */
+    int m = 0;
+    /** Check boundaries for element ouside of the array */
+    if((t_tau)< time[0] || (t_tau)>time[R]){
+        return -1;
+    }
+    /** Check the boundaries */
+    if(time[0] == (t_tau)){
+        return 0;
+    }
+    if(time[R] == (t_tau)){
+        return R;
+    }
+    /** The element we are looking for is not at the boundary */
+    while (L < R){
+        /** Step3 */
+        m = floor((L+R)/2);
+        nb_loop +=1;
+        if(time[m] == (t_tau)){
+            return m;
+        }
+        if(time[m+1] == (t_tau)){
+            return m+1;
+        }
+        /** Step4 */
+        if (time[m] < (t_tau)){
+            L = m ;
+        }
+        /** Step5 */
+        if (time[m] > (t_tau)){
+            R = m ;
+        }
+        if(R == L+1){
+            return L;
         }
     }
-    return -1.0;
+    return flux[m];
 }
+
+
 
 ///** define the Function of the luminosity **/
 double L_star(double L_bol, int Ntime, double t, double *time,  double tau, double *flux){///double omega, double t){
