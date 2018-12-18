@@ -32,7 +32,7 @@
   */
 
 ///** define the Function of the Flux **/
-double Flux(int Ntime, double t, double *time,  double tau, double *flux){
+double find_index(int Ntime, double t, double *time,  double tau, double *flux){
     /**  Husne, 13/12/2018
      *   Find the position of the t-tau in the light curve using Binary search algorithm
      */
@@ -45,7 +45,8 @@ double Flux(int Ntime, double t, double *time,  double tau, double *flux){
     int m = 0;
     /** Check boundaries for element ouside of the array */
     if((t_tau)< time[0] || (t_tau)>time[R]){
-        return -1;
+        printf("Undefined flux \n");
+        return -1.0;
     }
     /** Check the boundaries */
     if(time[0] == (t_tau)){
@@ -77,14 +78,41 @@ double Flux(int Ntime, double t, double *time,  double tau, double *flux){
             return L;
         }
     }
-    return flux[m];
+    printf("Undefined flux \n");
+    return -1.0;
 }
+
+
+double Flux(int Ntime, double t, double *time,  double tau, double *flux){
+
+    int i;
+    int indexN = -1;
+    ///return flux[time-tau];
+    //printf("####################################\nI am here \n\n\n");
+    //printf("t - tau = %g\n",t-tau);
+
+    for (i=0; i < Ntime-1; i++){
+        //printf("time[%d] = %g\ttime[%d] = %g\n", i, time[i], i+1, time[i+1]);
+        //getchar();
+        if (time[i] < (t-tau) && (t-tau) < time[i+1]){
+            indexN = i;
+       //     printf("indexN = %d\t flux[%d] = %g\t flux[%d] = %g\t t-tau = %g\n", indexN, indexN, flux[indexN],indexN+1, flux[indexN+1],t-tau);
+            return flux[indexN]+(flux[indexN+1]-flux[indexN])*(t-tau-time[indexN])/(time[indexN+1]-time[indexN]);
+        }
+    }
+    // printf("indexN = %d\t i =%d\n", indexN, i);
+    return -1.0;
+}
+
 
 
 
 ///** define the Function of the luminosity **/
 double L_star(double L_bol, int Ntime, double t, double *time,  double tau, double *flux){///double omega, double t){
     //omega = 3*c/R_out
+
+    double f = Flux(Ntime, t, time,  tau, flux);
+    if(f > 0.0){}
     return 0.15*L_bol*Flux(Ntime, t, time,  tau, flux);///(1.0+sin(omega*t)); ///** 0.15*L_bol **/
 }
 
