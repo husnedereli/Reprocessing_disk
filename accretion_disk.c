@@ -9,8 +9,8 @@
 //#define Ntheta 66		/** zones per layers **/
 
 /**  Code specific declaration */
-#define Nr 66 			/** layers **/
-#define Ntheta 66		/** zones per layers **/
+#define Nr 22 			/** layers **/
+#define Ntheta 22		/** zones per layers **/
 
 /** Definition of the physical constants **/
 /**  Constant CGS */
@@ -560,7 +560,7 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
 
 
 
-
+    double *flux_t_Utest;
 
 
     int m;
@@ -598,13 +598,13 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
                         flux_t_B = 0.0;
                         flux_tptau_U = 0.0;
                         flux_tptau_B = 0.0;
-
+                        flux_t_Utest = (double *) calloc(Ntime,sizeof(double));
 
                         /**  I need to check that for all elements of the disk I never obtained a negative temperature, which means that the computation can be done. */
                         can_do_computation = 0;
                         for (j=0; j < Nr*Ntheta; j++){
                             /// temperature at time t in U
-                            Temperature_t = temp_profile(t[k], disk[j].radius,disk[j].rstar, disk[j].tau, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, Ntime, time, flux);
+                            Temperature_t = temp_profile(t[k], disk[j].radius, disk[j].rstar, disk[j].tau, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, Ntime, time, flux);
                             disk[j].temp_t = Temperature_t;
                             /// temperature at time t + tau in U
                             Temperature_tptau = temp_profile(t[k] + tau_time[l], disk[j].radius, disk[j].rstar, disk[j].tau, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, Ntime, time, flux);
@@ -647,6 +647,7 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
                                 }
 
                                 flux_t_U = flux_t_U + Integral;
+                                flux_t_Utest[k] = flux_t_U;
                                 if(flux_t_U != flux_t_U){
                                     printf("Flux_t_u = NAN \t j = %d\t Integral = %g\n", j, Integral);
                                     getchar();
@@ -735,8 +736,12 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
                             }
                             //printf("%.13g\t\n", flux_t_B);
                             //printf("%.13g\t\n", flux_t_U);
-
                         }
+                        ///////////test test test //////////////
+                        FILE *output;
+                        output = fopen("lc_U_test_disk.txt","a");
+                        fprintf(output, "%g\t\n", flux_t_Utest[k]);
+                        fclose(output);
                     }
                     //avarage_SBU = S_BU/Nt;
                     avarage_SBU = S_BU/ ((double) nb_computation);
