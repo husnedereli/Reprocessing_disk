@@ -195,7 +195,7 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
     double M_rate = 1.0*Msun/31557600.0;    /** M_sun yr^-1, the typical black hole accretion rate , converted to gr **/
                                             /** the numerical factor converts from year to second: we are working in cgs: cm gram second.*/
     double A = 0.5;                         /** the disk albedo **/
-    double L_bol = 2.82e44;                 /** the bolometric luminosity **/
+    double L_bol = 2.82e44;                 /** erg/s^-1, the bolometric luminosity **/
 
     /** Checking the values of the radii */
     // printf("Rg = %g\tR_int = %g\tR_out = %g \n", Rg, r_in, r_out);
