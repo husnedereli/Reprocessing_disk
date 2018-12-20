@@ -518,7 +518,7 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
     //printf("%g\t\n",tau_time);  //* print the arrays */
 
 
-    int Nt = 2200;           /** time[Ntime-1]-time[0]=1048.1724000000004 **/
+    int Nt = 5000;///2200;           /** time[Ntime-1]-time[0]=1048.1724000000004 **/
     double *t;
     t = (double *) calloc(Nt,sizeof(double));
     for (i=0; i<Nt; i++){
@@ -623,11 +623,12 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
                     }
 
                 }
-                printf("time = %g\t\tflux = %.13g\t\n", time[k], flux_t_U[k]);
+                printf("time = %g\t\tflux = %.13g\t\n", t[k], flux_t_U[k]);
                 output = fopen("lc_U_disk.txt","a");
                 if(flux_t_U[k] > 0){
                     fprintf(output, "%g\t%g\n", t[k], flux_t_U[k]);
                 }
+                
             }
         }
     }
