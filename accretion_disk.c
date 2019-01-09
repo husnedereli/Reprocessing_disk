@@ -867,10 +867,9 @@ int compute_LC(int filter_name, double *time_ILC, double *flux_ILC, int Ntime_IL
     double *transmission;
 
     double c1_filtername, c2_filtername;
-    int numberofloop;
+    int numberofloop = 0;
 
     FILE *input_filtername;
-    numberofloop_filtername = 0.0;
     //*it is important, when the filter number given as a "0" make computation*/
 
     switch(filter_name) {
@@ -880,11 +879,10 @@ int compute_LC(int filter_name, double *time_ILC, double *flux_ILC, int Ntime_IL
             /// step 1 caunt the number of loop
             while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
                 if(c2_filtername > 0.01){
-                    numberofloop_filtername = numberofloop_filtername + 1;                 //* caunt the number of loop */
+                    numberofloop = numberofloop + 1;                 //* caunt the number of loop */
                 }
                 /// Previous line is equivalent to      numberofloop_U = numberofloop_U + 1;                 //* caunt the number of loop */
             }
-            numberofloop = numberofloop_filtername;
             fclose(input_filtername);
             break;
         case 1 : //*it is UVM2 filter then*/
@@ -893,11 +891,10 @@ int compute_LC(int filter_name, double *time_ILC, double *flux_ILC, int Ntime_IL
             /// step 1
             while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
                 if(c2_filtername > 0.01){
-                    numberofloop_filtername = numberofloop_filtername + 1;                 //* caunt the number of loop */
+                    numberofloop = numberofloop + 1;                 //* caunt the number of loop */
                 }
                 /// Previous line is equivalent to      numberofloop_U = numberofloop_U + 1;                 //* caunt the number of loop */
             }
-            numberofloop = numberofloop_filtername;
             fclose(input_filtername);
             break;
         case 2 : //*it is UVW1 filter then*/
@@ -906,11 +903,10 @@ int compute_LC(int filter_name, double *time_ILC, double *flux_ILC, int Ntime_IL
             /// step 1
             while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
                 if(c2_filtername > 0.01){
-                    numberofloop_filtername = numberofloop_filtername + 1;                 //* caunt the number of loop */
+                    numberofloop = numberofloop + 1;                 //* caunt the number of loop */
                 }
                 /// Previous line is equivalent to      numberofloop_U = numberofloop_U + 1;                 //* caunt the number of loop */
             }
-            numberofloop = numberofloop_filtername;
             fclose(input_filtername);
             break;
         case 3 : //*it is U filter then*/
@@ -919,11 +915,10 @@ int compute_LC(int filter_name, double *time_ILC, double *flux_ILC, int Ntime_IL
             /// step 1
             while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
                 if(c2_filtername > 0.01){
-                    numberofloop_filtername = numberofloop_filtername + 1;                 //* caunt the number of loop */
+                    numberofloop = numberofloop + 1;                 //* caunt the number of loop */
                 }
                 /// Previous line is equivalent to      numberofloop_U = numberofloop_U + 1;                 //* caunt the number of loop */
             }
-            numberofloop = numberofloop_filtername;
             fclose(input_filtername);
             break;
         case 4 : //*it is B filter then*/
@@ -932,11 +927,10 @@ int compute_LC(int filter_name, double *time_ILC, double *flux_ILC, int Ntime_IL
             /// step 1
             while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
                 if(c2_filtername > 0.01){
-                    numberofloop_filtername = numberofloop_filtername + 1;                 //* caunt the number of loop */
+                    numberofloop = numberofloop + 1;                 //* caunt the number of loop */
                 }
                 /// Previous line is equivalent to      numberofloop_U = numberofloop_U + 1;                 //* caunt the number of loop */
             }
-            numberofloop = numberofloop_filtername;
             fclose(input_filtername);
             break;
         case 5 : //*it is V filter then*/
@@ -945,15 +939,13 @@ int compute_LC(int filter_name, double *time_ILC, double *flux_ILC, int Ntime_IL
             /// step 1
             while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
                 if(c2_filtername > 0.01){
-                    numberofloop_filtername = numberofloop_filtername + 1;                 //* caunt the number of loop */
+                    numberofloop = numberofloop + 1;                 //* caunt the number of loop */
                 }
                 /// Previous line is equivalent to      numberofloop_U = numberofloop_U + 1;                 //* caunt the number of loop */
             }
-            numberofloop = numberofloop_filtername;
             fclose(input_filtername);
             break;
     }
-
     /**  DAMIEN : WE STOP LOOKING AT THE PB HERE */
 
     /// step 2 to create arrays
@@ -1137,7 +1129,7 @@ int compute_LC(int filter_name, double *time_ILC, double *flux_ILC, int Ntime_IL
         can_do_computation = 0;
         for (j=0; j < Nr*Ntheta; j++){
             /// temperature at time t in U
-            Temperature_t = temp_profile(   t[k], disk[j].radius, disk[j].rstar, disk[j].tau, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, Ntime, time_ILC, flux_ILC);
+            Temperature_t = temp_profile(   t[k], disk[j].radius, disk[j].rstar, disk[j].tau, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, Ntime_ILC, time_ILC, flux_ILC);
             disk[j].temp_t = Temperature_t;
             if(Temperature_t < 0.0){
                 can_do_computation = 1;
@@ -1166,19 +1158,21 @@ int compute_LC(int filter_name, double *time_ILC, double *flux_ILC, int Ntime_IL
                 ///numberofloop_U = numberofloop[m]
                 for(i = 1; i < numberofloop ; i++){
 
-                    deltaLambda_U = (wavelength[m][i] - wavelength[m][i-1]);
+                    deltaLambda_U = (wavelength[i] - wavelength[i-1]);
                     f_U_i = spectrum(cos_inc_angle, D2, theta_in, theta_out, R_in, R_out, wavelength3[i], wavelength[i], Temperature_t)*transmission[i];
                     f_U_im1 = spectrum(cos_inc_angle, D2, theta_in, theta_out, R_in, R_out, wavelength3[i-1], wavelength[i-1], Temperature_t)*transmission[i-1];
 
                     Integral += (f_U_i+f_U_im1)*deltaLambda_U/2.0;
                 }
                 flux[k] = flux[k] + Integral;
+
+
                 ///nb_computation +=1;
                 ///printf("%.13g\t\n", flux_t_U[k]);
-                if(flux_t_U[k] != flux_t_U[k]){
+                /*if(flux_t_U[k] != flux_t_U[k]){
                     printf("Flux_t_u = NAN \t j = %d\t Integral = %g\n", j, Integral);
                     getchar();
-                }
+                }*/
             }
 
         }
