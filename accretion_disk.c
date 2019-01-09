@@ -102,7 +102,8 @@ double L_star(double L_bol, int Ntime, double t, double *time,  double tau, doub
     /**  It is ok it is inside the time */
 
     double f = flux[index_flux]+(flux[index_flux+1]-flux[index_flux])*(t-tau-time[index_flux])/(time[index_flux+1]-time[index_flux]);;
-    return 0.15*L_bol*f;
+    ///return 0.15*L_bol*f;
+    return L_bol*f;
 }
 
 /** define the Function of the distance from the central variable source to disk elements **/
@@ -559,10 +560,6 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
     double f_B_i = 0.0;
 
 
-
-    double *flux_t_Utest;
-
-
     int m;
     int n;
     int l;
@@ -598,7 +595,6 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
                         flux_t_B = 0.0;
                         flux_tptau_U = 0.0;
                         flux_tptau_B = 0.0;
-                        flux_t_Utest = (double *) calloc(Ntime,sizeof(double));
 
                         /**  I need to check that for all elements of the disk I never obtained a negative temperature, which means that the computation can be done. */
                         can_do_computation = 0;
@@ -647,7 +643,6 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
                                 }
 
                                 flux_t_U = flux_t_U + Integral;
-                                flux_t_Utest[k] = flux_t_U;
                                 if(flux_t_U != flux_t_U){
                                     printf("Flux_t_u = NAN \t j = %d\t Integral = %g\n", j, Integral);
                                     getchar();
@@ -737,11 +732,6 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
                             //printf("%.13g\t\n", flux_t_B);
                             //printf("%.13g\t\n", flux_t_U);
                         }
-                        ///////////test test test //////////////
-                        FILE *output;
-                        output = fopen("lc_U_test_disk.txt","a");
-                        fprintf(output, "%g\t\n", flux_t_Utest[k]);
-                        fclose(output);
                     }
                     //avarage_SBU = S_BU/Nt;
                     avarage_SBU = S_BU/ ((double) nb_computation);

@@ -102,7 +102,8 @@ double L_star(double L_bol, int Ntime, double t, double *time,  double tau, doub
     /**  It is ok it is inside the time, make a lineer interpolation to find the indexN **/
 
 double f = flux[index_flux]+(flux[index_flux+1]-flux[index_flux])*(t-tau-time[index_flux])/(time[index_flux+1]-time[index_flux]);
-    return 0.15*L_bol*f;
+    ///return 0.15*L_bol*f;
+    return L_bol*f;
 }
 
 /** define the Function of the distance from the central variable source to disk elements **/
@@ -555,7 +556,7 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
     ///int nb_computation;
     /** Loop for the Number of filter, because I need to compute the flux for each band */
     for (m=0;m<Nfilter;m++){
-        //*it is important, when the filter number given as a "0" make computation for all casses between two filters */
+        //*it is important, when the filter number given as a "0" make computation for that filter */
         if(computed_filter[m] == 0){
             printf("\n");
             ///nb_computation = 0;
@@ -625,9 +626,9 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
                 }
                 printf("time = %g\t\tflux = %.13g\t\n", t[k], flux_t_U[k]);
                 output = fopen("lc_U_disk.txt","a");
-                if(flux_t_U[k] > 0){
-                    fprintf(output, "%g\t%g\n", t[k], flux_t_U[k]);
-                }
+                ///if(flux_t_U[k] > 0){
+                fprintf(output, "%g\t%g\n", t[k], flux_t_U[k]);
+                ///}
                 
             }
         }
