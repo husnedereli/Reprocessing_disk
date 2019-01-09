@@ -19,7 +19,7 @@
 #define h 6.6260755e-27                 /** erg.s           */
 #define hc 1.9864474610385790e-16
 #define kb 1.380657e-16                 /** erg.K^-1        */
-#define sigmaSB 5.67051e-5
+#define sigmaSB 5.67051e-5              /** erg.cm^-2 K^-4 s^-1 */
 #define Ggrav 6.67259e-8                /** cm^3.g^-1.s^-2  */
 #define pc 3.08568e18                   /** cm              */
 #define nm 1e-7                         /** cm              */
@@ -29,7 +29,7 @@
 
 /**  Other constant */
 #define pi 3.14159265358979
-
+#define degree_to_radian 0.0174532925
 
 /**  Husne, 09/10/2018
   *  Here I define all the function to create and fill the disk
@@ -129,6 +129,13 @@ double temp_profile(double t, double r, double rstar, double tau, double theta, 
     return pow(((3.0*Ggrav*M*M_rate)/(8.0*pi*sigmaSB*pow(r,3.0)))*(1.0-sqrt(r_in/r)) +((1.0-A)*(h_star*Lstar/(4.0*pi*sigmaSB*pow(rstar,3.0)))) ,0.25);
 }
 
+/** define the Function of the temperature profile when there is no illumination **/
+double Temp_profile_steady(double r, double rstar, double M, double M_rate, double r_in){
+
+    return pow(((3.0*Ggrav*M*M_rate)/(8.0*pi*sigmaSB*pow(r,3.0)))*(1.0-sqrt(r_in/r))  ,0.25);
+
+}
+
 
 
 
@@ -214,7 +221,7 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
     }
 
     for (i=0; i < Ntheta; i++){
-        theta[i] = i*(360.0/Ntheta);
+        theta[i] = i*(360.0/Ntheta)*degree_to_radian;
     }
 
     /** fill the disks with elements (radius and theta) of regions **/
@@ -227,7 +234,7 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
             disk[i*Ntheta+j].rstar = r_star(r[i], h_star);   /** disk[0] region1, ... **/
 
             /// Compute the time lag up to the radius.
-            tau = sqrt(pow(h_star,2.0)+pow(r[i],2.0))+h_star*cos_inc_angle-r[i]*cos(theta[j]*0.0174532925)*sin(inc_angle);
+            tau = sqrt(pow(h_star,2.0)+pow(r[i],2.0))+h_star*cos_inc_angle-r[i]*cos(theta[j])*sin(inc_angle);
             tau = (tau/c)*second_to_day;
             disk[i*Ntheta+j].tau = tau;
         }
@@ -566,7 +573,7 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
     int k;
     double stepR = exp(log(r_out/r_in)/Nr);
     double sqrt_stepR = sqrt(stepR);
-    double stepT = 360.0/Ntheta;
+    double stepT = 360.0*degree_to_radian/Ntheta;
 
     int can_do_computation;
     int nb_computation;
@@ -769,7 +776,7 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
   *     6- flux :  the vector to be filled by the light-curve
   *     7- Nt :  the length of those arrays
   */
-int compute_LC(int filter_name, double *time_ILC, double *flux_ILC, int Ntime_ILC, double *t, double *flux, int Nt){
+int compute_LC(int filter_name, double *time_ILC, double *flux_ILC, int Ntime_ILC, double *t, double *flux, int Nt, double multiplicator){
 
 
     /**  Husne, 9/10/2018
@@ -788,13 +795,13 @@ int compute_LC(int filter_name, double *time_ILC, double *flux_ILC, int Ntime_IL
     double r_out=10000*Rg;              /** outer radius **/
 
 
-    double inc_angle = 45.0*0.0174532925;   /** inclination angle , converted to radian **/
+    double inc_angle = 45.0*degree_to_radian;   /** inclination angle , converted to radian **/
     double cos_inc_angle = cos(inc_angle);  /** Cos of the inclination angle, avoid to recompute it all the time */
     double h_star = 10.0*Rg;                /** the vertical distance from the cetral variable source to disk **/
-    double M_rate = 1.0*Msun/31557600.0;    /** M_sun yr^-1, the typical black hole accretion rate , converted to gr **/
+    double M_rate = 1.0*Msun/31557600.0;    /** M_sun yr^-1, the typical black hole accretion rate , converted to g.s^-1 **/
     /** the numerical factor converts from year to second: we are working in cgs: cm gram second.*/
     double A = 0.5;                         /** the disk albedo **/
-    double L_bol = 2.82e44;                 /** erg/s^-1, the bolometric luminosity **/
+    double L_bol = multiplicator*2.82e44;                 /** erg/s^-1, the bolometric luminosity **/
 
     /** Checking the values of the radii */
     // printf("Rg = %g\tR_int = %g\tR_out = %g \n", Rg, r_in, r_out);
@@ -808,11 +815,11 @@ int compute_LC(int filter_name, double *time_ILC, double *flux_ILC, int Ntime_IL
     double step = exp(log(r_out/r_in)/Nr);
     int i;
     for (i=0; i < Nr; i++){
-        r[i] = r_in*pow(step,i);
+        r[i] = r_in*pow(step,(double) i);
     }
 
     for (i=0; i < Ntheta; i++){
-        theta[i] = i*(360.0/Ntheta);
+        theta[i] = ((double) i)*(360.0/Ntheta)*degree_to_radian;
     }
 
     /** fill the disks with elements (radius and theta) of regions **/
@@ -825,7 +832,7 @@ int compute_LC(int filter_name, double *time_ILC, double *flux_ILC, int Ntime_IL
             disk[i*Ntheta+j].rstar = r_star(r[i], h_star);   /** disk[0] region1, ... **/
 
             /// Compute the time lag up to the radius.
-            tau = sqrt(pow(h_star,2.0)+pow(r[i],2.0))+h_star*cos_inc_angle-r[i]*cos(theta[j]*0.0174532925)*sin(inc_angle);
+            tau = sqrt(pow(h_star,2.0)+pow(r[i],2.0))+h_star*cos_inc_angle-r[i]*cos(theta[j])*sin(inc_angle);
             tau = (tau/c)*second_to_day;
             disk[i*Ntheta+j].tau = tau;
         }
@@ -1109,7 +1116,7 @@ int compute_LC(int filter_name, double *time_ILC, double *flux_ILC, int Ntime_IL
     int k;
     double stepR = exp(log(r_out/r_in)/Nr);
     double sqrt_stepR = sqrt(stepR);
-    double stepT = 360.0/Ntheta;
+    double stepT = 360.0*degree_to_radian/Ntheta;
 
     int can_do_computation;
     ///int nb_computation;
@@ -1203,6 +1210,141 @@ int compute_LC(int filter_name, double *time_ILC, double *flux_ILC, int Ntime_IL
 }
 
 
+
+
+int disk_spectrum(double multiplicator, double *wavelength, double *spec, int len_spec){
+
+
+
+    double *r;                        /** radius which is from the center of disk to the center of any region**/
+    double *theta;                    /** azimuth angle which is from the origine to the r for any region**/
+    r = (double *) calloc(Nr,sizeof(double));
+    theta = (double *) calloc(Ntheta,sizeof(double));
+
+    double M = 3.2e7*Msun;              /** M_sun, the black hole mass, converted to gr **/
+    double Rg= (Ggrav*M)/(c*c);         /** gravitational radius **/
+    double r_in= 6.0*Rg;                /** inner radius **/
+    double r_out=10000*Rg;              /** outer radius **/
+
+
+    double inc_angle = 45.0*degree_to_radian;   /** inclination angle , converted to radian **/
+    double cos_inc_angle = cos(inc_angle);  /** Cos of the inclination angle, avoid to recompute it all the time */
+    double h_star = 10.0*Rg;                /** the vertical distance from the cetral variable source to disk **/
+    double M_rate = 1.0*Msun/31557600.0;    /** M_sun yr^-1, the typical black hole accretion rate , converted to g.s^-1 **/
+    /** the numerical factor converts from year to second: we are working in cgs: cm gram second.*/
+    double A = 0.5;                         /** the disk albedo **/
+    double L_bol = multiplicator*0.0;                 /** erg/s^-1, the bolometric luminosity **/
+
+    /** Checking the values of the radii */
+    // printf("Rg = %g\tR_int = %g\tR_out = %g \n", Rg, r_in, r_out);
+    // getchar();
+
+    /** create disks which contain the regions **/
+    region *disk;
+    disk = (region *) malloc(Nr*Ntheta*sizeof(region));
+
+    /** the ratio of the outher and inner radius of each rings fixed **/
+    double step = exp(log(r_out/r_in)/Nr);
+    int i;
+    for (i=0; i < Nr; i++){
+        r[i] = r_in*pow(step,(double) i);
+    }
+
+    for (i=0; i < Ntheta; i++){
+        theta[i] = ((double) i)*(360.0/Ntheta)*degree_to_radian;
+    }
+
+    /** fill the disks with elements (radius and theta) of regions **/
+    int j;
+    double tau;
+    for (i=0; i < Nr; i++){
+        for (j=0; j < Ntheta; j++){
+            disk[i*Ntheta+j].radius = r[i];                 /** disk[0] region1, ... **/
+            disk[i*Ntheta+j].theta = theta[j];
+            disk[i*Ntheta+j].rstar = r_star(r[i], h_star);   /** disk[0] region1, ... **/
+
+            /// Compute the time lag up to the radius.
+            tau = sqrt(pow(h_star,2.0)+pow(r[i],2.0))+h_star*cos_inc_angle-r[i]*cos(theta[j])*sin(inc_angle);
+            tau = (tau/c)*second_to_day;
+            disk[i*Ntheta+j].tau = tau;
+        }
+    }
+
+
+    /**  Husne,  9/10/2018
+     *
+     */
+    /** for the computation of luminosity so it is for temperature **/
+    ///double omega = 10.0*c/r_out;
+    /** for the computation of the radiation from the disk. **/
+    double D = 75.01*1e6*pc;                   /** Mpc distance from observer to the source, converted to cm **/
+    double D2 = D*D;
+    double R_in;
+    double R_out;
+    double theta_in;
+    double theta_out;
+
+
+    /**  Husne, 15/11/2018
+      *  Compute all the other light curve in different filters (UVM2, UVW1, U, B, V)
+      *  by using the illuminating light curves of UVW2
+      */
+
+    /**  Husne,  18/10/2018 *  Now compute the integral for U band. */
+    double Temperature_t;
+    double Integral;
+    double f_U_i = 0.0;
+    ///int Ntime = 0;
+
+
+
+
+    int k;
+    double stepR = exp(log(r_out/r_in)/Nr);
+    double sqrt_stepR = sqrt(stepR);
+    double stepT = 360.0*degree_to_radian/Ntheta;
+
+    ///int nb_computation;
+    /** Loop for the Number of filter, because I need to compute the flux for each band */
+
+    for (j=0; j < Nr*Ntheta; j++){
+        Temperature_t = Temp_profile_steady( disk[j].radius, disk[j].rstar,  M, M_rate, r_in);
+        disk[j].temp = Temperature_t;
+        /*if(j % 10 == 0){
+            printf("j = %d\t Temp = %g\n", j , Temperature_t);
+        }*/
+    }
+
+//    printf("Len_spec = %d\n", len_spec);
+    for(k = 0 ; k < len_spec ; k ++){
+        Integral = 0.0;
+        for (j=0; j < Nr*Ntheta; j++){
+
+     //       Temperature_t = Temp_profile_steady( disk[j].radius, disk[j].rstar,  M, M_rate, r_in);
+
+            R_in = disk[j].radius/sqrt_stepR;            /** from the center to the first layer of any region **/
+            R_out = disk[j].radius*sqrt_stepR;           /** from the center to the last layer of any region **/
+            theta_in = disk[j].theta - 0.5*stepT;         /** from the origine to the first layer of any region on the bottom**/
+            theta_out = disk[j].theta + 0.5*stepT;        /** from the origine to the last layer of any region on the top**/
+            f_U_i = spectrum(cos_inc_angle, D2, theta_in, theta_out, R_in, R_out, wavelength[k]*wavelength[k]* wavelength[k], wavelength[k], disk[j].temp);
+            Integral += f_U_i;
+ /*           if(k == 10){
+                if(j % 10 == 0){
+                    printf("j = %d\t integral = %g\n", j , f_U_i);
+                }
+            }*/
+        }
+        spec[k] = Integral;
+
+    }
+
+
+    free(r);
+    free(theta);
+    free(disk);
+
+    return 0;
+}
 
 
 
