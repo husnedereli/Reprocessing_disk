@@ -862,12 +862,10 @@ int compute_LC(int filter_name, double *time_ILC, double *flux_ILC, int Ntime_IL
      */
     //double filtername[6] = {0, 1, 2, 3, 4, 5}; //* filter names: 0=UVW2, 1=UVM2, 2=UVW1, 3=U, 4=B, 5=V */
     //int Nfilter = 6;
-    double **wavelength;
-    double **wavelength3;
-    wavelength = (double **) malloc(Nfilter*sizeof(double*)); //* create an array */
-    wavelength3 = (double **) malloc(Nfilter*sizeof(double*)); //* create an array */
-    double **transmission;
-    transmission = (double **) malloc(Nfilter*sizeof(double*));
+    double *wavelength;
+    double *wavelength3;
+    double *transmission;
+
     double c1_filtername, c2_filtername;
     int numberofloop;
 
@@ -959,111 +957,109 @@ int compute_LC(int filter_name, double *time_ILC, double *flux_ILC, int Ntime_IL
     /**  DAMIEN : WE STOP LOOKING AT THE PB HERE */
 
     /// step 2 to create arrays
-    wavelength[j] = (double *) calloc(numberofloop[j],sizeof(double)); //* create an array */
-    wavelength3[j] = (double *) calloc(numberofloop[j],sizeof(double)); //* create an array */
-    transmission[j] = (double *) calloc(numberofloop[j],sizeof(double));
+    wavelength = (double *) calloc(numberofloop,sizeof(double)); //* create an array */
+    wavelength3 = (double *) calloc(numberofloop,sizeof(double)); //* create an array */
+    transmission = (double *) calloc(numberofloop,sizeof(double));
 
     /// step 3 fill the arrays
     //*it is important, when the filter number given as a "0" make computation*/
-    if (computed_filter[j] == 0){
-        switch(j) {
-            case 0 : //*it is UVW2 filter then*/
-                input_filtername=fopen("Filter/UVW2_binned5.txt","r");//* open a text file for reading */
-                /**  Here %lf means type double */
-                /// step 1
-                i = 0;
-                while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
-                    /// i = i + 1 ;
-                    if(c2_filtername > 0.01){
-                        wavelength[j][i]= c1_filtername*angstrom;
-                        wavelength3[j][i]= wavelength[j][i]*wavelength[j][i]*wavelength[j][i];
-                        transmission[j][i]= c2_filtername;
-                        i += 1;
-                    }
+    switch(filter_name) {
+        case 0 : //*it is UVW2 filter then*/
+            input_filtername=fopen("Filter/UVW2_binned5.txt","r");//* open a text file for reading */
+            /**  Here %lf means type double */
+            /// step 1
+            i = 0;
+            while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
+                /// i = i + 1 ;
+                if(c2_filtername > 0.01){
+                    wavelength[i]= c1_filtername*angstrom;
+                    wavelength3[i]= wavelength[i]*wavelength[i]*wavelength[i];
+                    transmission[i]= c2_filtername;
+                    i += 1;
                 }
-                fclose(input_filtername);
-                break;
-            case 1 : //*it is UVM2 filter then*/
-                input_filtername=fopen("Filter/UVM2_binned5.txt","r");      //* open a text file for reading */
-                /**  Here %lf means type double */
-                /// step 1
-                i = 0;
-                while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
-                    /// i = i + 1 ;
-                    if(c2_filtername > 0.01){
-                        wavelength[j][i]= c1_filtername*angstrom;
-                        wavelength3[j][i]= wavelength[j][i]*wavelength[j][i]*wavelength[j][i];
-                        transmission[j][i]= c2_filtername;
-                        i += 1;
-                    }
+            }
+            fclose(input_filtername);
+            break;
+        case 1 : //*it is UVM2 filter then*/
+            input_filtername=fopen("Filter/UVM2_binned5.txt","r");      //* open a text file for reading */
+            /**  Here %lf means type double */
+            /// step 1
+            i = 0;
+            while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
+                /// i = i + 1 ;
+                if(c2_filtername > 0.01){
+                    wavelength[i]= c1_filtername*angstrom;
+                    wavelength3[i]= wavelength[i]*wavelength[i]*wavelength[i];
+                    transmission[i]= c2_filtername;
+                    i += 1;
                 }
-                fclose(input_filtername);
-                break;
-            case 2 : //*it is UVW1 filter then*/
-                input_filtername=fopen("Filter/UVW1_binned5.txt","r");      //* open a text file for reading */
-                /**  Here %lf means type double */
-                /// step 1
-                i = 0;
-                while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
-                    /// i = i + 1 ;
-                    if(c2_filtername > 0.01){
-                        wavelength[j][i]= c1_filtername*angstrom;
-                        wavelength3[j][i]= wavelength[j][i]*wavelength[j][i]*wavelength[j][i];
-                        transmission[j][i]= c2_filtername;
-                        i += 1;
-                    }
+            }
+            fclose(input_filtername);
+            break;
+        case 2 : //*it is UVW1 filter then*/
+            input_filtername=fopen("Filter/UVW1_binned5.txt","r");      //* open a text file for reading */
+            /**  Here %lf means type double */
+            /// step 1
+            i = 0;
+            while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
+                /// i = i + 1 ;
+                if(c2_filtername > 0.01){
+                    wavelength[i]= c1_filtername*angstrom;
+                    wavelength3[i]= wavelength[i]*wavelength[i]*wavelength[i];
+                    transmission[i]= c2_filtername;
+                    i += 1;
                 }
-                fclose(input_filtername);
-                break;
-            case 3 : //*it is U filter then*/
-                input_filtername=fopen("Filter/U_binned5.txt","r");      //* open a text file for reading */
-                /**  Here %lf means type double */
-                /// step 1
-                i = 0;
-                while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
-                    /// i = i + 1 ;
-                    if(c2_filtername > 0.01){
-                        wavelength[j][i]= c1_filtername*angstrom;
-                        wavelength3[j][i]= wavelength[j][i]*wavelength[j][i]*wavelength[j][i];
-                        transmission[j][i]= c2_filtername;
-                        i += 1;
-                    }
+            }
+            fclose(input_filtername);
+            break;
+        case 3 : //*it is U filter then*/
+            input_filtername=fopen("Filter/U_binned5.txt","r");      //* open a text file for reading */
+            /**  Here %lf means type double */
+            /// step 1
+            i = 0;
+            while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
+                /// i = i + 1 ;
+                if(c2_filtername > 0.01){
+                    wavelength[i]= c1_filtername*angstrom;
+                    wavelength3[i]= wavelength[i]*wavelength[i]*wavelength[i];
+                    transmission[i]= c2_filtername;
+                    i += 1;
                 }
-                fclose(input_filtername);
-                break;
-            case 4 : //*it is B filter then*/
-                input_filtername=fopen("Filter/B_binned5.txt","r");      //* open a text file for reading */
-                /**  Here %lf means type double */
-                /// step 1
-                i = 0;
-                while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
-                    /// i = i + 1 ;
-                    if(c2_filtername > 0.01){
-                        wavelength[j][i]= c1_filtername*angstrom;
-                        wavelength3[j][i]= wavelength[j][i]*wavelength[j][i]*wavelength[j][i];
-                        transmission[j][i]= c2_filtername;
-                        i += 1;
-                    }
+            }
+            fclose(input_filtername);
+            break;
+        case 4 : //*it is B filter then*/
+            input_filtername=fopen("Filter/B_binned5.txt","r");      //* open a text file for reading */
+            /**  Here %lf means type double */
+            /// step 1
+            i = 0;
+            while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
+                /// i = i + 1 ;
+                if(c2_filtername > 0.01){
+                    wavelength[i]= c1_filtername*angstrom;
+                    wavelength3[i]= wavelength[i]*wavelength[i]*wavelength[i];
+                    transmission[i]= c2_filtername;
+                    i += 1;
                 }
-                fclose(input_filtername);
-                break;
-            case 5 : //*it is V filter then*/
-                input_filtername=fopen("Filter/V_binned5.txt","r");      //* open a text file for reading */
-                /**  Here %lf means type double */
-                /// step 1
-                i = 0;
-                while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
-                    /// i = i + 1 ;
-                    if(c2_filtername > 0.01){
-                        wavelength[j][i]= c1_filtername*angstrom;
-                        wavelength3[j][i]= wavelength[j][i]*wavelength[j][i]*wavelength[j][i];
-                        transmission[j][i]= c2_filtername;
-                        i += 1;
-                    }
+            }
+            fclose(input_filtername);
+            break;
+        case 5 : //*it is V filter then*/
+            input_filtername=fopen("Filter/V_binned5.txt","r");      //* open a text file for reading */
+            /**  Here %lf means type double */
+            /// step 1
+            i = 0;
+            while(fscanf(input_filtername,"%lf%lf", &c1_filtername, &c2_filtername) !=EOF ){
+                /// i = i + 1 ;
+                if(c2_filtername > 0.01){
+                    wavelength[i]= c1_filtername*angstrom;
+                    wavelength3[i]= wavelength[i]*wavelength[i]*wavelength[i];
+                    transmission[i]= c2_filtername;
+                    i += 1;
                 }
-                fclose(input_filtername);
-                break;
-        }
+            }
+            fclose(input_filtername);
+            break;
     }
 
 
@@ -1097,19 +1093,12 @@ int compute_LC(int filter_name, double *time_ILC, double *flux_ILC, int Ntime_IL
     //printf("%g\t\n",tau_time);  //* print the arrays */
 
 
-    int Nt = 2200;///2200;           /** time[Ntime-1]-time[0]=1048.1724000000004 **/
-    double *t;
-    t = (double *) calloc(Nt,sizeof(double));
-    for (i=0; i<Nt; i++){
-        t[i] = ((double) i)/2.0;
-        //printf("t=%g\n", t[i]);
-    }
 
 
-/**  Husne, 15/11/2018
-     * Compute all the other light curve in different filters (UVM2, UVW1, U, B, V)
-      by using the illuminating light curves of UVW2
-     */
+    /**  Husne, 15/11/2018
+      *  Compute all the other light curve in different filters (UVM2, UVW1, U, B, V)
+      *  by using the illuminating light curves of UVW2
+      */
 
     /**  Husne,  18/10/2018 *  Now compute the integral for U band. */
     double deltaLambda_U;
@@ -1133,90 +1122,81 @@ int compute_LC(int filter_name, double *time_ILC, double *flux_ILC, int Ntime_IL
     int can_do_computation;
     ///int nb_computation;
     /** Loop for the Number of filter, because I need to compute the flux for each band */
-    for (m=0;m<Nfilter;m++){
-        //*it is important, when the filter number given as a "0" make computation for that filter */
-        if(computed_filter[m] == 0){
-            printf("\n");
-            ///nb_computation = 0;
-            /** Loop for the time */
-            for (k=0; k < Nt; k++){
-                if(k % 100 == 0){
-                    printf("m = %d\t\tk = %d\n", m, k);
-                }
-                /**
-                 *  I need to compute f(t) for U band
-                 */
 
-                flux_t_U = (double *) calloc(Ntime,sizeof(double));
+    /** Loop for the time */
+    for (k=0; k < Nt; k++){
+        if(k % 100 == 0){
+            printf("m = %d\t\tk = %d\n", m, k);
+        }
 
+        /**
+         *  I need to compute f(t) in the required band
+         */
 
-                /**  I need to check that for all elements of the disk I never obtained a negative temperature, which means that the computation can be done. */
-                can_do_computation = 0;
-                for (j=0; j < Nr*Ntheta; j++){
-                    /// temperature at time t in U
-                    Temperature_t = temp_profile(t[k], disk[j].radius, disk[j].rstar, disk[j].tau, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, Ntime, time, flux);
-                    disk[j].temp_t = Temperature_t;
-                    if(Temperature_t < 0.0){
-                        can_do_computation = 1;
-                    }
-                }
-
-                /** Loop for the radius and theta, because I need to compute the temparature and spectrum of disk */
-                /// f is the summ of contribution from all the disk elements.
-
-                if(can_do_computation == 0){
-                    //nb_computation += 1;
-                    for (j=0; j < Nr*Ntheta; j++){
-
-                        R_in = disk[j].radius/sqrt_stepR;            /** from the center to the first layer of any region **/
-                        R_out = disk[j].radius*sqrt_stepR;           /** from the center to the last layer of any region **/
-                        theta_in = disk[j].theta - 0.5*stepT;         /** from the origine to the first layer of any region on the bottom**/
-                        theta_out = disk[j].theta + 0.5*stepT;        /** from the origine to the last layer of any region on the top**/
-
-                        /**  Now I compute the integral for the U-band */
-                        /// temperature at time t in U
-                        // stored in the disk structure for every time
-                        //Temperature_t = temp_profile(t[k], disk[j].radius,disk[j].rstar, disk[j].tau, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, Ntime, time, flux);
-                        Temperature_t = disk[j].temp_t;
-                        // printf("temperature 1 = %g\t", Temperature_t);
-                        /// Initialization of the sum to compute the integral over the filter
-                        Integral = 0.0;
-
-                        /** Loop for the band, because I need to compute the integral over bandpass */
-                        ///numberofloop_U = numberofloop[m]
-                        for(i = 1; i < numberofloop[m] ; i++){
-
-                            deltaLambda_U = (wavelength[m][i] - wavelength[m][i-1]);
-                            f_U_i = spectrum(cos_inc_angle, D2, theta_in, theta_out, R_in, R_out, wavelength3[m][i], wavelength[m][i], Temperature_t)*transmission[m][i];
-                            f_U_im1 = spectrum(cos_inc_angle, D2, theta_in, theta_out, R_in, R_out, wavelength3[m][i-1], wavelength[m][i-1], Temperature_t)*transmission[m][i-1];
-
-                            Integral += (f_U_i+f_U_im1)*deltaLambda_U/2.0;
-                        }
-                        flux_t_U[k] = flux_t_U[k] + Integral;
-                        ///nb_computation +=1;
-                        ///printf("%.13g\t\n", flux_t_U[k]);
-                        if(flux_t_U[k] != flux_t_U[k]){
-                            printf("Flux_t_u = NAN \t j = %d\t Integral = %g\n", j, Integral);
-                            getchar();
-                        }
-                    }
-
-                }
-                printf("time = %g\t\tflux = %.13g\t\n", t[k], flux_t_U[k]);
-                output = fopen("lc_U_disk.txt","a");
-                ///if(flux_t_U[k] > 0){
-                fprintf(output, "%g\t%g\n", t[k], flux_t_U[k]);
-                ///}
-
+        /**  I need to check that for all elements of the disk I never obtained a negative temperature, which means that the computation can be done. */
+        can_do_computation = 0;
+        for (j=0; j < Nr*Ntheta; j++){
+            /// temperature at time t in U
+            Temperature_t = temp_profile(   t[k], disk[j].radius, disk[j].rstar, disk[j].tau, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, Ntime, time_ILC, flux_ILC);
+            disk[j].temp_t = Temperature_t;
+            if(Temperature_t < 0.0){
+                can_do_computation = 1;
             }
         }
+
+        /** Loop for the radius and theta, because I need to compute the temparature and spectrum of disk */
+        /// f is the summ of contribution from all the disk elements.
+
+        if(can_do_computation == 0){
+            //nb_computation += 1;
+            for (j=0; j < Nr*Ntheta; j++){
+
+                R_in = disk[j].radius/sqrt_stepR;            /** from the center to the first layer of any region **/
+                R_out = disk[j].radius*sqrt_stepR;           /** from the center to the last layer of any region **/
+                theta_in = disk[j].theta - 0.5*stepT;         /** from the origine to the first layer of any region on the bottom**/
+                theta_out = disk[j].theta + 0.5*stepT;        /** from the origine to the last layer of any region on the top**/
+
+                /**  Now I compute the integral for the U-band */
+                /// temperature at time t in U
+                Temperature_t = disk[j].temp_t;
+                /// Initialization of the sum to compute the integral over the filter
+                Integral = 0.0;
+
+                /** Loop for the band, because I need to compute the integral over bandpass */
+                ///numberofloop_U = numberofloop[m]
+                for(i = 1; i < numberofloop ; i++){
+
+                    deltaLambda_U = (wavelength[m][i] - wavelength[m][i-1]);
+                    f_U_i = spectrum(cos_inc_angle, D2, theta_in, theta_out, R_in, R_out, wavelength3[i], wavelength[i], Temperature_t)*transmission[i];
+                    f_U_im1 = spectrum(cos_inc_angle, D2, theta_in, theta_out, R_in, R_out, wavelength3[i-1], wavelength[i-1], Temperature_t)*transmission[i-1];
+
+                    Integral += (f_U_i+f_U_im1)*deltaLambda_U/2.0;
+                }
+                flux[k] = flux[k] + Integral;
+                ///nb_computation +=1;
+                ///printf("%.13g\t\n", flux_t_U[k]);
+                if(flux_t_U[k] != flux_t_U[k]){
+                    printf("Flux_t_u = NAN \t j = %d\t Integral = %g\n", j, Integral);
+                    getchar();
+                }
+            }
+
+        }
+
+
+        /*printf("time = %g\t\tflux = %.13g\t\n", t[k], flux_t_U[k]);
+        output = fopen("lc_U_disk.txt","a");
+        ///if(flux_t_U[k] > 0){
+        fprintf(output, "%g\t%g\n", t[k], flux_t_U[k]);
+        ///} */
+
     }
-    fclose(output);
-    for (j=0; j < Nfilter; j++){
-        free(wavelength[j]);
-        free(wavelength3[j]);
-        free(transmission[j]);
-    }
+
+
+
+
+//    fclose(output);
+
 
     free(r);
     free(theta);
@@ -1224,7 +1204,6 @@ int compute_LC(int filter_name, double *time_ILC, double *flux_ILC, int Ntime_IL
     free(wavelength);
     free(wavelength3);
     free(transmission);
-
 
     return 0;
 }
