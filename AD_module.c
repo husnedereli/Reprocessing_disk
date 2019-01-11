@@ -1647,7 +1647,7 @@ static PyObject *__pyx_kp_u_unknown_dtype_code_in_numpy_pxd;
 static PyObject *__pyx_n_s_wavelength;
 static PyObject *__pyx_pf_9AD_module_AD_py(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_Nfilter, PyArrayObject *__pyx_v_computed_filter, PyArrayObject *__pyx_v_time, PyArrayObject *__pyx_v_flux, PyArrayObject *__pyx_v_ratio, PyArrayObject *__pyx_v_tau_time, PyObject *__pyx_v_Ntime, PyObject *__pyx_v_Ntau); /* proto */
 static PyObject *__pyx_pf_9AD_module_2LightCurve(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_filter_name, PyArrayObject *__pyx_v_time_ILC, PyArrayObject *__pyx_v_flux_ILC, PyObject *__pyx_v_Ntime_ILC, PyArrayObject *__pyx_v_t, PyArrayObject *__pyx_v_flux, PyObject *__pyx_v_Nt, PyObject *__pyx_v_multiplicator); /* proto */
-static PyObject *__pyx_pf_9AD_module_4LightCurve_no_integration(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_filter_name, PyArrayObject *__pyx_v_time_ILC, PyArrayObject *__pyx_v_flux_ILC, PyObject *__pyx_v_Ntime_ILC, PyArrayObject *__pyx_v_t, PyArrayObject *__pyx_v_flux, PyObject *__pyx_v_Nt, PyObject *__pyx_v_multiplicator); /* proto */
+static PyObject *__pyx_pf_9AD_module_4LightCurve_no_integration(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_time_ILC, PyArrayObject *__pyx_v_flux_ILC, PyObject *__pyx_v_Ntime_ILC, PyArrayObject *__pyx_v_t, PyArrayObject *__pyx_v_flux, PyObject *__pyx_v_Nt, PyObject *__pyx_v_multiplicator); /* proto */
 static PyObject *__pyx_pf_9AD_module_6Spectrum(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_multiplicator, PyArrayObject *__pyx_v_wavelength, PyArrayObject *__pyx_v_spec, PyObject *__pyx_v_len_spec); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
@@ -1670,7 +1670,7 @@ static PyObject *__pyx_codeobj__15;
 static PyObject *__pyx_codeobj__17;
 /* Late includes */
 
-/* "AD_module.pyx":16
+/* "AD_module.pyx":18
  * 
  * 
  * def AD_py( Nfilter, np.ndarray[long int, ndim=1, mode="c"] computed_filter not None, np.ndarray[double, ndim=1, mode="c"] time not None, np.ndarray[double, ndim=1, mode="c"] flux not None, np.ndarray[double, ndim=1, mode="c"] ratio not None, np.ndarray[double, ndim=1, mode="c"] tau_time not None, Ntime, Ntau):             # <<<<<<<<<<<<<<
@@ -1728,47 +1728,47 @@ static PyObject *__pyx_pw_9AD_module_1AD_py(PyObject *__pyx_self, PyObject *__py
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_computed_filter)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("AD_py", 1, 8, 8, 1); __PYX_ERR(0, 16, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("AD_py", 1, 8, 8, 1); __PYX_ERR(0, 18, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_time)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("AD_py", 1, 8, 8, 2); __PYX_ERR(0, 16, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("AD_py", 1, 8, 8, 2); __PYX_ERR(0, 18, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_flux)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("AD_py", 1, 8, 8, 3); __PYX_ERR(0, 16, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("AD_py", 1, 8, 8, 3); __PYX_ERR(0, 18, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
         if (likely((values[4] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_ratio)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("AD_py", 1, 8, 8, 4); __PYX_ERR(0, 16, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("AD_py", 1, 8, 8, 4); __PYX_ERR(0, 18, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  5:
         if (likely((values[5] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_tau_time)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("AD_py", 1, 8, 8, 5); __PYX_ERR(0, 16, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("AD_py", 1, 8, 8, 5); __PYX_ERR(0, 18, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  6:
         if (likely((values[6] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_Ntime)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("AD_py", 1, 8, 8, 6); __PYX_ERR(0, 16, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("AD_py", 1, 8, 8, 6); __PYX_ERR(0, 18, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  7:
         if (likely((values[7] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_Ntau)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("AD_py", 1, 8, 8, 7); __PYX_ERR(0, 16, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("AD_py", 1, 8, 8, 7); __PYX_ERR(0, 18, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "AD_py") < 0)) __PYX_ERR(0, 16, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "AD_py") < 0)) __PYX_ERR(0, 18, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 8) {
       goto __pyx_L5_argtuple_error;
@@ -1793,17 +1793,17 @@ static PyObject *__pyx_pw_9AD_module_1AD_py(PyObject *__pyx_self, PyObject *__py
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("AD_py", 1, 8, 8, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 16, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("AD_py", 1, 8, 8, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 18, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("AD_module.AD_py", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_computed_filter), __pyx_ptype_5numpy_ndarray, 0, "computed_filter", 0))) __PYX_ERR(0, 16, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_time), __pyx_ptype_5numpy_ndarray, 0, "time", 0))) __PYX_ERR(0, 16, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_flux), __pyx_ptype_5numpy_ndarray, 0, "flux", 0))) __PYX_ERR(0, 16, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_ratio), __pyx_ptype_5numpy_ndarray, 0, "ratio", 0))) __PYX_ERR(0, 16, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_tau_time), __pyx_ptype_5numpy_ndarray, 0, "tau_time", 0))) __PYX_ERR(0, 16, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_computed_filter), __pyx_ptype_5numpy_ndarray, 0, "computed_filter", 0))) __PYX_ERR(0, 18, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_time), __pyx_ptype_5numpy_ndarray, 0, "time", 0))) __PYX_ERR(0, 18, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_flux), __pyx_ptype_5numpy_ndarray, 0, "flux", 0))) __PYX_ERR(0, 18, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_ratio), __pyx_ptype_5numpy_ndarray, 0, "ratio", 0))) __PYX_ERR(0, 18, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_tau_time), __pyx_ptype_5numpy_ndarray, 0, "tau_time", 0))) __PYX_ERR(0, 18, __pyx_L1_error)
   __pyx_r = __pyx_pf_9AD_module_AD_py(__pyx_self, __pyx_v_Nfilter, __pyx_v_computed_filter, __pyx_v_time, __pyx_v_flux, __pyx_v_ratio, __pyx_v_tau_time, __pyx_v_Ntime, __pyx_v_Ntau);
 
   /* function exit code */
@@ -1855,31 +1855,31 @@ static PyObject *__pyx_pf_9AD_module_AD_py(CYTHON_UNUSED PyObject *__pyx_self, P
   __pyx_pybuffernd_tau_time.rcbuffer = &__pyx_pybuffer_tau_time;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_computed_filter.rcbuffer->pybuffer, (PyObject*)__pyx_v_computed_filter, &__Pyx_TypeInfo_long, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 16, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_computed_filter.rcbuffer->pybuffer, (PyObject*)__pyx_v_computed_filter, &__Pyx_TypeInfo_long, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 18, __pyx_L1_error)
   }
   __pyx_pybuffernd_computed_filter.diminfo[0].strides = __pyx_pybuffernd_computed_filter.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_computed_filter.diminfo[0].shape = __pyx_pybuffernd_computed_filter.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_time.rcbuffer->pybuffer, (PyObject*)__pyx_v_time, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 16, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_time.rcbuffer->pybuffer, (PyObject*)__pyx_v_time, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 18, __pyx_L1_error)
   }
   __pyx_pybuffernd_time.diminfo[0].strides = __pyx_pybuffernd_time.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_time.diminfo[0].shape = __pyx_pybuffernd_time.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_flux.rcbuffer->pybuffer, (PyObject*)__pyx_v_flux, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 16, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_flux.rcbuffer->pybuffer, (PyObject*)__pyx_v_flux, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 18, __pyx_L1_error)
   }
   __pyx_pybuffernd_flux.diminfo[0].strides = __pyx_pybuffernd_flux.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_flux.diminfo[0].shape = __pyx_pybuffernd_flux.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_ratio.rcbuffer->pybuffer, (PyObject*)__pyx_v_ratio, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 16, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_ratio.rcbuffer->pybuffer, (PyObject*)__pyx_v_ratio, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 18, __pyx_L1_error)
   }
   __pyx_pybuffernd_ratio.diminfo[0].strides = __pyx_pybuffernd_ratio.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_ratio.diminfo[0].shape = __pyx_pybuffernd_ratio.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_tau_time.rcbuffer->pybuffer, (PyObject*)__pyx_v_tau_time, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 16, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_tau_time.rcbuffer->pybuffer, (PyObject*)__pyx_v_tau_time, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 18, __pyx_L1_error)
   }
   __pyx_pybuffernd_tau_time.diminfo[0].strides = __pyx_pybuffernd_tau_time.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_tau_time.diminfo[0].shape = __pyx_pybuffernd_tau_time.rcbuffer->pybuffer.shape[0];
 
-  /* "AD_module.pyx":17
+  /* "AD_module.pyx":19
  * 
  * def AD_py( Nfilter, np.ndarray[long int, ndim=1, mode="c"] computed_filter not None, np.ndarray[double, ndim=1, mode="c"] time not None, np.ndarray[double, ndim=1, mode="c"] flux not None, np.ndarray[double, ndim=1, mode="c"] ratio not None, np.ndarray[double, ndim=1, mode="c"] tau_time not None, Ntime, Ntau):
  *     return make_computation(Nfilter, <long int*> np.PyArray_DATA(computed_filter), <double*> np.PyArray_DATA(time), <double*> np.PyArray_DATA(flux), <double*> np.PyArray_DATA(ratio), <double*> np.PyArray_DATA(tau_time), Ntime, Ntau)             # <<<<<<<<<<<<<<
@@ -1887,16 +1887,16 @@ static PyObject *__pyx_pf_9AD_module_AD_py(CYTHON_UNUSED PyObject *__pyx_self, P
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_Nfilter); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 17, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_v_Ntime); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 17, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_PyInt_As_int(__pyx_v_Ntau); if (unlikely((__pyx_t_3 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 17, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_PyInt_From_int(make_computation(__pyx_t_1, ((long *)PyArray_DATA(((PyArrayObject *)__pyx_v_computed_filter))), ((double *)PyArray_DATA(((PyArrayObject *)__pyx_v_time))), ((double *)PyArray_DATA(((PyArrayObject *)__pyx_v_flux))), ((double *)PyArray_DATA(((PyArrayObject *)__pyx_v_ratio))), ((double *)PyArray_DATA(((PyArrayObject *)__pyx_v_tau_time))), __pyx_t_2, __pyx_t_3)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 17, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_Nfilter); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 19, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_v_Ntime); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 19, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_As_int(__pyx_v_Ntau); if (unlikely((__pyx_t_3 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 19, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_int(make_computation(__pyx_t_1, ((long *)PyArray_DATA(((PyArrayObject *)__pyx_v_computed_filter))), ((double *)PyArray_DATA(((PyArrayObject *)__pyx_v_time))), ((double *)PyArray_DATA(((PyArrayObject *)__pyx_v_flux))), ((double *)PyArray_DATA(((PyArrayObject *)__pyx_v_ratio))), ((double *)PyArray_DATA(((PyArrayObject *)__pyx_v_tau_time))), __pyx_t_2, __pyx_t_3)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 19, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_r = __pyx_t_4;
   __pyx_t_4 = 0;
   goto __pyx_L0;
 
-  /* "AD_module.pyx":16
+  /* "AD_module.pyx":18
  * 
  * 
  * def AD_py( Nfilter, np.ndarray[long int, ndim=1, mode="c"] computed_filter not None, np.ndarray[double, ndim=1, mode="c"] time not None, np.ndarray[double, ndim=1, mode="c"] flux not None, np.ndarray[double, ndim=1, mode="c"] ratio not None, np.ndarray[double, ndim=1, mode="c"] tau_time not None, Ntime, Ntau):             # <<<<<<<<<<<<<<
@@ -1932,11 +1932,11 @@ static PyObject *__pyx_pf_9AD_module_AD_py(CYTHON_UNUSED PyObject *__pyx_self, P
   return __pyx_r;
 }
 
-/* "AD_module.pyx":20
+/* "AD_module.pyx":22
  * 
  * 
  * def LightCurve( filter_name, np.ndarray[double, ndim=1, mode="c"] time_ILC not None, np.ndarray[double, ndim=1, mode="c"] flux_ILC not None, Ntime_ILC, np.ndarray[double, ndim=1, mode="c"] t not None, np.ndarray[double, ndim=1, mode="c"] flux not None, Nt, multiplicator):             # <<<<<<<<<<<<<<
- *     return compute_LC(filter_name, <double*> np.PyArray_DATA(time_ILC), <double*> np.PyArray_DATA(flux_ILC), Ntime_ILC, <double*> np.PyArray_DATA(t), <double*> np.PyArray_DATA(flux), Nt, multiplicator)
+ *     return compute_LC( filter_name, <double*> np.PyArray_DATA(time_ILC), <double*> np.PyArray_DATA(flux_ILC), Ntime_ILC, <double*> np.PyArray_DATA(t), <double*> np.PyArray_DATA(flux), Nt, multiplicator)
  * 
  */
 
@@ -1990,47 +1990,47 @@ static PyObject *__pyx_pw_9AD_module_3LightCurve(PyObject *__pyx_self, PyObject 
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_time_ILC)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("LightCurve", 1, 8, 8, 1); __PYX_ERR(0, 20, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("LightCurve", 1, 8, 8, 1); __PYX_ERR(0, 22, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_flux_ILC)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("LightCurve", 1, 8, 8, 2); __PYX_ERR(0, 20, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("LightCurve", 1, 8, 8, 2); __PYX_ERR(0, 22, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_Ntime_ILC)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("LightCurve", 1, 8, 8, 3); __PYX_ERR(0, 20, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("LightCurve", 1, 8, 8, 3); __PYX_ERR(0, 22, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
         if (likely((values[4] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_t)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("LightCurve", 1, 8, 8, 4); __PYX_ERR(0, 20, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("LightCurve", 1, 8, 8, 4); __PYX_ERR(0, 22, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  5:
         if (likely((values[5] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_flux)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("LightCurve", 1, 8, 8, 5); __PYX_ERR(0, 20, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("LightCurve", 1, 8, 8, 5); __PYX_ERR(0, 22, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  6:
         if (likely((values[6] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_Nt)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("LightCurve", 1, 8, 8, 6); __PYX_ERR(0, 20, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("LightCurve", 1, 8, 8, 6); __PYX_ERR(0, 22, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  7:
         if (likely((values[7] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_multiplicator)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("LightCurve", 1, 8, 8, 7); __PYX_ERR(0, 20, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("LightCurve", 1, 8, 8, 7); __PYX_ERR(0, 22, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "LightCurve") < 0)) __PYX_ERR(0, 20, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "LightCurve") < 0)) __PYX_ERR(0, 22, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 8) {
       goto __pyx_L5_argtuple_error;
@@ -2055,16 +2055,16 @@ static PyObject *__pyx_pw_9AD_module_3LightCurve(PyObject *__pyx_self, PyObject 
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("LightCurve", 1, 8, 8, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 20, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("LightCurve", 1, 8, 8, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 22, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("AD_module.LightCurve", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_time_ILC), __pyx_ptype_5numpy_ndarray, 0, "time_ILC", 0))) __PYX_ERR(0, 20, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_flux_ILC), __pyx_ptype_5numpy_ndarray, 0, "flux_ILC", 0))) __PYX_ERR(0, 20, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_t), __pyx_ptype_5numpy_ndarray, 0, "t", 0))) __PYX_ERR(0, 20, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_flux), __pyx_ptype_5numpy_ndarray, 0, "flux", 0))) __PYX_ERR(0, 20, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_time_ILC), __pyx_ptype_5numpy_ndarray, 0, "time_ILC", 0))) __PYX_ERR(0, 22, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_flux_ILC), __pyx_ptype_5numpy_ndarray, 0, "flux_ILC", 0))) __PYX_ERR(0, 22, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_t), __pyx_ptype_5numpy_ndarray, 0, "t", 0))) __PYX_ERR(0, 22, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_flux), __pyx_ptype_5numpy_ndarray, 0, "flux", 0))) __PYX_ERR(0, 22, __pyx_L1_error)
   __pyx_r = __pyx_pf_9AD_module_2LightCurve(__pyx_self, __pyx_v_filter_name, __pyx_v_time_ILC, __pyx_v_flux_ILC, __pyx_v_Ntime_ILC, __pyx_v_t, __pyx_v_flux, __pyx_v_Nt, __pyx_v_multiplicator);
 
   /* function exit code */
@@ -2111,48 +2111,48 @@ static PyObject *__pyx_pf_9AD_module_2LightCurve(CYTHON_UNUSED PyObject *__pyx_s
   __pyx_pybuffernd_flux.rcbuffer = &__pyx_pybuffer_flux;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_time_ILC.rcbuffer->pybuffer, (PyObject*)__pyx_v_time_ILC, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 20, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_time_ILC.rcbuffer->pybuffer, (PyObject*)__pyx_v_time_ILC, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 22, __pyx_L1_error)
   }
   __pyx_pybuffernd_time_ILC.diminfo[0].strides = __pyx_pybuffernd_time_ILC.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_time_ILC.diminfo[0].shape = __pyx_pybuffernd_time_ILC.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_flux_ILC.rcbuffer->pybuffer, (PyObject*)__pyx_v_flux_ILC, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 20, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_flux_ILC.rcbuffer->pybuffer, (PyObject*)__pyx_v_flux_ILC, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 22, __pyx_L1_error)
   }
   __pyx_pybuffernd_flux_ILC.diminfo[0].strides = __pyx_pybuffernd_flux_ILC.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_flux_ILC.diminfo[0].shape = __pyx_pybuffernd_flux_ILC.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_t.rcbuffer->pybuffer, (PyObject*)__pyx_v_t, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 20, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_t.rcbuffer->pybuffer, (PyObject*)__pyx_v_t, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 22, __pyx_L1_error)
   }
   __pyx_pybuffernd_t.diminfo[0].strides = __pyx_pybuffernd_t.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_t.diminfo[0].shape = __pyx_pybuffernd_t.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_flux.rcbuffer->pybuffer, (PyObject*)__pyx_v_flux, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 20, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_flux.rcbuffer->pybuffer, (PyObject*)__pyx_v_flux, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 22, __pyx_L1_error)
   }
   __pyx_pybuffernd_flux.diminfo[0].strides = __pyx_pybuffernd_flux.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_flux.diminfo[0].shape = __pyx_pybuffernd_flux.rcbuffer->pybuffer.shape[0];
 
-  /* "AD_module.pyx":21
+  /* "AD_module.pyx":23
  * 
  * def LightCurve( filter_name, np.ndarray[double, ndim=1, mode="c"] time_ILC not None, np.ndarray[double, ndim=1, mode="c"] flux_ILC not None, Ntime_ILC, np.ndarray[double, ndim=1, mode="c"] t not None, np.ndarray[double, ndim=1, mode="c"] flux not None, Nt, multiplicator):
- *     return compute_LC(filter_name, <double*> np.PyArray_DATA(time_ILC), <double*> np.PyArray_DATA(flux_ILC), Ntime_ILC, <double*> np.PyArray_DATA(t), <double*> np.PyArray_DATA(flux), Nt, multiplicator)             # <<<<<<<<<<<<<<
+ *     return compute_LC( filter_name, <double*> np.PyArray_DATA(time_ILC), <double*> np.PyArray_DATA(flux_ILC), Ntime_ILC, <double*> np.PyArray_DATA(t), <double*> np.PyArray_DATA(flux), Nt, multiplicator)             # <<<<<<<<<<<<<<
  * 
- * def LightCurve_no_integration( filter_name, np.ndarray[double, ndim=1, mode="c"] time_ILC not None, np.ndarray[double, ndim=1, mode="c"] flux_ILC not None, Ntime_ILC, np.ndarray[double, ndim=1, mode="c"] t not None, np.ndarray[double, ndim=1, mode="c"] flux not None, Nt, multiplicator):
+ * def LightCurve_no_integration(np.ndarray[double, ndim=1, mode="c"] time_ILC not None, np.ndarray[double, ndim=1, mode="c"] flux_ILC not None, Ntime_ILC, np.ndarray[double, ndim=1, mode="c"] t not None, np.ndarray[double, ndim=1, mode="c"] flux not None, Nt, multiplicator):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_filter_name); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 21, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_v_Ntime_ILC); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 21, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_PyInt_As_int(__pyx_v_Nt); if (unlikely((__pyx_t_3 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 21, __pyx_L1_error)
-  __pyx_t_4 = __pyx_PyFloat_AsDouble(__pyx_v_multiplicator); if (unlikely((__pyx_t_4 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 21, __pyx_L1_error)
-  __pyx_t_5 = __Pyx_PyInt_From_int(compute_LC(__pyx_t_1, ((double *)PyArray_DATA(((PyArrayObject *)__pyx_v_time_ILC))), ((double *)PyArray_DATA(((PyArrayObject *)__pyx_v_flux_ILC))), __pyx_t_2, ((double *)PyArray_DATA(((PyArrayObject *)__pyx_v_t))), ((double *)PyArray_DATA(((PyArrayObject *)__pyx_v_flux))), __pyx_t_3, __pyx_t_4)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 21, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_filter_name); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_v_Ntime_ILC); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_As_int(__pyx_v_Nt); if (unlikely((__pyx_t_3 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_t_4 = __pyx_PyFloat_AsDouble(__pyx_v_multiplicator); if (unlikely((__pyx_t_4 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyInt_From_int(compute_LC(__pyx_t_1, ((double *)PyArray_DATA(((PyArrayObject *)__pyx_v_time_ILC))), ((double *)PyArray_DATA(((PyArrayObject *)__pyx_v_flux_ILC))), __pyx_t_2, ((double *)PyArray_DATA(((PyArrayObject *)__pyx_v_t))), ((double *)PyArray_DATA(((PyArrayObject *)__pyx_v_flux))), __pyx_t_3, __pyx_t_4)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 23, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_r = __pyx_t_5;
   __pyx_t_5 = 0;
   goto __pyx_L0;
 
-  /* "AD_module.pyx":20
+  /* "AD_module.pyx":22
  * 
  * 
  * def LightCurve( filter_name, np.ndarray[double, ndim=1, mode="c"] time_ILC not None, np.ndarray[double, ndim=1, mode="c"] flux_ILC not None, Ntime_ILC, np.ndarray[double, ndim=1, mode="c"] t not None, np.ndarray[double, ndim=1, mode="c"] flux not None, Nt, multiplicator):             # <<<<<<<<<<<<<<
- *     return compute_LC(filter_name, <double*> np.PyArray_DATA(time_ILC), <double*> np.PyArray_DATA(flux_ILC), Ntime_ILC, <double*> np.PyArray_DATA(t), <double*> np.PyArray_DATA(flux), Nt, multiplicator)
+ *     return compute_LC( filter_name, <double*> np.PyArray_DATA(time_ILC), <double*> np.PyArray_DATA(flux_ILC), Ntime_ILC, <double*> np.PyArray_DATA(t), <double*> np.PyArray_DATA(flux), Nt, multiplicator)
  * 
  */
 
@@ -2182,11 +2182,11 @@ static PyObject *__pyx_pf_9AD_module_2LightCurve(CYTHON_UNUSED PyObject *__pyx_s
   return __pyx_r;
 }
 
-/* "AD_module.pyx":23
- *     return compute_LC(filter_name, <double*> np.PyArray_DATA(time_ILC), <double*> np.PyArray_DATA(flux_ILC), Ntime_ILC, <double*> np.PyArray_DATA(t), <double*> np.PyArray_DATA(flux), Nt, multiplicator)
+/* "AD_module.pyx":25
+ *     return compute_LC( filter_name, <double*> np.PyArray_DATA(time_ILC), <double*> np.PyArray_DATA(flux_ILC), Ntime_ILC, <double*> np.PyArray_DATA(t), <double*> np.PyArray_DATA(flux), Nt, multiplicator)
  * 
- * def LightCurve_no_integration( filter_name, np.ndarray[double, ndim=1, mode="c"] time_ILC not None, np.ndarray[double, ndim=1, mode="c"] flux_ILC not None, Ntime_ILC, np.ndarray[double, ndim=1, mode="c"] t not None, np.ndarray[double, ndim=1, mode="c"] flux not None, Nt, multiplicator):             # <<<<<<<<<<<<<<
- *     return compute_LC(filter_name, <double*> np.PyArray_DATA(time_ILC), <double*> np.PyArray_DATA(flux_ILC), Ntime_ILC, <double*> np.PyArray_DATA(t), <double*> np.PyArray_DATA(flux), Nt, multiplicator)
+ * def LightCurve_no_integration(np.ndarray[double, ndim=1, mode="c"] time_ILC not None, np.ndarray[double, ndim=1, mode="c"] flux_ILC not None, Ntime_ILC, np.ndarray[double, ndim=1, mode="c"] t not None, np.ndarray[double, ndim=1, mode="c"] flux not None, Nt, multiplicator):             # <<<<<<<<<<<<<<
+ *     return compute_LC_no_integration( <double*> np.PyArray_DATA(time_ILC), <double*> np.PyArray_DATA(flux_ILC), Ntime_ILC, <double*> np.PyArray_DATA(t), <double*> np.PyArray_DATA(flux), Nt, multiplicator)
  * 
  */
 
@@ -2194,7 +2194,6 @@ static PyObject *__pyx_pf_9AD_module_2LightCurve(CYTHON_UNUSED PyObject *__pyx_s
 static PyObject *__pyx_pw_9AD_module_5LightCurve_no_integration(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
 static PyMethodDef __pyx_mdef_9AD_module_5LightCurve_no_integration = {"LightCurve_no_integration", (PyCFunction)__pyx_pw_9AD_module_5LightCurve_no_integration, METH_VARARGS|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_9AD_module_5LightCurve_no_integration(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  PyObject *__pyx_v_filter_name = 0;
   PyArrayObject *__pyx_v_time_ILC = 0;
   PyArrayObject *__pyx_v_flux_ILC = 0;
   PyObject *__pyx_v_Ntime_ILC = 0;
@@ -2206,14 +2205,12 @@ static PyObject *__pyx_pw_9AD_module_5LightCurve_no_integration(PyObject *__pyx_
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("LightCurve_no_integration (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_filter_name,&__pyx_n_s_time_ILC,&__pyx_n_s_flux_ILC,&__pyx_n_s_Ntime_ILC,&__pyx_n_s_t,&__pyx_n_s_flux,&__pyx_n_s_Nt,&__pyx_n_s_multiplicator,0};
-    PyObject* values[8] = {0,0,0,0,0,0,0,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_time_ILC,&__pyx_n_s_flux_ILC,&__pyx_n_s_Ntime_ILC,&__pyx_n_s_t,&__pyx_n_s_flux,&__pyx_n_s_Nt,&__pyx_n_s_multiplicator,0};
+    PyObject* values[7] = {0,0,0,0,0,0,0};
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
       const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
       switch (pos_args) {
-        case  8: values[7] = PyTuple_GET_ITEM(__pyx_args, 7);
-        CYTHON_FALLTHROUGH;
         case  7: values[6] = PyTuple_GET_ITEM(__pyx_args, 6);
         CYTHON_FALLTHROUGH;
         case  6: values[5] = PyTuple_GET_ITEM(__pyx_args, 5);
@@ -2234,55 +2231,49 @@ static PyObject *__pyx_pw_9AD_module_5LightCurve_no_integration(PyObject *__pyx_
       kw_args = PyDict_Size(__pyx_kwds);
       switch (pos_args) {
         case  0:
-        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_filter_name)) != 0)) kw_args--;
+        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_time_ILC)) != 0)) kw_args--;
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
-        if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_time_ILC)) != 0)) kw_args--;
+        if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_flux_ILC)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("LightCurve_no_integration", 1, 8, 8, 1); __PYX_ERR(0, 23, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("LightCurve_no_integration", 1, 7, 7, 1); __PYX_ERR(0, 25, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
-        if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_flux_ILC)) != 0)) kw_args--;
+        if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_Ntime_ILC)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("LightCurve_no_integration", 1, 8, 8, 2); __PYX_ERR(0, 23, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("LightCurve_no_integration", 1, 7, 7, 2); __PYX_ERR(0, 25, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
-        if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_Ntime_ILC)) != 0)) kw_args--;
+        if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_t)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("LightCurve_no_integration", 1, 8, 8, 3); __PYX_ERR(0, 23, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("LightCurve_no_integration", 1, 7, 7, 3); __PYX_ERR(0, 25, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
-        if (likely((values[4] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_t)) != 0)) kw_args--;
+        if (likely((values[4] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_flux)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("LightCurve_no_integration", 1, 8, 8, 4); __PYX_ERR(0, 23, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("LightCurve_no_integration", 1, 7, 7, 4); __PYX_ERR(0, 25, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  5:
-        if (likely((values[5] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_flux)) != 0)) kw_args--;
+        if (likely((values[5] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_Nt)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("LightCurve_no_integration", 1, 8, 8, 5); __PYX_ERR(0, 23, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("LightCurve_no_integration", 1, 7, 7, 5); __PYX_ERR(0, 25, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  6:
-        if (likely((values[6] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_Nt)) != 0)) kw_args--;
+        if (likely((values[6] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_multiplicator)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("LightCurve_no_integration", 1, 8, 8, 6); __PYX_ERR(0, 23, __pyx_L3_error)
-        }
-        CYTHON_FALLTHROUGH;
-        case  7:
-        if (likely((values[7] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_multiplicator)) != 0)) kw_args--;
-        else {
-          __Pyx_RaiseArgtupleInvalid("LightCurve_no_integration", 1, 8, 8, 7); __PYX_ERR(0, 23, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("LightCurve_no_integration", 1, 7, 7, 6); __PYX_ERR(0, 25, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "LightCurve_no_integration") < 0)) __PYX_ERR(0, 23, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "LightCurve_no_integration") < 0)) __PYX_ERR(0, 25, __pyx_L3_error)
       }
-    } else if (PyTuple_GET_SIZE(__pyx_args) != 8) {
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 7) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
@@ -2292,30 +2283,28 @@ static PyObject *__pyx_pw_9AD_module_5LightCurve_no_integration(PyObject *__pyx_
       values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
       values[5] = PyTuple_GET_ITEM(__pyx_args, 5);
       values[6] = PyTuple_GET_ITEM(__pyx_args, 6);
-      values[7] = PyTuple_GET_ITEM(__pyx_args, 7);
     }
-    __pyx_v_filter_name = values[0];
-    __pyx_v_time_ILC = ((PyArrayObject *)values[1]);
-    __pyx_v_flux_ILC = ((PyArrayObject *)values[2]);
-    __pyx_v_Ntime_ILC = values[3];
-    __pyx_v_t = ((PyArrayObject *)values[4]);
-    __pyx_v_flux = ((PyArrayObject *)values[5]);
-    __pyx_v_Nt = values[6];
-    __pyx_v_multiplicator = values[7];
+    __pyx_v_time_ILC = ((PyArrayObject *)values[0]);
+    __pyx_v_flux_ILC = ((PyArrayObject *)values[1]);
+    __pyx_v_Ntime_ILC = values[2];
+    __pyx_v_t = ((PyArrayObject *)values[3]);
+    __pyx_v_flux = ((PyArrayObject *)values[4]);
+    __pyx_v_Nt = values[5];
+    __pyx_v_multiplicator = values[6];
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("LightCurve_no_integration", 1, 8, 8, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 23, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("LightCurve_no_integration", 1, 7, 7, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 25, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("AD_module.LightCurve_no_integration", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_time_ILC), __pyx_ptype_5numpy_ndarray, 0, "time_ILC", 0))) __PYX_ERR(0, 23, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_flux_ILC), __pyx_ptype_5numpy_ndarray, 0, "flux_ILC", 0))) __PYX_ERR(0, 23, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_t), __pyx_ptype_5numpy_ndarray, 0, "t", 0))) __PYX_ERR(0, 23, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_flux), __pyx_ptype_5numpy_ndarray, 0, "flux", 0))) __PYX_ERR(0, 23, __pyx_L1_error)
-  __pyx_r = __pyx_pf_9AD_module_4LightCurve_no_integration(__pyx_self, __pyx_v_filter_name, __pyx_v_time_ILC, __pyx_v_flux_ILC, __pyx_v_Ntime_ILC, __pyx_v_t, __pyx_v_flux, __pyx_v_Nt, __pyx_v_multiplicator);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_time_ILC), __pyx_ptype_5numpy_ndarray, 0, "time_ILC", 0))) __PYX_ERR(0, 25, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_flux_ILC), __pyx_ptype_5numpy_ndarray, 0, "flux_ILC", 0))) __PYX_ERR(0, 25, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_t), __pyx_ptype_5numpy_ndarray, 0, "t", 0))) __PYX_ERR(0, 25, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_flux), __pyx_ptype_5numpy_ndarray, 0, "flux", 0))) __PYX_ERR(0, 25, __pyx_L1_error)
+  __pyx_r = __pyx_pf_9AD_module_4LightCurve_no_integration(__pyx_self, __pyx_v_time_ILC, __pyx_v_flux_ILC, __pyx_v_Ntime_ILC, __pyx_v_t, __pyx_v_flux, __pyx_v_Nt, __pyx_v_multiplicator);
 
   /* function exit code */
   goto __pyx_L0;
@@ -2326,7 +2315,7 @@ static PyObject *__pyx_pw_9AD_module_5LightCurve_no_integration(PyObject *__pyx_
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_9AD_module_4LightCurve_no_integration(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_filter_name, PyArrayObject *__pyx_v_time_ILC, PyArrayObject *__pyx_v_flux_ILC, PyObject *__pyx_v_Ntime_ILC, PyArrayObject *__pyx_v_t, PyArrayObject *__pyx_v_flux, PyObject *__pyx_v_Nt, PyObject *__pyx_v_multiplicator) {
+static PyObject *__pyx_pf_9AD_module_4LightCurve_no_integration(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_time_ILC, PyArrayObject *__pyx_v_flux_ILC, PyObject *__pyx_v_Ntime_ILC, PyArrayObject *__pyx_v_t, PyArrayObject *__pyx_v_flux, PyObject *__pyx_v_Nt, PyObject *__pyx_v_multiplicator) {
   __Pyx_LocalBuf_ND __pyx_pybuffernd_flux;
   __Pyx_Buffer __pyx_pybuffer_flux;
   __Pyx_LocalBuf_ND __pyx_pybuffernd_flux_ILC;
@@ -2339,9 +2328,8 @@ static PyObject *__pyx_pf_9AD_module_4LightCurve_no_integration(CYTHON_UNUSED Py
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   int __pyx_t_2;
-  int __pyx_t_3;
-  double __pyx_t_4;
-  PyObject *__pyx_t_5 = NULL;
+  double __pyx_t_3;
+  PyObject *__pyx_t_4 = NULL;
   __Pyx_RefNannySetupContext("LightCurve_no_integration", 0);
   __pyx_pybuffer_time_ILC.pybuffer.buf = NULL;
   __pyx_pybuffer_time_ILC.refcount = 0;
@@ -2361,54 +2349,53 @@ static PyObject *__pyx_pf_9AD_module_4LightCurve_no_integration(CYTHON_UNUSED Py
   __pyx_pybuffernd_flux.rcbuffer = &__pyx_pybuffer_flux;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_time_ILC.rcbuffer->pybuffer, (PyObject*)__pyx_v_time_ILC, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 23, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_time_ILC.rcbuffer->pybuffer, (PyObject*)__pyx_v_time_ILC, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 25, __pyx_L1_error)
   }
   __pyx_pybuffernd_time_ILC.diminfo[0].strides = __pyx_pybuffernd_time_ILC.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_time_ILC.diminfo[0].shape = __pyx_pybuffernd_time_ILC.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_flux_ILC.rcbuffer->pybuffer, (PyObject*)__pyx_v_flux_ILC, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 23, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_flux_ILC.rcbuffer->pybuffer, (PyObject*)__pyx_v_flux_ILC, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 25, __pyx_L1_error)
   }
   __pyx_pybuffernd_flux_ILC.diminfo[0].strides = __pyx_pybuffernd_flux_ILC.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_flux_ILC.diminfo[0].shape = __pyx_pybuffernd_flux_ILC.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_t.rcbuffer->pybuffer, (PyObject*)__pyx_v_t, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 23, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_t.rcbuffer->pybuffer, (PyObject*)__pyx_v_t, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 25, __pyx_L1_error)
   }
   __pyx_pybuffernd_t.diminfo[0].strides = __pyx_pybuffernd_t.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_t.diminfo[0].shape = __pyx_pybuffernd_t.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_flux.rcbuffer->pybuffer, (PyObject*)__pyx_v_flux, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 23, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_flux.rcbuffer->pybuffer, (PyObject*)__pyx_v_flux, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 25, __pyx_L1_error)
   }
   __pyx_pybuffernd_flux.diminfo[0].strides = __pyx_pybuffernd_flux.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_flux.diminfo[0].shape = __pyx_pybuffernd_flux.rcbuffer->pybuffer.shape[0];
 
-  /* "AD_module.pyx":24
+  /* "AD_module.pyx":26
  * 
- * def LightCurve_no_integration( filter_name, np.ndarray[double, ndim=1, mode="c"] time_ILC not None, np.ndarray[double, ndim=1, mode="c"] flux_ILC not None, Ntime_ILC, np.ndarray[double, ndim=1, mode="c"] t not None, np.ndarray[double, ndim=1, mode="c"] flux not None, Nt, multiplicator):
- *     return compute_LC(filter_name, <double*> np.PyArray_DATA(time_ILC), <double*> np.PyArray_DATA(flux_ILC), Ntime_ILC, <double*> np.PyArray_DATA(t), <double*> np.PyArray_DATA(flux), Nt, multiplicator)             # <<<<<<<<<<<<<<
+ * def LightCurve_no_integration(np.ndarray[double, ndim=1, mode="c"] time_ILC not None, np.ndarray[double, ndim=1, mode="c"] flux_ILC not None, Ntime_ILC, np.ndarray[double, ndim=1, mode="c"] t not None, np.ndarray[double, ndim=1, mode="c"] flux not None, Nt, multiplicator):
+ *     return compute_LC_no_integration( <double*> np.PyArray_DATA(time_ILC), <double*> np.PyArray_DATA(flux_ILC), Ntime_ILC, <double*> np.PyArray_DATA(t), <double*> np.PyArray_DATA(flux), Nt, multiplicator)             # <<<<<<<<<<<<<<
  * 
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_filter_name); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 24, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_v_Ntime_ILC); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 24, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_PyInt_As_int(__pyx_v_Nt); if (unlikely((__pyx_t_3 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 24, __pyx_L1_error)
-  __pyx_t_4 = __pyx_PyFloat_AsDouble(__pyx_v_multiplicator); if (unlikely((__pyx_t_4 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 24, __pyx_L1_error)
-  __pyx_t_5 = __Pyx_PyInt_From_int(compute_LC(__pyx_t_1, ((double *)PyArray_DATA(((PyArrayObject *)__pyx_v_time_ILC))), ((double *)PyArray_DATA(((PyArrayObject *)__pyx_v_flux_ILC))), __pyx_t_2, ((double *)PyArray_DATA(((PyArrayObject *)__pyx_v_t))), ((double *)PyArray_DATA(((PyArrayObject *)__pyx_v_flux))), __pyx_t_3, __pyx_t_4)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 24, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __pyx_r = __pyx_t_5;
-  __pyx_t_5 = 0;
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_Ntime_ILC); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 26, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_v_Nt); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 26, __pyx_L1_error)
+  __pyx_t_3 = __pyx_PyFloat_AsDouble(__pyx_v_multiplicator); if (unlikely((__pyx_t_3 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 26, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_int(compute_LC_no_integration(((double *)PyArray_DATA(((PyArrayObject *)__pyx_v_time_ILC))), ((double *)PyArray_DATA(((PyArrayObject *)__pyx_v_flux_ILC))), __pyx_t_1, ((double *)PyArray_DATA(((PyArrayObject *)__pyx_v_t))), ((double *)PyArray_DATA(((PyArrayObject *)__pyx_v_flux))), __pyx_t_2, __pyx_t_3)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 26, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_r = __pyx_t_4;
+  __pyx_t_4 = 0;
   goto __pyx_L0;
 
-  /* "AD_module.pyx":23
- *     return compute_LC(filter_name, <double*> np.PyArray_DATA(time_ILC), <double*> np.PyArray_DATA(flux_ILC), Ntime_ILC, <double*> np.PyArray_DATA(t), <double*> np.PyArray_DATA(flux), Nt, multiplicator)
+  /* "AD_module.pyx":25
+ *     return compute_LC( filter_name, <double*> np.PyArray_DATA(time_ILC), <double*> np.PyArray_DATA(flux_ILC), Ntime_ILC, <double*> np.PyArray_DATA(t), <double*> np.PyArray_DATA(flux), Nt, multiplicator)
  * 
- * def LightCurve_no_integration( filter_name, np.ndarray[double, ndim=1, mode="c"] time_ILC not None, np.ndarray[double, ndim=1, mode="c"] flux_ILC not None, Ntime_ILC, np.ndarray[double, ndim=1, mode="c"] t not None, np.ndarray[double, ndim=1, mode="c"] flux not None, Nt, multiplicator):             # <<<<<<<<<<<<<<
- *     return compute_LC(filter_name, <double*> np.PyArray_DATA(time_ILC), <double*> np.PyArray_DATA(flux_ILC), Ntime_ILC, <double*> np.PyArray_DATA(t), <double*> np.PyArray_DATA(flux), Nt, multiplicator)
+ * def LightCurve_no_integration(np.ndarray[double, ndim=1, mode="c"] time_ILC not None, np.ndarray[double, ndim=1, mode="c"] flux_ILC not None, Ntime_ILC, np.ndarray[double, ndim=1, mode="c"] t not None, np.ndarray[double, ndim=1, mode="c"] flux not None, Nt, multiplicator):             # <<<<<<<<<<<<<<
+ *     return compute_LC_no_integration( <double*> np.PyArray_DATA(time_ILC), <double*> np.PyArray_DATA(flux_ILC), Ntime_ILC, <double*> np.PyArray_DATA(t), <double*> np.PyArray_DATA(flux), Nt, multiplicator)
  * 
  */
 
   /* function exit code */
   __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_4);
   { PyObject *__pyx_type, *__pyx_value, *__pyx_tb;
     __Pyx_PyThreadState_declare
     __Pyx_PyThreadState_assign
@@ -2432,7 +2419,7 @@ static PyObject *__pyx_pf_9AD_module_4LightCurve_no_integration(CYTHON_UNUSED Py
   return __pyx_r;
 }
 
-/* "AD_module.pyx":27
+/* "AD_module.pyx":29
  * 
  * 
  * def Spectrum( multiplicator, np.ndarray[double, ndim=1, mode="c"] wavelength not None, np.ndarray[double, ndim=1, mode="c"] spec not None, len_spec):             # <<<<<<<<<<<<<<
@@ -2477,23 +2464,23 @@ static PyObject *__pyx_pw_9AD_module_7Spectrum(PyObject *__pyx_self, PyObject *_
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_wavelength)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("Spectrum", 1, 4, 4, 1); __PYX_ERR(0, 27, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("Spectrum", 1, 4, 4, 1); __PYX_ERR(0, 29, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_spec)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("Spectrum", 1, 4, 4, 2); __PYX_ERR(0, 27, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("Spectrum", 1, 4, 4, 2); __PYX_ERR(0, 29, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_len_spec)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("Spectrum", 1, 4, 4, 3); __PYX_ERR(0, 27, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("Spectrum", 1, 4, 4, 3); __PYX_ERR(0, 29, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "Spectrum") < 0)) __PYX_ERR(0, 27, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "Spectrum") < 0)) __PYX_ERR(0, 29, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 4) {
       goto __pyx_L5_argtuple_error;
@@ -2510,14 +2497,14 @@ static PyObject *__pyx_pw_9AD_module_7Spectrum(PyObject *__pyx_self, PyObject *_
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("Spectrum", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 27, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("Spectrum", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 29, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("AD_module.Spectrum", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_wavelength), __pyx_ptype_5numpy_ndarray, 0, "wavelength", 0))) __PYX_ERR(0, 27, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_spec), __pyx_ptype_5numpy_ndarray, 0, "spec", 0))) __PYX_ERR(0, 27, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_wavelength), __pyx_ptype_5numpy_ndarray, 0, "wavelength", 0))) __PYX_ERR(0, 29, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_spec), __pyx_ptype_5numpy_ndarray, 0, "spec", 0))) __PYX_ERR(0, 29, __pyx_L1_error)
   __pyx_r = __pyx_pf_9AD_module_6Spectrum(__pyx_self, __pyx_v_multiplicator, __pyx_v_wavelength, __pyx_v_spec, __pyx_v_len_spec);
 
   /* function exit code */
@@ -2550,30 +2537,30 @@ static PyObject *__pyx_pf_9AD_module_6Spectrum(CYTHON_UNUSED PyObject *__pyx_sel
   __pyx_pybuffernd_spec.rcbuffer = &__pyx_pybuffer_spec;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_wavelength.rcbuffer->pybuffer, (PyObject*)__pyx_v_wavelength, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 27, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_wavelength.rcbuffer->pybuffer, (PyObject*)__pyx_v_wavelength, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 29, __pyx_L1_error)
   }
   __pyx_pybuffernd_wavelength.diminfo[0].strides = __pyx_pybuffernd_wavelength.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_wavelength.diminfo[0].shape = __pyx_pybuffernd_wavelength.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_spec.rcbuffer->pybuffer, (PyObject*)__pyx_v_spec, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 27, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_spec.rcbuffer->pybuffer, (PyObject*)__pyx_v_spec, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 29, __pyx_L1_error)
   }
   __pyx_pybuffernd_spec.diminfo[0].strides = __pyx_pybuffernd_spec.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_spec.diminfo[0].shape = __pyx_pybuffernd_spec.rcbuffer->pybuffer.shape[0];
 
-  /* "AD_module.pyx":28
+  /* "AD_module.pyx":30
  * 
  * def Spectrum( multiplicator, np.ndarray[double, ndim=1, mode="c"] wavelength not None, np.ndarray[double, ndim=1, mode="c"] spec not None, len_spec):
  *     return disk_spectrum(multiplicator, <double*> np.PyArray_DATA(wavelength), <double*> np.PyArray_DATA(spec), len_spec)             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_multiplicator); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 28, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_v_len_spec); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 28, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_PyInt_From_int(disk_spectrum(__pyx_t_1, ((double *)PyArray_DATA(((PyArrayObject *)__pyx_v_wavelength))), ((double *)PyArray_DATA(((PyArrayObject *)__pyx_v_spec))), __pyx_t_2)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 28, __pyx_L1_error)
+  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_multiplicator); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 30, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_v_len_spec); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 30, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_int(disk_spectrum(__pyx_t_1, ((double *)PyArray_DATA(((PyArrayObject *)__pyx_v_wavelength))), ((double *)PyArray_DATA(((PyArrayObject *)__pyx_v_spec))), __pyx_t_2)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 30, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_r = __pyx_t_3;
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "AD_module.pyx":27
+  /* "AD_module.pyx":29
  * 
  * 
  * def Spectrum( multiplicator, np.ndarray[double, ndim=1, mode="c"] wavelength not None, np.ndarray[double, ndim=1, mode="c"] spec not None, len_spec):             # <<<<<<<<<<<<<<
@@ -5256,52 +5243,52 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__9);
   __Pyx_GIVEREF(__pyx_tuple__9);
 
-  /* "AD_module.pyx":16
+  /* "AD_module.pyx":18
  * 
  * 
  * def AD_py( Nfilter, np.ndarray[long int, ndim=1, mode="c"] computed_filter not None, np.ndarray[double, ndim=1, mode="c"] time not None, np.ndarray[double, ndim=1, mode="c"] flux not None, np.ndarray[double, ndim=1, mode="c"] ratio not None, np.ndarray[double, ndim=1, mode="c"] tau_time not None, Ntime, Ntau):             # <<<<<<<<<<<<<<
  *     return make_computation(Nfilter, <long int*> np.PyArray_DATA(computed_filter), <double*> np.PyArray_DATA(time), <double*> np.PyArray_DATA(flux), <double*> np.PyArray_DATA(ratio), <double*> np.PyArray_DATA(tau_time), Ntime, Ntau)
  * 
  */
-  __pyx_tuple__10 = PyTuple_Pack(8, __pyx_n_s_Nfilter, __pyx_n_s_computed_filter, __pyx_n_s_time, __pyx_n_s_flux, __pyx_n_s_ratio, __pyx_n_s_tau_time, __pyx_n_s_Ntime, __pyx_n_s_Ntau); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 16, __pyx_L1_error)
+  __pyx_tuple__10 = PyTuple_Pack(8, __pyx_n_s_Nfilter, __pyx_n_s_computed_filter, __pyx_n_s_time, __pyx_n_s_flux, __pyx_n_s_ratio, __pyx_n_s_tau_time, __pyx_n_s_Ntime, __pyx_n_s_Ntau); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 18, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__10);
   __Pyx_GIVEREF(__pyx_tuple__10);
-  __pyx_codeobj__11 = (PyObject*)__Pyx_PyCode_New(8, 0, 8, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__10, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_AD_module_pyx, __pyx_n_s_AD_py, 16, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__11)) __PYX_ERR(0, 16, __pyx_L1_error)
+  __pyx_codeobj__11 = (PyObject*)__Pyx_PyCode_New(8, 0, 8, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__10, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_AD_module_pyx, __pyx_n_s_AD_py, 18, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__11)) __PYX_ERR(0, 18, __pyx_L1_error)
 
-  /* "AD_module.pyx":20
+  /* "AD_module.pyx":22
  * 
  * 
  * def LightCurve( filter_name, np.ndarray[double, ndim=1, mode="c"] time_ILC not None, np.ndarray[double, ndim=1, mode="c"] flux_ILC not None, Ntime_ILC, np.ndarray[double, ndim=1, mode="c"] t not None, np.ndarray[double, ndim=1, mode="c"] flux not None, Nt, multiplicator):             # <<<<<<<<<<<<<<
- *     return compute_LC(filter_name, <double*> np.PyArray_DATA(time_ILC), <double*> np.PyArray_DATA(flux_ILC), Ntime_ILC, <double*> np.PyArray_DATA(t), <double*> np.PyArray_DATA(flux), Nt, multiplicator)
+ *     return compute_LC( filter_name, <double*> np.PyArray_DATA(time_ILC), <double*> np.PyArray_DATA(flux_ILC), Ntime_ILC, <double*> np.PyArray_DATA(t), <double*> np.PyArray_DATA(flux), Nt, multiplicator)
  * 
  */
-  __pyx_tuple__12 = PyTuple_Pack(8, __pyx_n_s_filter_name, __pyx_n_s_time_ILC, __pyx_n_s_flux_ILC, __pyx_n_s_Ntime_ILC, __pyx_n_s_t, __pyx_n_s_flux, __pyx_n_s_Nt, __pyx_n_s_multiplicator); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_tuple__12 = PyTuple_Pack(8, __pyx_n_s_filter_name, __pyx_n_s_time_ILC, __pyx_n_s_flux_ILC, __pyx_n_s_Ntime_ILC, __pyx_n_s_t, __pyx_n_s_flux, __pyx_n_s_Nt, __pyx_n_s_multiplicator); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(0, 22, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__12);
   __Pyx_GIVEREF(__pyx_tuple__12);
-  __pyx_codeobj__13 = (PyObject*)__Pyx_PyCode_New(8, 0, 8, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__12, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_AD_module_pyx, __pyx_n_s_LightCurve, 20, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__13)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_codeobj__13 = (PyObject*)__Pyx_PyCode_New(8, 0, 8, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__12, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_AD_module_pyx, __pyx_n_s_LightCurve, 22, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__13)) __PYX_ERR(0, 22, __pyx_L1_error)
 
-  /* "AD_module.pyx":23
- *     return compute_LC(filter_name, <double*> np.PyArray_DATA(time_ILC), <double*> np.PyArray_DATA(flux_ILC), Ntime_ILC, <double*> np.PyArray_DATA(t), <double*> np.PyArray_DATA(flux), Nt, multiplicator)
+  /* "AD_module.pyx":25
+ *     return compute_LC( filter_name, <double*> np.PyArray_DATA(time_ILC), <double*> np.PyArray_DATA(flux_ILC), Ntime_ILC, <double*> np.PyArray_DATA(t), <double*> np.PyArray_DATA(flux), Nt, multiplicator)
  * 
- * def LightCurve_no_integration( filter_name, np.ndarray[double, ndim=1, mode="c"] time_ILC not None, np.ndarray[double, ndim=1, mode="c"] flux_ILC not None, Ntime_ILC, np.ndarray[double, ndim=1, mode="c"] t not None, np.ndarray[double, ndim=1, mode="c"] flux not None, Nt, multiplicator):             # <<<<<<<<<<<<<<
- *     return compute_LC(filter_name, <double*> np.PyArray_DATA(time_ILC), <double*> np.PyArray_DATA(flux_ILC), Ntime_ILC, <double*> np.PyArray_DATA(t), <double*> np.PyArray_DATA(flux), Nt, multiplicator)
+ * def LightCurve_no_integration(np.ndarray[double, ndim=1, mode="c"] time_ILC not None, np.ndarray[double, ndim=1, mode="c"] flux_ILC not None, Ntime_ILC, np.ndarray[double, ndim=1, mode="c"] t not None, np.ndarray[double, ndim=1, mode="c"] flux not None, Nt, multiplicator):             # <<<<<<<<<<<<<<
+ *     return compute_LC_no_integration( <double*> np.PyArray_DATA(time_ILC), <double*> np.PyArray_DATA(flux_ILC), Ntime_ILC, <double*> np.PyArray_DATA(t), <double*> np.PyArray_DATA(flux), Nt, multiplicator)
  * 
  */
-  __pyx_tuple__14 = PyTuple_Pack(8, __pyx_n_s_filter_name, __pyx_n_s_time_ILC, __pyx_n_s_flux_ILC, __pyx_n_s_Ntime_ILC, __pyx_n_s_t, __pyx_n_s_flux, __pyx_n_s_Nt, __pyx_n_s_multiplicator); if (unlikely(!__pyx_tuple__14)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_tuple__14 = PyTuple_Pack(7, __pyx_n_s_time_ILC, __pyx_n_s_flux_ILC, __pyx_n_s_Ntime_ILC, __pyx_n_s_t, __pyx_n_s_flux, __pyx_n_s_Nt, __pyx_n_s_multiplicator); if (unlikely(!__pyx_tuple__14)) __PYX_ERR(0, 25, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__14);
   __Pyx_GIVEREF(__pyx_tuple__14);
-  __pyx_codeobj__15 = (PyObject*)__Pyx_PyCode_New(8, 0, 8, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__14, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_AD_module_pyx, __pyx_n_s_LightCurve_no_integration, 23, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__15)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_codeobj__15 = (PyObject*)__Pyx_PyCode_New(7, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__14, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_AD_module_pyx, __pyx_n_s_LightCurve_no_integration, 25, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__15)) __PYX_ERR(0, 25, __pyx_L1_error)
 
-  /* "AD_module.pyx":27
+  /* "AD_module.pyx":29
  * 
  * 
  * def Spectrum( multiplicator, np.ndarray[double, ndim=1, mode="c"] wavelength not None, np.ndarray[double, ndim=1, mode="c"] spec not None, len_spec):             # <<<<<<<<<<<<<<
  *     return disk_spectrum(multiplicator, <double*> np.PyArray_DATA(wavelength), <double*> np.PyArray_DATA(spec), len_spec)
  */
-  __pyx_tuple__16 = PyTuple_Pack(4, __pyx_n_s_multiplicator, __pyx_n_s_wavelength, __pyx_n_s_spec, __pyx_n_s_len_spec); if (unlikely(!__pyx_tuple__16)) __PYX_ERR(0, 27, __pyx_L1_error)
+  __pyx_tuple__16 = PyTuple_Pack(4, __pyx_n_s_multiplicator, __pyx_n_s_wavelength, __pyx_n_s_spec, __pyx_n_s_len_spec); if (unlikely(!__pyx_tuple__16)) __PYX_ERR(0, 29, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__16);
   __Pyx_GIVEREF(__pyx_tuple__16);
-  __pyx_codeobj__17 = (PyObject*)__Pyx_PyCode_New(4, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__16, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_AD_module_pyx, __pyx_n_s_Spectrum, 27, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__17)) __PYX_ERR(0, 27, __pyx_L1_error)
+  __pyx_codeobj__17 = (PyObject*)__Pyx_PyCode_New(4, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__16, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_AD_module_pyx, __pyx_n_s_Spectrum, 29, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__17)) __PYX_ERR(0, 29, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -5600,51 +5587,51 @@ if (!__Pyx_RefNanny) {
  */
   __pyx_t_2 = __pyx_f_5numpy_import_array(); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 5, __pyx_L1_error)
 
-  /* "AD_module.pyx":16
+  /* "AD_module.pyx":18
  * 
  * 
  * def AD_py( Nfilter, np.ndarray[long int, ndim=1, mode="c"] computed_filter not None, np.ndarray[double, ndim=1, mode="c"] time not None, np.ndarray[double, ndim=1, mode="c"] flux not None, np.ndarray[double, ndim=1, mode="c"] ratio not None, np.ndarray[double, ndim=1, mode="c"] tau_time not None, Ntime, Ntau):             # <<<<<<<<<<<<<<
  *     return make_computation(Nfilter, <long int*> np.PyArray_DATA(computed_filter), <double*> np.PyArray_DATA(time), <double*> np.PyArray_DATA(flux), <double*> np.PyArray_DATA(ratio), <double*> np.PyArray_DATA(tau_time), Ntime, Ntau)
  * 
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_9AD_module_1AD_py, NULL, __pyx_n_s_AD_module); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 16, __pyx_L1_error)
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_9AD_module_1AD_py, NULL, __pyx_n_s_AD_module); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 18, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_AD_py, __pyx_t_1) < 0) __PYX_ERR(0, 16, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_AD_py, __pyx_t_1) < 0) __PYX_ERR(0, 18, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AD_module.pyx":20
+  /* "AD_module.pyx":22
  * 
  * 
  * def LightCurve( filter_name, np.ndarray[double, ndim=1, mode="c"] time_ILC not None, np.ndarray[double, ndim=1, mode="c"] flux_ILC not None, Ntime_ILC, np.ndarray[double, ndim=1, mode="c"] t not None, np.ndarray[double, ndim=1, mode="c"] flux not None, Nt, multiplicator):             # <<<<<<<<<<<<<<
- *     return compute_LC(filter_name, <double*> np.PyArray_DATA(time_ILC), <double*> np.PyArray_DATA(flux_ILC), Ntime_ILC, <double*> np.PyArray_DATA(t), <double*> np.PyArray_DATA(flux), Nt, multiplicator)
+ *     return compute_LC( filter_name, <double*> np.PyArray_DATA(time_ILC), <double*> np.PyArray_DATA(flux_ILC), Ntime_ILC, <double*> np.PyArray_DATA(t), <double*> np.PyArray_DATA(flux), Nt, multiplicator)
  * 
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_9AD_module_3LightCurve, NULL, __pyx_n_s_AD_module); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_9AD_module_3LightCurve, NULL, __pyx_n_s_AD_module); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 22, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_LightCurve, __pyx_t_1) < 0) __PYX_ERR(0, 20, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_LightCurve, __pyx_t_1) < 0) __PYX_ERR(0, 22, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AD_module.pyx":23
- *     return compute_LC(filter_name, <double*> np.PyArray_DATA(time_ILC), <double*> np.PyArray_DATA(flux_ILC), Ntime_ILC, <double*> np.PyArray_DATA(t), <double*> np.PyArray_DATA(flux), Nt, multiplicator)
+  /* "AD_module.pyx":25
+ *     return compute_LC( filter_name, <double*> np.PyArray_DATA(time_ILC), <double*> np.PyArray_DATA(flux_ILC), Ntime_ILC, <double*> np.PyArray_DATA(t), <double*> np.PyArray_DATA(flux), Nt, multiplicator)
  * 
- * def LightCurve_no_integration( filter_name, np.ndarray[double, ndim=1, mode="c"] time_ILC not None, np.ndarray[double, ndim=1, mode="c"] flux_ILC not None, Ntime_ILC, np.ndarray[double, ndim=1, mode="c"] t not None, np.ndarray[double, ndim=1, mode="c"] flux not None, Nt, multiplicator):             # <<<<<<<<<<<<<<
- *     return compute_LC(filter_name, <double*> np.PyArray_DATA(time_ILC), <double*> np.PyArray_DATA(flux_ILC), Ntime_ILC, <double*> np.PyArray_DATA(t), <double*> np.PyArray_DATA(flux), Nt, multiplicator)
+ * def LightCurve_no_integration(np.ndarray[double, ndim=1, mode="c"] time_ILC not None, np.ndarray[double, ndim=1, mode="c"] flux_ILC not None, Ntime_ILC, np.ndarray[double, ndim=1, mode="c"] t not None, np.ndarray[double, ndim=1, mode="c"] flux not None, Nt, multiplicator):             # <<<<<<<<<<<<<<
+ *     return compute_LC_no_integration( <double*> np.PyArray_DATA(time_ILC), <double*> np.PyArray_DATA(flux_ILC), Ntime_ILC, <double*> np.PyArray_DATA(t), <double*> np.PyArray_DATA(flux), Nt, multiplicator)
  * 
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_9AD_module_5LightCurve_no_integration, NULL, __pyx_n_s_AD_module); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_9AD_module_5LightCurve_no_integration, NULL, __pyx_n_s_AD_module); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 25, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_LightCurve_no_integration, __pyx_t_1) < 0) __PYX_ERR(0, 23, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_LightCurve_no_integration, __pyx_t_1) < 0) __PYX_ERR(0, 25, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "AD_module.pyx":27
+  /* "AD_module.pyx":29
  * 
  * 
  * def Spectrum( multiplicator, np.ndarray[double, ndim=1, mode="c"] wavelength not None, np.ndarray[double, ndim=1, mode="c"] spec not None, len_spec):             # <<<<<<<<<<<<<<
  *     return disk_spectrum(multiplicator, <double*> np.PyArray_DATA(wavelength), <double*> np.PyArray_DATA(spec), len_spec)
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_9AD_module_7Spectrum, NULL, __pyx_n_s_AD_module); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 27, __pyx_L1_error)
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_9AD_module_7Spectrum, NULL, __pyx_n_s_AD_module); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 29, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Spectrum, __pyx_t_1) < 0) __PYX_ERR(0, 27, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Spectrum, __pyx_t_1) < 0) __PYX_ERR(0, 29, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "AD_module.pyx":1

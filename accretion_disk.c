@@ -1228,7 +1228,7 @@ int compute_LC(int filter_name, double *time_ILC, double *flux_ILC, int Ntime_IL
  *     6- flux :  the vector to be filled by the light-curve
  *     7- Nt :  the length of those arrays
  */
-int compute_LC_no_integration(int filter_name, double *time_ILC, double *flux_ILC, int Ntime_ILC, double *t, double *flux, int Nt, double multiplicator){
+int compute_LC_no_integration(double *time_ILC, double *flux_ILC, int Ntime_ILC, double *t, double *flux, int Nt, double multiplicator){
     
     
     /**  Husne, 9/10/2018
