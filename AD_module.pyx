@@ -20,6 +20,9 @@ def AD_py( Nfilter, np.ndarray[long int, ndim=1, mode="c"] computed_filter not N
 def LightCurve( filter_name, np.ndarray[double, ndim=1, mode="c"] time_ILC not None, np.ndarray[double, ndim=1, mode="c"] flux_ILC not None, Ntime_ILC, np.ndarray[double, ndim=1, mode="c"] t not None, np.ndarray[double, ndim=1, mode="c"] flux not None, Nt, multiplicator):
     return compute_LC(filter_name, <double*> np.PyArray_DATA(time_ILC), <double*> np.PyArray_DATA(flux_ILC), Ntime_ILC, <double*> np.PyArray_DATA(t), <double*> np.PyArray_DATA(flux), Nt, multiplicator)
 
+def LightCurve_no_integration( filter_name, np.ndarray[double, ndim=1, mode="c"] time_ILC not None, np.ndarray[double, ndim=1, mode="c"] flux_ILC not None, Ntime_ILC, np.ndarray[double, ndim=1, mode="c"] t not None, np.ndarray[double, ndim=1, mode="c"] flux not None, Nt, multiplicator):
+    return compute_LC(filter_name, <double*> np.PyArray_DATA(time_ILC), <double*> np.PyArray_DATA(flux_ILC), Ntime_ILC, <double*> np.PyArray_DATA(t), <double*> np.PyArray_DATA(flux), Nt, multiplicator)
+
 
 def Spectrum( multiplicator, np.ndarray[double, ndim=1, mode="c"] wavelength not None, np.ndarray[double, ndim=1, mode="c"] spec not None, len_spec):
     return disk_spectrum(multiplicator, <double*> np.PyArray_DATA(wavelength), <double*> np.PyArray_DATA(spec), len_spec)

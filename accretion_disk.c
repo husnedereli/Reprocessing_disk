@@ -167,6 +167,7 @@ typedef struct region {
     double temp_tptau;
 } region;
 
+/******************************************** COMPUTE LAG ****************************************************************/
 
 int make_computation(int Nfilter, long int *computed_filter, double *time, double *flux, double *ratio, double *tau_time, int Ntime, int Ntau){
 
@@ -767,6 +768,10 @@ int make_computation(int Nfilter, long int *computed_filter, double *time, doubl
 }
 
 
+
+/******************************************** COMPUTE LIGHT CURVE ****************************************************************/
+
+
 /**  What are the parameters ?
   *     1- filter_name : name of the filter
   *     2- time_ILC : time of the illuminating light-curve
@@ -1210,7 +1215,256 @@ int compute_LC(int filter_name, double *time_ILC, double *flux_ILC, int Ntime_IL
 }
 
 
+/******************************************** COMPUTE LIGHT CURVE Without INTEGRATION OVER BAND PASSES **************************/
 
+
+
+/**  What are the parameters ?
+ *     1- filter_name : name of the filter
+ *     2- time_ILC : time of the illuminating light-curve
+ *     3- flux_ILC : flux of the illuminating light-curve
+ *     4- Ntime_ILC : length of array time_ILC and flux_ILC
+ *     5- t : the time at which the LC should be computed
+ *     6- flux :  the vector to be filled by the light-curve
+ *     7- Nt :  the length of those arrays
+ */
+int compute_LC_no_integration(int filter_name, double *time_ILC, double *flux_ILC, int Ntime_ILC, double *t, double *flux, int Nt, double multiplicator){
+    
+    
+    /**  Husne, 9/10/2018
+     *  Here I create and fill the disk. I compute the temperature and settle all the regions of the disk.
+     */
+    
+    
+    double *r;                        /** radius which is from the center of disk to the center of any region**/
+    double *theta;                    /** azimuth angle which is from the origine to the r for any region**/
+    r = (double *) calloc(Nr,sizeof(double));
+    theta = (double *) calloc(Ntheta,sizeof(double));
+    
+    double M = 3.2e7*Msun;              /** M_sun, the black hole mass, converted to gr **/
+    double Rg= (Ggrav*M)/(c*c);         /** gravitational radius **/
+    double r_in= 6.0*Rg;                /** inner radius **/
+    double r_out=10000*Rg;              /** outer radius **/
+    
+    
+    double inc_angle = 45.0*degree_to_radian;   /** inclination angle , converted to radian **/
+    double cos_inc_angle = cos(inc_angle);  /** Cos of the inclination angle, avoid to recompute it all the time */
+    double h_star = 10.0*Rg;                /** the vertical distance from the cetral variable source to disk **/
+    double M_rate = 1.0*Msun/31557600.0;    /** M_sun yr^-1, the typical black hole accretion rate , converted to g.s^-1 **/
+    /** the numerical factor converts from year to second: we are working in cgs: cm gram second.*/
+    double A = 0.5;                         /** the disk albedo **/
+    double L_bol = multiplicator*2.82e44;                 /** erg/s^-1, the bolometric luminosity **/
+    
+    /** Checking the values of the radii */
+    // printf("Rg = %g\tR_int = %g\tR_out = %g \n", Rg, r_in, r_out);
+    // getchar();
+    
+    /** create disks which contain the regions **/
+    region *disk;
+    disk = (region *) malloc(Nr*Ntheta*sizeof(region));
+    
+    /** the ratio of the outher and inner radius of each rings fixed **/
+    double step = exp(log(r_out/r_in)/Nr);
+    int i;
+    for (i=0; i < Nr; i++){
+        r[i] = r_in*pow(step,(double) i);
+    }
+    
+    for (i=0; i < Ntheta; i++){
+        theta[i] = ((double) i)*(360.0/Ntheta)*degree_to_radian;
+    }
+    
+    /** fill the disks with elements (radius and theta) of regions **/
+    int j;
+    double tau;
+    for (i=0; i < Nr; i++){
+        for (j=0; j < Ntheta; j++){
+            disk[i*Ntheta+j].radius = r[i];                 /** disk[0] region1, ... **/
+            disk[i*Ntheta+j].theta = theta[j];
+            disk[i*Ntheta+j].rstar = r_star(r[i], h_star);   /** disk[0] region1, ... **/
+            
+            /// Compute the time lag up to the radius.
+            tau = sqrt(pow(h_star,2.0)+pow(r[i],2.0))+h_star*cos_inc_angle-r[i]*cos(theta[j])*sin(inc_angle);
+            tau = (tau/c)*second_to_day;
+            disk[i*Ntheta+j].tau = tau;
+        }
+    }
+    
+    
+    /**  Husne,  9/10/2018
+     *
+     */
+    /** for the computation of luminosity so it is for temperature **/
+    ///double omega = 10.0*c/r_out;
+    /** for the computation of the radiation from the disk. **/
+    double D = 75.01*1e6*pc;                   /** Mpc distance from observer to the source, converted to cm **/
+    double D2 = D*D;
+    double R_in;
+    double R_out;
+    double theta_in;
+    double theta_out;
+    
+    
+    /** ************************************************
+     * ************************************************
+     * ************************************************
+     * ************************************************
+     * ************************************************
+     */
+    
+    
+    
+    
+    /**  Husne,  11/01/2019
+     *  Central value of UVW2 = 212 nm = 212*1e-7 cm
+     *  Central value of UVM2 = 231 nm = 231*1e-7 cm
+     *  Central value of UVW1 = 291 nm = 291*1e-7 cm
+     *  Central value of UVU = 344 nm = 344*1e-7 cm
+     *  Central value of UVB = 450 nm = 450*1e-7 cm
+     *  Central value of UVV = 543 nm = 543*1e-7 cm
+     */
+    
+    double wavelength_UVW2_3 = 212*nm*212*nm*212*nm;
+    double wavelength_UVW2 = 212*nm;
+    
+    /** ************************************************
+     * ************************************************
+     * ************************************************
+     * ************************************************
+     * ************************************************
+     */
+    
+    
+    
+    
+    
+    /**  Husne, 20/10/2018
+     * I define the time and tau_time as arrays
+     */
+    // 1) SET the tau so give the value of tau
+    //const int Ntau = 7;
+    //double tau_time[7] = {3.0, 6.0, 10.0, 20.0, 40.0, 100.0, 200.0};
+    
+    //printf("%g\t\n",tau_time);  //* print the arrays */
+    
+    
+    
+    
+    /**  Husne, 15/11/2018
+     *  Compute all the other light curve in different filters (UVM2, UVW1, U, B, V)
+     *  by using the illuminating light curves of UVW2
+     */
+    
+    /**  Husne,  18/10/2018 *  Now compute the integral for U band. */
+    double deltaLambda_U;
+    double *flux_t_U;
+    double Temperature_t;
+    double Integral;
+    double f_U_im1 = 0.0;
+    double f_U_i = 0.0;
+    ///int Ntime = 0;
+    
+    
+    
+    
+    FILE *output;
+    int m;
+    int k;
+    double stepR = exp(log(r_out/r_in)/Nr);
+    double sqrt_stepR = sqrt(stepR);
+    double stepT = 360.0*degree_to_radian/Ntheta;
+    
+    int can_do_computation;
+    ///int nb_computation;
+    /** Loop for the Number of filter, because I need to compute the flux for each band */
+    
+    /** Loop for the time */
+    for (k=0; k < Nt; k++){
+        if(k % 100 == 0){
+            printf("m = %d\t\tk = %d\n", m, k);
+        }
+        
+        /**
+         *  I need to compute f(t) in the required band
+         */
+        
+        /**  I need to check that for all elements of the disk I never obtained a negative temperature, which means that the computation can be done. */
+        can_do_computation = 0;
+        for (j=0; j < Nr*Ntheta; j++){
+            /// temperature at time t in U
+            Temperature_t = temp_profile(   t[k], disk[j].radius, disk[j].rstar, disk[j].tau, disk[j].theta, M, M_rate, r_in, A, h_star, inc_angle, L_bol, Ntime_ILC, time_ILC, flux_ILC);
+            disk[j].temp_t = Temperature_t;
+            if(Temperature_t < 0.0){
+                can_do_computation = 1;
+            }
+        }
+        
+        /** Loop for the radius and theta, because I need to compute the temparature and spectrum of disk */
+        /// f is the summ of contribution from all the disk elements.
+        
+        if(can_do_computation == 0){
+            //nb_computation += 1;
+            for (j=0; j < Nr*Ntheta; j++){
+                
+                R_in = disk[j].radius/sqrt_stepR;            /** from the center to the first layer of any region **/
+                R_out = disk[j].radius*sqrt_stepR;           /** from the center to the last layer of any region **/
+                theta_in = disk[j].theta - 0.5*stepT;         /** from the origine to the first layer of any region on the bottom**/
+                theta_out = disk[j].theta + 0.5*stepT;        /** from the origine to the last layer of any region on the top**/
+                
+                /**  Now I compute the integral for the U-band */
+                /// temperature at time t in U
+                Temperature_t = disk[j].temp_t;
+                /// Initialization of the sum to compute the integral over the filter
+                Integral = 0.0;
+                
+                /** Loop for the band, because I need to compute the integral over bandpass */
+                ///numberofloop_U = numberofloop[m]
+                ////for(i = 1; i < numberofloop ; i++){
+                    
+                f_U_i = spectrum(cos_inc_angle, D2, theta_in, theta_out, R_in, R_out, wavelength_UVW2_3, wavelength_UVW2, Temperature_t);
+                    ///f_U_im1 = spectrum(cos_inc_angle, D2, theta_in, theta_out, R_in, R_out, wavelength_UVW2_3, wavelength_UVW2, Temperature_t);
+                    
+                Integral += (f_U_i)/2.0;
+                ///}
+                flux[k] = flux[k] + Integral;
+                
+                
+                ///nb_computation +=1;
+                ///printf("%.13g\t\n", flux_t_U[k]);
+                /*if(flux_t_U[k] != flux_t_U[k]){
+                 printf("Flux_t_u = NAN \t j = %d\t Integral = %g\n", j, Integral);
+                 getchar();
+                 }*/
+            }
+            
+        }
+        
+        
+        /*printf("time = %g\t\tflux = %.13g\t\n", t[k], flux_t_U[k]);
+         output = fopen("lc_U_disk.txt","a");
+         ///if(flux_t_U[k] > 0){
+         fprintf(output, "%g\t%g\n", t[k], flux_t_U[k]);
+         ///} */
+        
+    }
+    
+    
+    
+    
+    //    fclose(output);
+    
+    
+    free(r);
+    free(theta);
+    free(disk);
+    return 0;
+}
+
+
+
+
+
+/******************************************** COMPUTE THE SPECTRUM **************************************************************/
 
 int disk_spectrum(double multiplicator, double *wavelength, double *spec, int len_spec){
 
