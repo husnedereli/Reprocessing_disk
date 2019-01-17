@@ -1215,7 +1215,7 @@ int compute_LC(int filter_name, double *time_ILC, double *flux_ILC, int Ntime_IL
 }
 
 
-/******************************************** COMPUTE LIGHT CURVE Without INTEGRATION OVER BAND PASSES **************************/
+/******************************************** COMPUTE The LIGHT CURVE Without INTEGRATION OVER BAND PASSES **************************/
 
 
 
