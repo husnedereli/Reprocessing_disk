@@ -167,7 +167,7 @@ typedef struct region {
     double temp_tptau;
 } region;
 
-/******************************************** COMPUTE LAG ****************************************************************/
+/************************************* COMPUTE THE COLOR VARIABILITY ********************************************************/
 
 int make_computation(int Nfilter, long int *computed_filter, double *time, double *flux, double *ratio, double *tau_time, int Ntime, int Ntau){
 
@@ -1220,13 +1220,12 @@ int compute_LC(int filter_name, double *time_ILC, double *flux_ILC, int Ntime_IL
 
 
 /**  What are the parameters ?
- *     1- filter_name : name of the filter
- *     2- time_ILC : time of the illuminating light-curve
- *     3- flux_ILC : flux of the illuminating light-curve
- *     4- Ntime_ILC : length of array time_ILC and flux_ILC
- *     5- t : the time at which the LC should be computed
- *     6- flux :  the vector to be filled by the light-curve
- *     7- Nt :  the length of those arrays
+ *     1- time_ILC : time of the illuminating light-curve
+ *     2- flux_ILC : flux of the illuminating light-curve
+ *     3- Ntime_ILC : length of array time_ILC and flux_ILC
+ *     4- t : the time at which the LC should be computed
+ *     5- flux :  the vector to be filled by the light-curve
+ *     6- Nt :  the length of those arrays
  */
 int compute_LC_no_integration(double *time_ILC, double *flux_ILC, int Ntime_ILC, double *t, double *flux, int Nt, double multiplicator){
 
@@ -1319,9 +1318,9 @@ int compute_LC_no_integration(double *time_ILC, double *flux_ILC, int Ntime_ILC,
      *  Central value of UVW2 = 212 nm = 212*1e-7 cm
      *  Central value of UVM2 = 231 nm = 231*1e-7 cm
      *  Central value of UVW1 = 291 nm = 291*1e-7 cm
-     *  Central value of UVU = 344 nm = 344*1e-7 cm
-     *  Central value of UVB = 450 nm = 450*1e-7 cm
-     *  Central value of UVV = 543 nm = 543*1e-7 cm
+     *  Central value of U = 344 nm = 344*1e-7 cm
+     *  Central value of B = 450 nm = 450*1e-7 cm
+     *  Central value of V = 543 nm = 543*1e-7 cm
      */
 
     double wavelength_UVW2_3 = 212*nm*212*nm*212*nm;
