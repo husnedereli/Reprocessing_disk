@@ -1323,8 +1323,10 @@ int compute_LC_no_integration(double *time_ILC, double *flux_ILC, int Ntime_ILC,
      *  Central value of V = 543 nm = 543*1e-7 cm
      */
 
-    double wavelength_UVW2_3 = 212*nm*212*nm*212*nm;
-    double wavelength_UVW2 = 212*nm;
+    //double wavelength_UVW2_3 = 212*nm*212*nm*212*nm;
+    //double wavelength_UVW2 = 212*nm;
+    double wavelength_UVW2_3 = 231*nm*231*nm*231*nm;
+    double wavelength_UVW2 = 231*nm;
 
     /** ************************************************
      * ************************************************
@@ -1421,11 +1423,7 @@ int compute_LC_no_integration(double *time_ILC, double *flux_ILC, int Ntime_ILC,
 
                 f_U_i = spectrum(cos_inc_angle, D2, theta_in, theta_out, R_in, R_out, wavelength_UVW2_3, wavelength_UVW2, Temperature_t);
                     ///f_U_im1 = spectrum(cos_inc_angle, D2, theta_in, theta_out, R_in, R_out, wavelength_UVW2_3, wavelength_UVW2, Temperature_t);
-
-
                 flux[k] = flux[k] + f_U_i;
-
-
                 ///nb_computation +=1;
                 ///printf("%.13g\t\n", flux_t_U[k]);
                 /*if(flux_t_U[k] != flux_t_U[k]){
@@ -1433,24 +1431,14 @@ int compute_LC_no_integration(double *time_ILC, double *flux_ILC, int Ntime_ILC,
                  getchar();
                  }*/
             }
-
         }
-
-
         /*printf("time = %g\t\tflux = %.13g\t\n", t[k], flux_t_U[k]);
          output = fopen("lc_U_disk.txt","a");
          ///if(flux_t_U[k] > 0){
          fprintf(output, "%g\t%g\n", t[k], flux_t_U[k]);
          ///} */
-
     }
-
-
-
-
-    //    fclose(output);
-
-
+    
     free(r);
     free(theta);
     free(disk);
