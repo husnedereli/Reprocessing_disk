@@ -1319,14 +1319,14 @@ int compute_LC_no_integration(double *time_ILC, double *flux_ILC, int Ntime_ILC,
      *  Central value of UVM2 = 231 nm = 231*1e-7 cm
      *  Central value of UVW1 = 291 nm = 291*1e-7 cm
      *  Central value of U = 344 nm = 344*1e-7 cm
-     *  Central value of B = 450 nm = 450*1e-7 cm
+     *  Central value of B = 434 nm = 434*1e-7 cm
      *  Central value of V = 543 nm = 543*1e-7 cm
      */
 
-    //double wavelength_UVW2_3 = 212*nm*212*nm*212*nm;
-    //double wavelength_UVW2 = 212*nm;
-    double wavelength_UVW2_3 = 231*nm*231*nm*231*nm;
-    double wavelength_UVW2 = 231*nm;
+    double wavelength_UVW2_3 = 212*nm*212*nm*212*nm;
+    double wavelength_UVW2 = 212*nm;
+    //double wavelength_UVW2_3 = 543*nm*543*nm*543*nm;
+    //double wavelength_UVW2 = 543*nm;
 
     /** ************************************************
      * ************************************************
